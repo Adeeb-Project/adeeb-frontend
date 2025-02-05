@@ -61,7 +61,7 @@ const ToDoList = () => {
               minWidth="3px"
               h="100%"
             />
-            <Flex direction="column" p="12px 22px" w="100%" w="100%">
+            <Flex direction="column" p="12px 22px" h="100%" w="100%">
               <Flex justify="space-between" mb="18px">
                 <Flex align="center">
                   <Checkbox

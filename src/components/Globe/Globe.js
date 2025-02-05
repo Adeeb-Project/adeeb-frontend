@@ -122,20 +122,6 @@ function Globe({ canvasStyle, ...rest }) {
         }
         return false;
       }
-
-      function init() {
-        if (hasWebGL()) {
-          window
-            .fetch(
-              "https://raw.githubusercontent.com/creativetimofficial/public-assets/master/soft-ui-dashboard-pro/assets/js/points.json"
-            )
-            .then((response) => response.json())
-            .then((data) => {
-              makeMagic(data.points);
-            });
-        }
-      }
-      init();
     }
 
     createGlobe();
