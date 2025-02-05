@@ -58,7 +58,7 @@ export default function Default() {
         mb="30px"
         ps="20px"
       >
-        General Statistics
+      Exit Interviews insights
       </Text>
       <Grid
         templateColumns={{ sm: "4fr 1fr", xl: "1.2fr 1fr" }}
@@ -86,35 +86,35 @@ export default function Default() {
         >
           <SimpleGrid columns={{ sm: "1", md: "2" }} spacing="24px">
             <MiniStatistics
-              title={"Today's Moneys"}
-              amount={"$53,000"}
+              title={"Response Rate"}
+              amount={"1,200"}
               percentage={55}
               icon={<WalletIcon h={"24px"} w={"24px"} color={iconBoxInside} />}
             />
             <MiniStatistics
-              title={"Today's Users"}
-              amount={"2,300"}
-              percentage={5}
+              title={"Top Reason"}
+              amount={"Career growth"}
+              percentage={14}
               icon={<GlobeIcon h={"24px"} w={"24px"} color={iconBoxInside} />}
             />
             <MiniStatistics
-              title={"New Clients"}
-              amount={"+3,020"}
-              percentage={-14}
+              title={"Retention Trend"}
+              amount={"82%"}
+              percentage={5}
               icon={
                 <DocumentIcon h={"24px"} w={"24px"} color={iconBoxInside} />
               }
             />
             <MiniStatistics
-              title={"Total Sales"}
-              amount={"$173,000"}
-              percentage={8}
+              title={"Average Tenure"}
+              amount={"2.5 years"}
+              percentage={2}
               icon={<CartIcon h={"24px"} w={"24px"} color={iconBoxInside} />}
             />
           </SimpleGrid>
           <SalesByCountry
-            title={"Sales By Country"}
-            labels={["Country", "Sales", "Value", "Bounce"]}
+            title={"Top Reasons for leaving"}
+            labels={["Reason", "Occurance", "Imact", "Rate"]}
             salesData={salesData}
           />
         </Stack>
@@ -125,7 +125,7 @@ export default function Default() {
         mb={{ lg: "26px" }}
       >
         <ActiveUsers
-          title={"Active Users"}
+          title={"Participation Rate"}
           percentage={23}
           chart={
             <BarChart
@@ -135,7 +135,7 @@ export default function Default() {
           }
         />
         <SalesOverview
-          title={"Sales Overview"}
+          title={"Exit Feedbacks trends"}
           percentage={5}
           chart={
             <LineChart

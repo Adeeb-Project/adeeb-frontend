@@ -580,7 +580,7 @@ export default function AuthNavbar(props) {
             variant="no-hover"
             borderRadius="35px"
             px="30px"
-            color="#fff"
+            //color="#fff"
             display={{
               sm: "none",
               lg: "flex",

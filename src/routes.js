@@ -1,23 +1,9 @@
-/*!
-
-=========================================================
-* Purity UI Dashboard PRO - v1.0.0
-=========================================================
-
-* Product Page: https://www.creative-tim.com/product/purity-ui-dashboard-pro
-* Copyright 2021 Creative Tim (https://www.creative-tim.com/)
-
-* Design by Creative Tim & Coded by Simmmple
-
-=========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-
-*/
 
 // import
 // To be changed
 // import Tables from "views/Dashboard/Tables.js";
+import { RocketIcon } from "components/Icons/Icons";
+import { AuthenticationIcon } from "components/Icons/Icons";
 import {
   CartIcon,
   DocumentIcon,
@@ -25,38 +11,22 @@ import {
   PersonIcon,
   StatsIcon,
 } from "components/Icons/Icons";
-import Calendar from "views/Applications/Calendar/index";
-import DataTables from "views/Applications/DataTables/index";
+
 import Kanban from "views/Applications/Kanban/index";
-import Wizard from "views/Applications/Wizard/index";
 import SignInBasic from "views/Authentication/SignIn/SignInBasic.js";
 import SignInCover from "views/Authentication/SignIn/SignInCover.js";
 import SignInIllustration from "views/Authentication/SignIn/SignInIllustration.js";
 import SignUpBasic from "views/Authentication/SignUp/SignUpBasic.js";
 import SignUpCover from "views/Authentication/SignUp/SignUpCover.js";
 import SignUpIllustration from "views/Authentication/SignUp/SignUpIllustration.js";
-import CRM from "views/Dashboard/CRM";
 import Default from "views/Dashboard/Default";
-import OrderDetails from "views/Ecommerce/Orders/OrderDetails/index";
-import OrderList from "views/Ecommerce/Orders/OrderList/index";
-import EditProduct from "views/Ecommerce/Products/EditProduct/index";
-import NewProduct from "views/Ecommerce/Products/NewProduct/index";
-import ProductPage from "views/Ecommerce/Products/ProductPage/index";
-import Billing from "views/Pages/Account/Billing/index";
-import Invoice from "views/Pages/Account/Invoice/index";
-import Settings from "views/Pages/Account/Settings/index";
-import Alerts from "views/Pages/Alerts/index";
-import Charts from "views/Pages/Charts/index";
-import Pricing from "views/Pages/Pricing/index";
 import Overview from "views/Pages/Profile/Overview/index";
 import Projects from "views/Pages/Profile/Projects/index";
 import Teams from "views/Pages/Profile/Teams/index";
-import General from "views/Pages/Projects/General/index";
-import Timeline from "views/Pages/Projects/Timeline/index";
-import RTLPage from "views/Pages/RTL/index";
 import NewUser from "views/Pages/Users/NewUser/index";
 import Reports from "views/Pages/Users/Reports/index";
-import Widgets from "views/Pages/Widgets/index";
+
+{/* Side bar routers names */}
 
 const dashRoutes = [
   {
@@ -72,12 +42,12 @@ const dashRoutes = [
         component: Default,
         layout: "/admin",
       },
-      {
-        name: "CRM",
-        path: "/dashboard/crm",
-        component: CRM,
-        layout: "/admin",
-      },
+      // {
+      //   name: "CRM",
+      //   path: "/dashboard/crm",
+      //   component: CRM,
+      //   layout: "/admin",
+      // },
     ],
   },
   {
@@ -85,15 +55,19 @@ const dashRoutes = [
     category: "pages",
     items: [
       {
-        name: "Pages",
-        path: "/pages",
+        name: "Survey",
+        path: "/survey",
         collapse: true,
         icon: <DocumentIcon color="inherit" />,
         items: [
           {
-            name: "Profile",
-            path: "/profile",
-            collapse: true,
+            name: "My Surveys",
+            path: "/mysurveys",
+            /* 
+            I should remove item but removing it cause an error 
+            so I change collapse to false
+            */
+            collapse: false,
             authIcon: <HomeIcon color="inherit" />,
             items: [
               {
@@ -120,14 +94,18 @@ const dashRoutes = [
             ],
           },
           {
-            name: "Users",
-            path: "/users",
-            collapse: true,
+            name: "Survey",
+            path: "/survey/csurvey",
+             /* 
+            I should remove item but removing it cause an error 
+            so I change collapse to false
+            */
+            collapse: false,
             authIcon: <PersonIcon color="inherit" />,
             items: [
               {
-                name: "Reports",
-                path: "/pages/users/reports",
+                name: "Add Employee",
+                path: "/pages/demployee/addemployee",
                 component: Reports,
                 layout: "/admin",
               },
@@ -139,188 +117,41 @@ const dashRoutes = [
               },
             ],
           },
-          {
-            name: "Account",
-            path: "/account",
-            collapse: true,
-            authIcon: <PersonIcon color="inherit" />,
-            items: [
-              {
-                name: "Settings",
-                path: "/pages/account/settings",
-                component: Settings,
-                layout: "/admin",
-              },
-              {
-                name: "Billing",
-                component: Billing,
-                path: "/pages/account/billing",
-                layout: "/admin",
-              },
-              {
-                name: "Invoice",
-                component: Invoice,
-                path: "/pages/account/invoice",
-                layout: "/admin",
-              },
-            ],
-          },
-          {
-            name: "Projects",
-            path: "/projects",
-            collapse: true,
-            authIcon: <StatsIcon color="inherit" />,
-            items: [
-              {
-                name: "General",
-                path: "/pages/projects/general",
-                component: General,
-                layout: "/admin",
-              },
-              {
-                name: "Timeline",
-                path: "/pages/projects/timeline",
-                component: Timeline,
-                layout: "/admin",
-              },
-            ],
-          },
-          {
-            name: "Pricing Page",
-            component: Pricing,
-            secondaryNavbar: true,
-            path: "/pages/pricing-page",
-            layout: "/auth",
-          },
-          {
-            name: "RTL",
-            component: RTLPage,
-            path: "/pages/rtl-support-page",
-            layout: "/rtl",
-          },
-          {
-            name: "Widgets",
-            component: Widgets,
-            path: "/pages/widgets",
-            layout: "/admin",
-          },
-          {
-            name: "Charts",
-            component: Charts,
-            path: "/pages/charts",
-            layout: "/admin",
-          },
-          {
-            name: "Alerts",
-            path: "/pages/alerts",
-            component: Alerts,
-            layout: "/admin",
-          },
+
         ],
       },
       {
-        name: "Applications",
-        path: "/applications",
-        icon: <StatsIcon color="inherit" />,
+        name: "Departing Employees",
+        path: "/demployees",
+        icon: <PersonIcon color="inherit" />,
         collapse: true,
 
         items: [
           {
-            name: "Kanban",
+            name: "Add Employee",
             component: Kanban,
             authIcon: <DocumentIcon color="inherit" />,
-            path: "/applications/kanban",
+            path: "/demployees/addemployee",
             layout: "/admin",
           },
-          {
-            name: "Wizard",
-            component: Wizard,
-            authIcon: <CartIcon color="inherit" />,
-            path: "/applications/wizard",
-            layout: "/admin",
-          },
-          {
-            name: "Data Tables",
-            path: "/applications/data-tables",
-            authIcon: <PersonIcon color="inherit" />,
-            component: DataTables,
-            layout: "/admin",
-          },
-          {
-            name: "Calendar",
-            component: Calendar,
-            authIcon: <StatsIcon color="inherit" />,
-            path: "/applications/calendar",
-            layout: "/admin",
-          },
+          
         ],
       },
-      {
-        name: "Ecommerce",
-        path: "/ecommerce",
-        icon: <CartIcon color="inherit" />,
-        collapse: true,
 
-        items: [
-          {
-            name: "Products",
-            path: "/products",
-            collapse: true,
-            authIcon: <DocumentIcon color="inherit" />,
-            items: [
-              {
-                name: "New Product",
-                component: NewProduct,
-                secondaryNavbar: true,
-                path: "/ecommerce/products/new-product",
-                layout: "/admin",
-              },
-              {
-                name: "Edit Product",
-                component: EditProduct,
-                path: "/ecommerce/products/edit-product",
-                layout: "/admin",
-              },
-              {
-                name: "Product Page",
-                component: ProductPage,
-                path: "/ecommerce/products/product-page",
-                layout: "/admin",
-              },
-            ],
-          },
-          {
-            name: "Orders",
-            path: "/orders",
-            collapse: true,
-            authIcon: <StatsIcon color="inherit" />,
-            items: [
-              {
-                name: "Order List",
-                component: OrderList,
-                path: "/ecommerce/orders/order-list",
-                layout: "/admin",
-              },
-              {
-                name: "Order Details",
-                component: OrderDetails,
-                path: "/ecommerce/orders/order-details",
-                layout: "/admin",
-              },
-            ],
-          },
-        ],
-      },
       {
         name: "Authentication",
         path: "/authentication",
-        icon: <PersonIcon color="inherit" />,
+        icon: <AuthenticationIcon color="inherit" />,
         collapse: true,
         items: [
           {
-            name: "Sign In",
-            path: "/authentication/sign-in",
-            collapse: true,
+            name: "Users",
+            path: "/authentication/users",
+             /* 
+            I should remove item but removing it cause an error 
+            so I change collapse to false
+            */
+            collapse: false,
             authIcon: <DocumentIcon color="inherit" />,
             items: [
               {
@@ -345,9 +176,13 @@ const dashRoutes = [
             ],
           },
           {
-            name: "Sign Up",
-            path: "/authentication/sign-up",
-            collapse: true,
+            name: "New User",
+            path: "/authentication/newuser",
+             /* 
+            I should remove item but removing it cause an error 
+            so I change collapse to false
+            */
+            collapse: false,
             authIcon: <DocumentIcon color="inherit" />,
             items: [
               {
@@ -375,6 +210,167 @@ const dashRoutes = [
       },
     ],
   },
+  {
+    name: "DOCS",
+    category: "docs",
+    items: [
+      {
+        name: "Summary",
+        path: "/summary",
+        collapse: true,
+        icon: <RocketIcon color="inherit" />,
+        items: [
+          {
+            name: "Company Report",
+            path: "/companyreport",
+            /* 
+            I should remove item but removing it cause an error 
+            so I change collapse to false
+            */
+            collapse: false,
+            authIcon: <HomeIcon color="inherit" />,
+            items: [
+              {
+                name: "Profile Overview",
+                secondaryNavbar: true,
+                path: "/pages/profile/overview",
+                component: Overview,
+                layout: "/admin",
+              },
+            ],
+          },
+          {
+            name: "Retension Rate",
+            path: "/companiesreport/rrate",
+             /* 
+            I should remove item but removing it cause an error 
+            so I change collapse to false
+            */
+            collapse: true,
+            authIcon: <PersonIcon color="inherit" />,
+            items: [
+              {
+                name: "Company",
+                path: "/companiesreport/rrate/company",
+                component: Reports,
+                layout: "/admin",
+              },
+              {
+                name: "Departments",
+                path: "/companiesreport/rrate/departments",
+                component: NewUser,
+                layout: "/admin",
+              },
+              {
+                name: "Gender",
+                path: "/companiesreport/rrate/gender",
+                component: NewUser,
+                layout: "/admin",
+              },
+            ],
+          },
+          {
+            name: "Reasons",
+            path: "/reasons",
+             /* 
+            I should remove item but removing it cause an error 
+            so I change collapse to false
+            */
+            collapse: true,
+            authIcon: <PersonIcon color="inherit" />,
+            items: [
+              {
+                name: "Company",
+                path: "/reasons/company",
+                component: Reports,
+                layout: "/admin",
+              },
+              {
+                name: "Departments",
+                path: "/reasons/departments",
+                component: NewUser,
+                layout: "/admin",
+              },
+              {
+                name: "Gender",
+                path: "/reasons/gender",
+                component: NewUser,
+                layout: "/admin",
+              },
+            ],
+          },
+        ],
+      },
+      {
+        name: "Graphs",
+        path: "/graphs",
+        collapse: true,
+        icon: <StatsIcon color="inherit" />,
+        items: [
+          {
+            name: "Retension Rate",
+            path: "/companiesreport/rrate",
+             /* 
+            I should remove item but removing it cause an error 
+            so I change collapse to false
+            */
+            collapse: true,
+            authIcon: <PersonIcon color="inherit" />,
+            items: [
+              {
+                name: "Company",
+                path: "/companiesreport/rrate/company",
+                component: Reports,
+                layout: "/admin",
+              },
+              {
+                name: "Departments",
+                path: "/companiesreport/rrate/departments",
+                component: NewUser,
+                layout: "/admin",
+              },
+              {
+                name: "Gender",
+                path: "/companiesreport/rrate/gender",
+                component: NewUser,
+                layout: "/admin",
+              },
+            ],
+          },
+          {
+            name: "Reasons",
+            path: "/reasons",
+             /* 
+            I should remove item but removing it cause an error 
+            so I change collapse to false
+            */
+            collapse: true,
+            authIcon: <PersonIcon color="inherit" />,
+            items: [
+              {
+                name: "Company",
+                path: "/reasons/company",
+                component: Reports,
+                layout: "/admin",
+              },
+              {
+                name: "Departments",
+                path: "/reasons/departments",
+                component: NewUser,
+                layout: "/admin",
+              },
+              {
+                name: "Gender",
+                path: "/reasons/gender",
+                component: NewUser,
+                layout: "/admin",
+              },
+            ],
+          },
+        ],
+      },
+     ],
+    },
 ];
 
 export default dashRoutes;

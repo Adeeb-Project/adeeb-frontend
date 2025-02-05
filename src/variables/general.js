@@ -51,32 +51,32 @@ import { SiDropbox } from "react-icons/si";
 
 export const salesData = [
   {
-    state: "🇺🇸",
-    name: "United States",
+    state: "",
+    name: "Workload",
     sales: 2500,
-    value: "$214,000",
-    bounce: "44,22%",
+    value: "27%",
+    bounce: "29,9%",
   },
   {
-    state: "🇩🇪",
-    name: "Germany",
+    state: "",
+    name: "Compensation",
     sales: 3900,
-    value: "$446,700",
+    value: "28%",
+    bounce: "40,22%",
+  },
+  {
+    state: "",
+    name: "Management issues",
+    sales: 1300,
+    value: "24%",
     bounce: "19,22%",
   },
   {
-    state: "🇬🇧",
-    name: "Great Britain",
-    sales: 1300,
-    value: "$121,900",
-    bounce: "39,22%",
-  },
-  {
-    state: "🇧🇷",
-    name: "Brasil",
+    state: "",
+    name: "Others",
     sales: 920,
-    value: "$52,100",
-    bounce: "29,9%",
+    value: "21%",
+    bounce: "39,22%",
   },
 ];
 

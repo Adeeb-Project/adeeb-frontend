@@ -442,11 +442,11 @@ function Sidebar(props) {
         alignItems="center"
         fontSize="11px"
       >
-        <CreativeTimLogo
+        {/* <CreativeTimLogo
           w={sidebarWidth === 275 ? "32px" : "40px"}
           h={sidebarWidth === 275 ? "32px" : "40px"}
           me="10px"
-        />
+        /> */}
         <Text
           fontSize="xs"
           mt="3px"
@@ -824,7 +824,7 @@ export function SidebarResponsive(props) {
         alignItems="center"
         fontSize="11px"
       >
-        <CreativeTimLogo w="32px" h="32px" me="10px" />
+        {/* <CreativeTimLogo w="32px" h="32px" me="10px" /> */}
         <Text fontSize="xs" mt="3px">
           {logoText}
         </Text>

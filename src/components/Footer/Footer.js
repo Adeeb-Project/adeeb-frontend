@@ -44,49 +44,20 @@ export default function Footer() {
         &copy; {1900 + new Date().getYear()},{" "}
         <Text as="span">
           {document.documentElement.dir === "rtl"
-            ? " مصنوع من ❤️ بواسطة"
-            : "Made with ❤️ by "}
+            ? " مصنوع بواسطة"
+            : "Made by "}
         </Text>
         <Link
           color="teal.400"
-          href="https://www.creative-tim.com"
           target="_blank"
         >
           {document.documentElement.dir === "rtl"
-            ? " توقيت الإبداعية"
-            : "Creative Tim "}
+            ? " .أديب"
+            : "Adeeb."}
         </Link>
-        &
-        <Link color="teal.400" href="https://www.simmmple.com" target="_blank">
-          {document.documentElement.dir === "rtl" ? "سيممبل " : " Simmmple"}
-        </Link>
-        {document.documentElement.dir === "rtl"
-          ? "للحصول على ويب أفضل"
-          : " for a better web"}
       </Text>
       <List display="flex">
-        <ListItem
-          me={{
-            base: "20px",
-            md: "44px",
-          }}
-        >
-          <Link color="gray.400" href="https://www.creative-tim.com">
-            {document.documentElement.dir === "rtl"
-              ? "توقيت الإبداعية"
-              : "Creative Tim"}
-          </Link>
-        </ListItem>
-        <ListItem
-          me={{
-            base: "20px",
-            md: "44px",
-          }}
-        >
-          <Link color="gray.400" href="https://www.simmmple.com">
-            {document.documentElement.dir === "rtl" ? "سيممبل" : "Simmmple"}
-          </Link>
-        </ListItem>
+          {/* Blog and License */}
         <ListItem
           me={{
             base: "20px",
@@ -96,7 +67,7 @@ export default function Footer() {
           <Link
             color="gray.400"
             href="#blog"
-            href="https://creative-tim.com/blog?"
+            //href=""
           >
             {document.documentElement.dir === "rtl" ? "مدونة" : "Blog"}
           </Link>
@@ -105,7 +76,7 @@ export default function Footer() {
           <Link
             color="gray.400"
             href="#license"
-            href="https://www.creative-tim.com/license?"
+            //href=""
           >
             {document.documentElement.dir === "rtl" ? "رخصة" : "License"}
           </Link>
