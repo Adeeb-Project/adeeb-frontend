@@ -4,7 +4,6 @@ import { Flex, Text, useColorModeValue } from "@chakra-ui/react";
 import Card from "components/Card/Card";
 import CardBody from "components/Card/CardBody";
 import CardHeader from "components/Card/CardHeader";
-import BasicTable from "components/Tables/BasicTable";
 import SearchTable1 from "components/Tables/SearchTable1";
 import React from "react";
 import { columnsData1 } from "variables/columnsData";
@@ -30,7 +29,7 @@ function DataTables() {
         <CardBody>
 
            {/* 
-            tableData1 in this path "variables/tableData1.json" contain 
+            tableData1 in this path "variables/MOCK_DATA.json" contain 
             the data which we should modify to display it in Data Table page.
             
             columnsData1 in this path "variables/columnsData" contain
