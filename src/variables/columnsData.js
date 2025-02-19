@@ -1,44 +1,44 @@
-/*!
-
-=========================================================
-* Purity UI Dashboard PRO - v1.0.0
-=========================================================
-
-* Product Page: https://www.creative-tim.com/product/purity-ui-dashboard-pro
-* Copyright 2021 Creative Tim (https://www.creative-tim.com/)
-
-* Design by Creative Tim & Coded by Simmmple
-
-=========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-
-*/
 
 export const columnsData1 = [
   {
+    Header: "ID",
+    accessor: "id",
+  },
+  {
     Header: "NAME",
-    accessor: "name",
+    accessor: "first_name",
+  },
+  {
+    Header: "LAST NAME",
+    accessor: "last_name",
   },
   {
     Header: "POSITION",
     accessor: "position",
   },
   {
-    Header: "OFFICE",
-    accessor: "office",
+    Header: "GENDER",
+    accessor: "gender",
   },
   {
     Header: "AGE",
     accessor: "age",
   },
   {
-    Header: "START DATE",
-    accessor: "date",
+    Header: "LEAVE DATE",
+    accessor: "date_left",
   },
   {
-    Header: "SALARY",
-    accessor: "salary",
+    Header: "YEARS STAYED",
+    accessor: "years stayed",
+  },
+  {
+    Header: "EMAIL",
+    accessor: "email",
+  },
+  {
+    Header: "MOBILE NUMBER",
+    accessor: "phone",
   },
 ];
 
@@ -48,23 +48,39 @@ export const columnsData2 = [
     accessor: "id",
   },
   {
-    Header: "DATE",
-    accessor: "date",
+    Header: "NAME",
+    accessor: "first_name",
   },
   {
-    Header: "STATUS",
-    accessor: "status",
+    Header: "LAST NAME",
+    accessor: "last_name",
   },
   {
-    Header: "CUSTOMER",
-    accessor: "customer",
+    Header: "POSITION",
+    accessor: "position",
   },
   {
-    Header: "PRODUCT",
-    accessor: "product",
+    Header: "GENDER",
+    accessor: "gender",
   },
   {
-    Header: "REVENUE",
-    accessor: "revenue",
+    Header: "AGE",
+    accessor: "age",
+  },
+  {
+    Header: "LEAVE DATE",
+    accessor: "date_left",
+  },
+  {
+    Header: "YEARS STAYED",
+    accessor: "years stayed",
+  },
+  {
+    Header: "EMAIL",
+    accessor: "email",
+  },
+  {
+    Header: "MOBILE NUMBER",
+    accessor: "phone",
   },
 ];

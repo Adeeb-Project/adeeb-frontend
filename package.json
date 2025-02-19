@@ -1,8 +1,8 @@
 {
-  "name": "purity-dashboard-react-pro",
+  "name": "adeeb",
   "version": "2.0.1",
   "private": true,
-  "homepage": "https://demos.creative-tim.com/purity-ui-dashboard-pro/#/",
+  "homepage": "https://adeeb/#/",
   "dependencies": {
     "@asseinfo/react-kanban": "^2.2.0",
     "@chakra-ui/icons": "^1.1.5",
@@ -19,6 +19,7 @@
     "@fullcalendar/interaction": "^5.9.0",
     "@fullcalendar/react": "^5.9.0",
     "apexcharts": "^4.3.0",
+    "axios": "^1.7.9",
     "classnames": "2.3.1",
     "date-fns": "^2.23.0",
     "draft-js": "^0.11.7",
@@ -73,9 +74,8 @@
     "prettier": "2.2.1"
   },
   "browserslist": [
-  ">0.2%",
-  "not dead",
-  "not op_mini all"
-]
-
+    ">0.2%",
+    "not dead",
+    "not op_mini all"
+  ]
 }

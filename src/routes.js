@@ -25,6 +25,7 @@ import Projects from "views/Pages/Profile/Projects/index";
 import Teams from "views/Pages/Profile/Teams/index";
 import NewUser from "views/Pages/Users/NewUser/index";
 import Reports from "views/Pages/Users/Reports/index";
+import DataTables from "views/Applications/DataTables";
 
 {/* Side bar routers names */}
 
@@ -134,7 +135,14 @@ const dashRoutes = [
             path: "/demployees/addemployee",
             layout: "/admin",
           },
-          
+          {
+            name: "Employees Tabel",
+            component: DataTables,
+            authIcon: <PersonIcon color="inherit" />,
+            path: "/demployees/employeestable",
+            layout: "/admin",
+    
+          },
         ],
       },
 
