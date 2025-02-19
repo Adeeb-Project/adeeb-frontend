@@ -1,5 +1,4 @@
 
-// Chakra imports
 import { Flex, Text, useColorModeValue } from "@chakra-ui/react";
 import Card from "components/Card/Card";
 import CardBody from "components/Card/CardBody";
