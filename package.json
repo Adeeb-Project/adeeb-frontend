@@ -1,8 +1,8 @@
 {
-  "name": "purity-dashboard-react-pro",
+  "name": "adeeb",
   "version": "2.0.1",
   "private": true,
-  "homepage": "https://demos.creative-tim.com/purity-ui-dashboard-pro/#/",
+  "homepage": "adeeb/#/",
   "dependencies": {
     "@asseinfo/react-kanban": "^2.2.0",
     "@chakra-ui/icons": "^1.1.5",
@@ -77,5 +77,5 @@
   "not dead",
   "not op_mini all"
 ]
-
 }
+
