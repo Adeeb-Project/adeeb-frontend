@@ -1,18 +1,15 @@
 /*!
-
 =========================================================
 * Purity UI Dashboard PRO - v1.0.0
 =========================================================
 
 * Product Page: https://www.creative-tim.com/product/purity-ui-dashboard-pro
-* Copyright 2021 Creative Tim (https://www.creative-tim.com/)
-
+* Copyright 2021 Creative Tim
 * Design by Creative Tim & Coded by Simmmple
 
 =========================================================
 
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-
 */
 
 // Chakra imports
@@ -20,7 +17,6 @@ import {
   Avatar,
   Box,
   Button,
-  Checkbox,
   Flex,
   FormControl,
   FormLabel,
@@ -37,36 +33,30 @@ import {
   useColorModeValue,
 } from "@chakra-ui/react";
 import avatar4 from "assets/img/avatars/avatar4.png";
+
 // Custom components
 import Card from "components/Card/Card";
 import CardBody from "components/Card/CardBody";
 import CardHeader from "components/Card/CardHeader";
 import IconBox from "components/Icons/IconBox";
-import { RocketIcon } from "components/Icons/Icons";
-import React, { useRef, useState } from "react";
-import { AiFillSetting } from "react-icons/ai";
-import { BsCircleFill } from "react-icons/bs";
-import { FaCube } from "react-icons/fa";
-import { MdModeEdit } from "react-icons/md";
 
-function Wizard() {
+import { MdModeEdit } from "react-icons/md";
+import { BsCircleFill } from "react-icons/bs";
+import React, { useRef, useState } from "react";
+
+function EmployeeWizard() {
   const textColor = useColorModeValue("gray.700", "white");
   const bgPrevButton = useColorModeValue("gray.100", "gray.100");
-  const iconColor = useColorModeValue("gray.300", "gray.700");
+
+  // Using three steps: Personal, Job, Address
   const [activeBullets, setActiveBullets] = useState({
-    about: true,
-    account: false,
+    personal: true,
+    job: false,
     address: false,
   });
 
-  const [checkboxes, setCheckboxes] = useState({
-    design: false,
-    code: false,
-    develop: false,
-  });
-
-  const aboutTab = useRef();
-  const accountTab = useRef();
+  const personalTab = useRef();
+  const jobTab = useRef();
   const addressTab = useRef();
 
   return (
@@ -76,25 +66,17 @@ function Wizard() {
       align="center"
       pt={{ sm: "125px", lg: "75px" }}
     >
-      <Flex
-        direction="column"
-        textAlign="center"
-        mb={{ sm: "25px", md: "45px" }}
-      >
+      <Flex direction="column" textAlign="center" mb={{ sm: "25px", md: "45px" }}>
         <Text
           color={textColor}
           fontSize={{ sm: "2xl", md: "3xl", lg: "4xl" }}
           fontWeight="bold"
           mb="8px"
         >
-          Build your profile
+          Create New Employee
         </Text>
-        <Text
-          color="gray.400"
-          fontWeight="normal"
-          fontSize={{ sm: "sm", md: "lg" }}
-        >
-          This information will let us know more about you.
+        <Text color="gray.400" fontWeight="normal" fontSize={{ sm: "sm", md: "lg" }}>
+          Please fill out the details below to add a new employee.
         </Text>
       </Flex>
       <Tabs variant="unstyled" mt="24px" display="flex" flexDirection="column">
@@ -104,14 +86,15 @@ function Wizard() {
           alignSelf="center"
           justifySelf="center"
         >
+          {/* Personal Tab */}
           <Tab
-            ref={aboutTab}
+            ref={personalTab}
             _focus="none"
             w={{ sm: "120px", md: "250px", lg: "300px" }}
             onClick={() =>
               setActiveBullets({
-                about: true,
-                account: false,
+                personal: true,
+                job: false,
                 address: false,
               })
             }
@@ -125,40 +108,41 @@ function Wizard() {
                 content: "''",
                 width: { sm: "120px", md: "250px", lg: "300px" },
                 height: "3px",
-                bg: activeBullets.account ? textColor : "gray.200",
+                bg: activeBullets.job ? textColor : "gray.200",
                 left: { sm: "12px", md: "26px" },
-                top: { sm: activeBullets.about ? "6px" : "4px", md: null },
+                top: { sm: activeBullets.personal ? "6px" : "4px" },
                 position: "absolute",
-                bottom: activeBullets.about ? "40px" : "38px",
+                bottom: activeBullets.personal ? "40px" : "38px",
                 zIndex: -1,
                 transition: "all .3s ease",
               }}
             >
               <Icon
                 as={BsCircleFill}
-                color={activeBullets.about ? textColor : "gray.300"}
-                w={activeBullets.about ? "16px" : "12px"}
-                h={activeBullets.about ? "16px" : "12px"}
+                color={activeBullets.personal ? textColor : "gray.300"}
+                w={activeBullets.personal ? "16px" : "12px"}
+                h={activeBullets.personal ? "16px" : "12px"}
                 mb="8px"
               />
               <Text
-                color={activeBullets.about ? { textColor } : "gray.300"}
-                fontWeight={activeBullets.about ? "bold" : "normal"}
+                color={activeBullets.personal ? textColor : "gray.300"}
+                fontWeight={activeBullets.personal ? "bold" : "normal"}
                 display={{ sm: "none", md: "block" }}
                 fontSize="sm"
               >
-                About
+                Personal
               </Text>
             </Flex>
           </Tab>
+          {/* Job Tab */}
           <Tab
-            ref={accountTab}
+            ref={jobTab}
             _focus="none"
             w={{ sm: "120px", md: "250px", lg: "300px" }}
             onClick={() =>
               setActiveBullets({
-                about: true,
-                account: true,
+                personal: true,
+                job: true,
                 address: false,
               })
             }
@@ -174,40 +158,39 @@ function Wizard() {
                 height: "3px",
                 bg: activeBullets.address ? textColor : "gray.200",
                 left: { sm: "12px", md: "28px" },
-                top: { sm: activeBullets.account ? "6px" : "4px", md: null },
+                top: { sm: activeBullets.job ? "6px" : "4px" },
                 position: "absolute",
-                bottom: activeBullets.account ? "40px" : "38px",
+                bottom: activeBullets.job ? "40px" : "38px",
                 zIndex: -1,
                 transition: "all .3s ease",
               }}
             >
               <Icon
                 as={BsCircleFill}
-                color={activeBullets.account ? textColor : "gray.300"}
-                w={activeBullets.account ? "16px" : "12px"}
-                h={activeBullets.account ? "16px" : "12px"}
+                color={activeBullets.job ? textColor : "gray.300"}
+                w={activeBullets.job ? "16px" : "12px"}
+                h={activeBullets.job ? "16px" : "12px"}
                 mb="8px"
               />
               <Text
-                color={activeBullets.account ? { textColor } : "gray.300"}
-                fontWeight={activeBullets.account ? "bold" : "normal"}
-                transition="all .3s ease"
+                color={activeBullets.job ? textColor : "gray.300"}
+                fontWeight={activeBullets.job ? "bold" : "normal"}
                 fontSize="sm"
-                _hover={{ color: textColor }}
                 display={{ sm: "none", md: "block" }}
               >
-                Account
+                Job
               </Text>
             </Flex>
           </Tab>
+          {/* Address Tab */}
           <Tab
             ref={addressTab}
             _focus="none"
             w={{ sm: "120px", md: "250px", lg: "300px" }}
             onClick={() =>
               setActiveBullets({
-                about: true,
-                account: true,
+                personal: true,
+                job: true,
                 address: true,
               })
             }
@@ -221,9 +204,8 @@ function Wizard() {
                 content: "''",
                 width: { sm: "120px", md: "250px", lg: "300px" },
                 height: "3px",
-                // bg: activeBullets.profile ? textColor : "gray.200",
                 left: { sm: "12px", md: "32px" },
-                top: { sm: activeBullets.address ? "6px" : "4px", md: null },
+                top: { sm: activeBullets.address ? "6px" : "4px" },
                 position: "absolute",
                 bottom: activeBullets.address ? "40px" : "38px",
                 zIndex: -1,
@@ -238,11 +220,9 @@ function Wizard() {
                 mb="8px"
               />
               <Text
-                color={activeBullets.address ? { textColor } : "gray.300"}
+                color={activeBullets.address ? textColor : "gray.300"}
                 fontWeight={activeBullets.address ? "bold" : "normal"}
-                transition="all .3s ease"
                 fontSize="sm"
-                _hover={{ color: textColor }}
                 display={{ sm: "none", md: "block" }}
               >
                 Address
@@ -251,6 +231,7 @@ function Wizard() {
           </Tab>
         </TabList>
         <TabPanels mt="24px" maxW={{ md: "90%", lg: "100%" }} mx="auto">
+          {/* Personal Information TabPanel */}
           <TabPanel w={{ sm: "330px", md: "700px", lg: "850px" }} mx="auto">
             <Card>
               <CardHeader mb="40px">
@@ -268,11 +249,10 @@ function Wizard() {
                     fontWeight="bold"
                     mb="4px"
                   >
-                    Let's start with the basic information
+                    Enter Personal Information
                   </Text>
                   <Text color="gray.400" fontWeight="normal" fontSize="sm">
-                    Let us know your name and email address. Use an address you
-                    don't mind other users contacting you at
+                    Provide the employee's personal details.
                   </Text>
                 </Flex>
               </CardHeader>
@@ -320,7 +300,7 @@ function Wizard() {
                         </FormLabel>
                         <Input
                           borderRadius="15px"
-                          placeholder="eg. Michael"
+                          placeholder="e.g., John"
                           fontSize="xs"
                         />
                       </FormControl>
@@ -334,7 +314,7 @@ function Wizard() {
                         </FormLabel>
                         <Input
                           borderRadius="15px"
-                          placeholder="eg. Jackson"
+                          placeholder="e.g., Doe"
                           fontSize="xs"
                         />
                       </FormControl>
@@ -348,7 +328,7 @@ function Wizard() {
                         </FormLabel>
                         <Input
                           borderRadius="15px"
-                          placeholder="eg. example@address.com"
+                          placeholder="e.g., john.doe@example.com"
                           fontSize="xs"
                         />
                       </FormControl>
@@ -361,7 +341,7 @@ function Wizard() {
                     mt="24px"
                     w={{ sm: "75px", lg: "100px" }}
                     h="35px"
-                    onClick={() => accountTab.current.click()}
+                    onClick={() => jobTab.current.click()}
                   >
                     <Text fontSize="xs" color="#fff" fontWeight="bold">
                       NEXT
@@ -371,6 +351,7 @@ function Wizard() {
               </CardBody>
             </Card>
           </TabPanel>
+          {/* Job Information TabPanel */}
           <TabPanel w={{ sm: "330px", md: "700px", lg: "850px" }} mx="auto">
             <Card>
               <CardHeader mb="40px">
@@ -388,133 +369,59 @@ function Wizard() {
                     fontWeight="bold"
                     mb="4px"
                   >
-                    What are you doing? (checkboxes)
+                    Enter Job Details
                   </Text>
                   <Text color="gray.400" fontWeight="normal" fontSize="sm">
-                    Give us more details about you. What do you enjoy doing in
-                    your spare time?
+                    Provide the employee's job information.
                   </Text>
                 </Flex>
               </CardHeader>
               <CardBody>
                 <Flex direction="column" w="100%">
-                  <Stack
-                    direction={{ sm: "column", md: "row" }}
-                    spacing={{ sm: "20px", lg: "35px" }}
-                    alignSelf="center"
-                    justifySelf="center"
-                    mb="24px"
-                  >
-                    <Flex direction="column" align="center">
-                      <FormLabel w="150px" h="150px" cursor="pointer" mb="16px">
-                        <Flex
-                          w="100%"
-                          h="100%"
-                          borderRadius="12px"
-                          justify="center"
-                          transition=".5s all ease"
-                          border="1px solid lightgray"
-                          align="center"
-                          bg={checkboxes.design ? "teal.300" : "#fff"}
-                          _hover={{ opacity: "0.8" }}
-                        >
-                          <Checkbox
-                            onChange={() =>
-                              setCheckboxes((prevCheckboxes) => {
-                                return {
-                                  ...prevCheckboxes,
-                                  design: !prevCheckboxes.design,
-                                };
-                              })
-                            }
-                            display="none"
-                          />
-                          <Icon
-                            as={AiFillSetting}
-                            w="54px"
-                            h="54px"
-                            color={checkboxes.design ? "#fff" : iconColor}
-                          />
-                        </Flex>
+                  <Stack direction="column" spacing="20px" mb="24px">
+                    <FormControl>
+                      <FormLabel
+                        color={textColor}
+                        fontSize="xs"
+                        fontWeight="bold"
+                      >
+                        Position
                       </FormLabel>
-                      <Text color={textColor} fontWeight="bold" fontSize="md">
-                        Design
-                      </Text>
-                    </Flex>
-                    <Flex direction="column" align="center">
-                      <FormLabel w="150px" h="150px" cursor="pointer" mb="16px">
-                        <Flex
-                          w="100%"
-                          h="100%"
-                          borderRadius="12px"
-                          justify="center"
-                          transition=".5s all ease"
-                          border="1px solid lightgray"
-                          align="center"
-                          bg={checkboxes.code ? "teal.300" : "#fff"}
-                          _hover={{ opacity: "0.8" }}
-                        >
-                          <Checkbox
-                            onChange={() =>
-                              setCheckboxes((prevCheckboxes) => {
-                                return {
-                                  ...prevCheckboxes,
-                                  code: !prevCheckboxes.code,
-                                };
-                              })
-                            }
-                            display="none"
-                          />
-                          <Icon
-                            as={FaCube}
-                            w="54px"
-                            h="54px"
-                            color={checkboxes.code ? "#fff" : iconColor}
-                          />
-                        </Flex>
+                      <Input
+                        borderRadius="15px"
+                        placeholder="e.g., Software Engineer"
+                        fontSize="xs"
+                      />
+                    </FormControl>
+                    <FormControl>
+                      <FormLabel
+                        color={textColor}
+                        fontSize="xs"
+                        fontWeight="bold"
+                      >
+                        Department
                       </FormLabel>
-                      <Text color={textColor} fontWeight="bold" fontSize="md">
-                        Code
-                      </Text>
-                    </Flex>
-                    <Flex direction="column" align="center">
-                      <FormLabel w="150px" h="150px" cursor="pointer" mb="16px">
-                        <Flex
-                          w="100%"
-                          h="100%"
-                          borderRadius="12px"
-                          justify="center"
-                          transition=".5s all ease"
-                          border="1px solid lightgray"
-                          align="center"
-                          bg={checkboxes.develop ? "teal.300" : "#fff"}
-                          _hover={{ opacity: "0.8" }}
-                        >
-                          <Checkbox
-                            onChange={() =>
-                              setCheckboxes((prevCheckboxes) => {
-                                return {
-                                  ...prevCheckboxes,
-                                  develop: !prevCheckboxes.develop,
-                                };
-                              })
-                            }
-                            display="none"
-                          />
-                          <Icon
-                            as={RocketIcon}
-                            w="54px"
-                            h="54px"
-                            color={checkboxes.develop ? "#fff" : iconColor}
-                          />
-                        </Flex>
+                      <Input
+                        borderRadius="15px"
+                        placeholder="e.g., Development"
+                        fontSize="xs"
+                      />
+                    </FormControl>
+                    <FormControl>
+                      <FormLabel
+                        color={textColor}
+                        fontSize="xs"
+                        fontWeight="bold"
+                      >
+                        Employee ID
                       </FormLabel>
-                      <Text color={textColor} fontWeight="bold" fontSize="md">
-                        Develop
-                      </Text>
-                    </Flex>
+                      <Input
+                        borderRadius="15px"
+                        placeholder="e.g., EMP12345"
+                        fontSize="xs"
+                      />
+                    </FormControl>
                   </Stack>
-
                   <Flex justify="space-between">
                     <Button
                       variant="no-hover"
@@ -523,7 +430,7 @@ function Wizard() {
                       mt="24px"
                       w={{ sm: "75px", lg: "100px" }}
                       h="35px"
-                      onClick={() => aboutTab.current.click()}
+                      onClick={() => personalTab.current.click()}
                     >
                       <Text fontSize="xs" color="gray.700" fontWeight="bold">
                         PREV
@@ -547,6 +454,7 @@ function Wizard() {
               </CardBody>
             </Card>
           </TabPanel>
+          {/* Address Information TabPanel */}
           <TabPanel w={{ sm: "330px", md: "700px", lg: "850px" }} mx="auto">
             <Card>
               <CardHeader mb="40px">
@@ -564,11 +472,10 @@ function Wizard() {
                     fontWeight="bold"
                     mb="4px"
                   >
-                    Are you living in a nice area?
+                    Enter Address Information
                   </Text>
                   <Text color="gray.400" fontWeight="normal" fontSize="sm">
-                    One thing I love about the later sunsets is the chance to go
-                    for a walk through the neighborhood woods before dinner
+                    Provide the employee's address details.
                   </Text>
                 </Flex>
               </CardHeader>
@@ -585,7 +492,7 @@ function Wizard() {
                       </FormLabel>
                       <Input
                         borderRadius="15px"
-                        placeholder="eg. Street 120"
+                        placeholder="e.g., 123 Main St"
                         fontSize="xs"
                       />
                     </FormControl>
@@ -599,7 +506,7 @@ function Wizard() {
                       </FormLabel>
                       <Input
                         borderRadius="15px"
-                        placeholder="eg. Street 220"
+                        placeholder="e.g., Apt 4B"
                         fontSize="xs"
                       />
                     </FormControl>
@@ -617,7 +524,7 @@ function Wizard() {
                         </FormLabel>
                         <Input
                           borderRadius="15px"
-                          placeholder="eg. Tokyo"
+                          placeholder="e.g., New York"
                           fontSize="xs"
                         />
                       </FormControl>
@@ -631,7 +538,7 @@ function Wizard() {
                         </FormLabel>
                         <Input
                           borderRadius="15px"
-                          placeholder="..."
+                          placeholder="e.g., NY"
                           fontSize="xs"
                         />
                       </FormControl>
@@ -645,7 +552,7 @@ function Wizard() {
                         </FormLabel>
                         <Input
                           borderRadius="15px"
-                          placeholder="7 letters"
+                          placeholder="e.g., 10001"
                           fontSize="xs"
                         />
                       </FormControl>
@@ -659,7 +566,7 @@ function Wizard() {
                       mt="24px"
                       w={{ sm: "75px", lg: "100px" }}
                       h="35px"
-                      onClick={() => accountTab.current.click()}
+                      onClick={() => jobTab.current.click()}
                     >
                       <Text fontSize="xs" color="gray.700" fontWeight="bold">
                         PREV
@@ -674,7 +581,7 @@ function Wizard() {
                       h="35px"
                     >
                       <Text fontSize="xs" color="#fff" fontWeight="bold">
-                        SEND
+                        CREATE
                       </Text>
                     </Button>
                   </Flex>
@@ -688,4 +595,4 @@ function Wizard() {
   );
 }
 
-export default Wizard;
+export default EmployeeWizard;
