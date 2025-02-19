@@ -6,6 +6,8 @@ import IconBox from "components/Icons/IconBox";
 
 const SidebarHelp = ({ sidebarWidth }) => {
   
+  {/* Help Center */}
+
   return (
     <Flex
         borderRadius="15px"
@@ -15,14 +17,14 @@ const SidebarHelp = ({ sidebarWidth }) => {
         alignItems="start"
         boxSize="border-box"
         p={sidebarWidth === 275 || !sidebarWidth ? "16px" : "12px"}
-        h={sidebarWidth === 275 || !sidebarWidth ? "170px" : "auto"}
+        h={sidebarWidth === 275 || !sidebarWidth ? "150px" : "auto"}
         w={sidebarWidth === 275 || !sidebarWidth ? "100%" : "77%"}
       >
         <IconBox width="35px" h="35px" bg="white" mb="auto">
           <QuestionIcon color="teal.300" h="18px" w="18px" />
         </IconBox>
         <Text
-          fontSize="sm"
+          fontSize="16px"
           color="white"
           fontWeight="bold"
           display={sidebarWidth === 275 || !sidebarWidth ? "block" : "none"}
@@ -35,14 +37,14 @@ const SidebarHelp = ({ sidebarWidth }) => {
           mb="10px"
           display={sidebarWidth === 275 || !sidebarWidth ? "block" : "none"}
         >
-          Please check our docs
+          
         </Text>
         <Link
           w="100%"
           href="https://demos.creative-tim.com/docs-purity-ui-dashboard/"
         >
           <Button
-            fontSize="10px"
+            fontSize="14px"
             fontWeight="bold"
             w="100%"
             bg="white"
@@ -58,7 +60,7 @@ const SidebarHelp = ({ sidebarWidth }) => {
             color="black"
             display={sidebarWidth === 275 || !sidebarWidth ? "block" : "none"}
           >
-            DOCUMENTATION
+            Help Center
           </Button>
         </Link>
       </Flex>

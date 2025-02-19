@@ -44,33 +44,27 @@ const ActiveUsers = ({ title, percentage, chart }) => {
               than last week
             </Text>
           </Flex>
+
+        {/* Participation Rate admin/dashboard/default */}
+
           <SimpleGrid gap={{ sm: "12px" }} columns={4}>
             <ChartStatistics
-              title={"Users"}
-              amount={"32,984"}
-              percentage={20}
+              title={"Employees"}
+              amount={"384"}
+              percentage={65}
               icon={<WalletIcon h={"15px"} w={"15px"} color={iconBoxInside} />}
             />
             <ChartStatistics
-              title={"Clicks"}
-              amount={"2.42m"}
+              title={"Surveys"}
+              amount={"450"}
               percentage={80}
               icon={<RocketIcon h={"15px"} w={"15px"} color={iconBoxInside} />}
             />
-            <ChartStatistics
-              title={"Sales"}
-              amount={"2,400$"}
-              percentage={30}
-              icon={<CartIcon h={"15px"} w={"15px"} color={iconBoxInside} />}
-            />
-            <ChartStatistics
-              title={"Items"}
-              amount={"320"}
-              percentage={40}
-              icon={<StatsIcon h={"15px"} w={"15px"} color={iconBoxInside} />}
-            />
           </SimpleGrid>
         </Flex>
+        
+        {/* Add a Pie chart here */}
+
       </CardBody>
     </Card>
   );
