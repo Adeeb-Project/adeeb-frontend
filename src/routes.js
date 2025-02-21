@@ -1,4 +1,3 @@
-
 // import
 // To be changed
 // import Tables from "views/Dashboard/Tables.js";
@@ -26,6 +25,7 @@ import Teams from "views/Pages/Profile/Teams/index";
 import NewUser from "views/Pages/Users/NewUser/index";
 import Reports from "views/Pages/Users/Reports/index";
 import DataTables from "views/Applications/DataTables";
+import Survey from "views/Survey/Survey";
 
 {/* Side bar routers names */}
 
