@@ -347,6 +347,7 @@ function Sidebar(props) {
                 </HStack>
               </Box>
             ) : (
+              <List>
               <ListItem>
                 <HStack
                   spacing={
@@ -379,6 +380,7 @@ function Sidebar(props) {
                   </Text>
                 </HStack>
               </ListItem>
+            </List>
             )}
           </NavLink>
         );
