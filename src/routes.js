@@ -23,6 +23,7 @@ import NewUser from "views/Pages/Users/NewUser/index";
 import Reports from "views/Pages/Users/Reports/index";
 import DataTables from "views/Applications/DataTables";
 import Survey from "views/Survey/Survey";
+import MySurvey from "views/Survey/mysurveys";
 
 const dashRoutes = [
   {
@@ -55,9 +56,11 @@ const dashRoutes = [
       },
       {
         name: "My Surveys",
-        path: "/mysurveys",
+        path: "/Mysurveys",
         collapse: false,
         authIcon: <HomeIcon color="inherit" />,
+        component: MySurvey,
+        layout: "/admin",
         items: [
           {
             name: "Profile Overview",
