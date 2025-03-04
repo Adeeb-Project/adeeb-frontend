@@ -10,7 +10,7 @@ const publicRoutes = [
   },
   {
     name: "Land Page",
-    path: "/",
+    path: "/land-page",
     component: Pricing,
     layout: "",
   },
