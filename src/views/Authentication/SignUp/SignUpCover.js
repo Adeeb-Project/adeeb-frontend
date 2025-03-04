@@ -18,7 +18,7 @@ import {
   Icon,
 } from "@chakra-ui/react";
 // Assets
-import cover from "assets/img/cover-auth.png";
+import cover from "assets/img/basic-auth.png";
 import React, { useState, useRef } from "react";
 import { useHistory } from "react-router-dom";
 import { FiUpload } from "react-icons/fi";
