@@ -1,0 +1,5 @@
+id,first_name,last_name,email,gender,phone,age,position,date_left,years_stayed
+1,Marjorie,Northill,mnorthill0@fastcompany.com,Female,544-161-6443,23,Supervisor,12/19/2024,9
+2,Daniela,Grumley,dgrumley1@gov.uk,Female,564-897-5935,28,Engineer,6/18/2024,7
+3,John,Doe,johndoe@example.com,Male,555-123-4567,30,Manager,8/25/2023,5
+4,Jane,Smith,janesmith@example.com,Female,555-987-6543,27,HR,3/14/2022,3

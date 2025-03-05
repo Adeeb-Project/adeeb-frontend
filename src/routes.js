@@ -25,6 +25,9 @@ import Teams from "views/Pages/Profile/Teams/index";
 import NewUser from "views/Pages/Users/NewUser/index";
 import Reports from "views/Pages/Users/Reports/index";
 import DataTables from "views/Applications/DataTables";
+import SurveyManagement from "views/Survey/SurveyManagement";
+import EditSurvey from "views/Survey/EditSurvey";
+import AddSurvey from "./views/Survey/AddSurvey";
 import Survey from "views/Survey/Survey";
 
 {/* Side bar routers names */}
@@ -62,65 +65,21 @@ const dashRoutes = [
         icon: <DocumentIcon color="inherit" />,
         items: [
           {
-            name: "My Surveys",
-            path: "/mysurveys",
-            /* 
-            I should remove item but removing it cause an error 
-            so I change collapse to false
-            */
-            collapse: false,
-            authIcon: <HomeIcon color="inherit" />,
-            items: [
-              {
-                name: "Profile Overview",
-                secondaryNavbar: true,
-                path: "/pages/profile/overview",
-                component: Overview,
-                layout: "/admin",
-              },
-              {
-                name: "Teams",
-                secondaryNavbar: true,
-                path: "/pages/profile/teams",
-                component: Teams,
-                layout: "/admin",
-              },
-              {
-                name: "All Projects",
-                secondaryNavbar: true,
-                path: "/pages/profile/profile-projects",
-                component: Projects,
-                layout: "/admin",
-              },
-            ],
+            name: "Manage Surveys",
+            path: "/survey/manage",
+            component: SurveyManagement, // Updated to the new Survey Management Page
+            layout: "/admin",
           },
           {
-            name: "Survey",
-            path: "/survey/csurvey",
-             /* 
-            I should remove item but removing it cause an error 
-            so I change collapse to false
-            */
-            collapse: false,
-            authIcon: <PersonIcon color="inherit" />,
-            items: [
-              {
-                name: "Add Employee",
-                path: "/pages/demployee/addemployee",
-                component: Reports,
-                layout: "/admin",
-              },
-              {
-                name: "New User",
-                path: "/pages/users/new-user",
-                component: NewUser,
-                layout: "/admin",
-              },
-            ],
+            name: "Add Surveys",
+            path: "/survey/addSurvey",
+            component: AddSurvey, // Updated to the new Survey Management Page
+            layout: "/admin",
           },
-
         ],
       },
+      
+      
       {
         name: "Departing Employees",
         path: "/demployees",
@@ -136,7 +95,7 @@ const dashRoutes = [
             layout: "/admin",
           },
           {
-            name: "Employees Tabel",
+            name: "Employees Table",
             component: DataTables,
             authIcon: <PersonIcon color="inherit" />,
             path: "/demployees/employeestable",
