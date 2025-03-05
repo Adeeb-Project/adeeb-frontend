@@ -1,20 +1,3 @@
-/*!
-
-=========================================================
-* Purity UI Dashboard PRO - v1.0.0
-=========================================================
-
-* Product Page: https://www.creative-tim.com/product/purity-ui-dashboard-pro
-* Copyright 2021 Creative Tim (https://www.creative-tim.com/)
-
-* Design by Creative Tim & Coded by Simmmple
-
-=========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-
-*/
-
 // Chakra imports
 import {
   Box,
@@ -30,37 +13,107 @@ import {
   useColorModeValue,
   Alert,
   AlertIcon,
+  Select,
+  Image,
+  Icon,
 } from "@chakra-ui/react";
 // Assets
-import cover from "assets/img/cover-auth.png";
-import React, { useState } from "react";
+import cover from "assets/img/basic-auth.png";
+import React, { useState, useRef } from "react";
 import { useHistory } from "react-router-dom";
+import { FiUpload } from "react-icons/fi";
 
 function SignUp() {
   // Chakra color mode
   const titleColor = useColorModeValue("teal.300", "teal.200");
   const textColor = useColorModeValue("gray.400", "white");
+  const bgColor = useColorModeValue("white", "gray.700");
 
   const [name, setName] = useState("");
+  const [employeeCount, setEmployeeCount] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [bundle, setBundle] = useState("");
   const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const [nameError, setNameError] = useState("");
+  const [employeeCountError, setEmployeeCountError] = useState("");
+  const [bundleError, setBundleError] = useState("");
+  const [companyLogo, setCompanyLogo] = useState(null);
+  const [previewImage, setPreviewImage] = useState(null);
+  const fileInputRef = useRef(null);
 
   const history = useHistory();
+
+  const handleImageChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      setCompanyLogo(file);
+      // Create a preview URL
+      const reader = new FileReader();
+      reader.onload = () => {
+        setPreviewImage(reader.result);
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
+  const validateForm = () => {
+    let isValid = true;
+    
+    // Validate company name
+    if (name.trim().length < 1) {
+      setNameError("Company name is required");
+      isValid = false;
+    } else {
+      setNameError("");
+    }
+    
+    // Validate employee count
+    if (!employeeCount || parseInt(employeeCount) <= 30) {
+      setEmployeeCountError("Number of employees must be greater than 30");
+      isValid = false;
+    } else {
+      setEmployeeCountError("");
+    }
+    
+    // Validate bundle selection
+    if (!bundle) {
+      setBundleError("Please select a bundle");
+      isValid = false;
+    } else {
+      setBundleError("");
+    }
+    
+    return isValid;
+  };
 
   const handleSignUp = async (e) => {
     e.preventDefault();
     setError("");
+    
+    if (!validateForm()) {
+      return;
+    }
+    
     setIsLoading(true);
 
     try {
-      const response = await fetch("http://localhost:5246/api/Users/register", {
+      // Create a FormData object to handle file upload
+      const formData = new FormData();
+      formData.append('name', name);
+      formData.append('totalNumberOfEmployees', employeeCount);
+      formData.append('bundle', bundle);
+      
+      // Add the logo if it exists
+      if (companyLogo) {
+        formData.append('logoImage', companyLogo);
+      }
+
+      const response = await fetch("http://localhost:5246/api/comanies/register", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ name, email, password }),
+        body: formData,
+     
       });
 
       if (!response.ok) {
@@ -85,6 +138,7 @@ function SignUp() {
       setIsLoading(false);
     }
   };
+
 
   return (
     <Flex position="relative" mb="70px">
@@ -122,48 +176,110 @@ function SignUp() {
               fontWeight="bold"
               fontSize="14px"
             >
-              Enter your name, email and password to sign up
+              Enter the following Information
             </Text>
             <FormControl>
               <FormLabel ms="4px" fontSize="sm" fontWeight="normal">
-                Name
+                Company Name
               </FormLabel>
               <Input
                 borderRadius="15px"
-                mb="24px"
+                mb={nameError ? "8px" : "24px"}
                 fontSize="sm"
                 type="text"
-                placeholder="Your name"
+                placeholder="Your company name"
                 size="lg"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
               />
+              {nameError && (
+                <Text color="red.500" mb="24px" fontSize="sm">
+                  {nameError}
+                </Text>
+              )}
+              
               <FormLabel ms="4px" fontSize="sm" fontWeight="normal">
-                Email
+                Number of Employees
               </FormLabel>
               <Input
                 borderRadius="15px"
-                mb="24px"
+                mb={employeeCountError ? "8px" : "24px"}
                 fontSize="sm"
-                type="email"
-                placeholder="Your email address"
+                type="number"
+                placeholder="Number of employees"
                 size="lg"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
+                value={employeeCount}
+                onChange={(e) => setEmployeeCount(e.target.value)}
               />
+              {employeeCountError && (
+                <Text color="red.500" mb="24px" fontSize="sm">
+                  {employeeCountError}
+                </Text>
+              )}
+              
               <FormLabel ms="4px" fontSize="sm" fontWeight="normal">
-                Password
+                Bundle
+              </FormLabel>
+              <Select
+                borderRadius="15px"
+                mb={bundleError ? "8px" : "24px"}
+                fontSize="sm"
+                placeholder="Choose bundle"
+                size="lg"
+                value={bundle}
+                onChange={(e) => setBundle(e.target.value)}
+              >
+                <option value="Premium">Premium</option>
+                <option value="Basic">Basic</option>
+              </Select>
+              {bundleError && (
+                <Text color="red.500" mb="24px" fontSize="sm">
+                  {bundleError}
+                </Text>
+              )}
+              
+              <FormLabel ms="4px" fontSize="sm" fontWeight="normal">
+                Company Logo
               </FormLabel>
               <Input
-                borderRadius="15px"
-                mb="24px"
-                fontSize="sm"
-                type="password"
-                placeholder="Your password"
-                size="lg"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
+                type="file"
+                accept="image/*"
+                onChange={handleImageChange}
+                display="none"
+                ref={fileInputRef}
               />
+              <Flex
+                onClick={() => fileInputRef.current.click()}
+                borderRadius="15px"
+                border="1px dashed"
+                borderColor="gray.200"
+                p="16px"
+                alignItems="center"
+                justifyContent="center"
+                flexDirection="column"
+                mb="24px"
+                cursor="pointer"
+                bg={bgColor}
+                _hover={{
+                  borderColor: "teal.300",
+                }}
+              >
+                {previewImage ? (
+                  <Image 
+                    src={previewImage} 
+                    alt="Company Logo Preview" 
+                    maxH="150px"
+                    borderRadius="10px"
+                    mb="8px"
+                  />
+                ) : (
+                  <Icon as={FiUpload} w="40px" h="40px" mb="8px" color="gray.400" />
+                )}
+                <Text color={textColor} fontSize="sm" fontWeight="medium">
+                  {previewImage ? "Change logo" : "Upload company logo"}
+                </Text>
+              </Flex>
+              
               {error && (
                 <Alert status="error" borderRadius="15px" mb="24px">
                   <AlertIcon />
@@ -187,7 +303,7 @@ function SignUp() {
                   bg: "teal.400",
                 }}
               >
-                SIGN UP
+                REGISTER
               </Button>
             </FormControl>
             <Flex

@@ -31,7 +31,7 @@ import {
   useColorModeValue,
 } from "@chakra-ui/react";
 // Assets
-import illustration from "assets/img/illustration-auth.png";
+import illustration from "assets/img/basic-auth.png";
 import React from "react";
 
 function SignIn() {
