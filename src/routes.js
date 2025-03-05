@@ -1,6 +1,3 @@
-// import
-// To be changed
-// import Tables from "views/Dashboard/Tables.js";
 import { RocketIcon } from "components/Icons/Icons";
 import { AuthenticationIcon } from "components/Icons/Icons";
 import {
@@ -26,8 +23,7 @@ import NewUser from "views/Pages/Users/NewUser/index";
 import Reports from "views/Pages/Users/Reports/index";
 import DataTables from "views/Applications/DataTables";
 import Survey from "views/Survey/Survey";
-
-{/* Side bar routers names */}
+import MySurvey from "views/Survey/mysurveys";
 
 const dashRoutes = [
   {
@@ -43,82 +39,50 @@ const dashRoutes = [
         component: Default,
         layout: "/admin",
       },
-      // {
-      //   name: "CRM",
-      //   path: "/dashboard/crm",
-      //   component: CRM,
-      //   layout: "/admin",
-      // },
     ],
   },
   {
     name: "PAGES",
     category: "pages",
     items: [
+      // Directly linking Survey to the Survey component
       {
         name: "Survey",
         path: "/survey",
-        collapse: true,
+        collapse: false,
         icon: <DocumentIcon color="inherit" />,
+        component: Survey,
+        layout: "/admin",
+      },
+      {
+        name: "My Surveys",
+        path: "/Mysurveys",
+        collapse: false,
+        authIcon: <HomeIcon color="inherit" />,
+        component: MySurvey,
+        layout: "/admin",
         items: [
           {
-            name: "My Surveys",
-            path: "/mysurveys",
-            /* 
-            I should remove item but removing it cause an error 
-            so I change collapse to false
-            */
-            collapse: false,
-            authIcon: <HomeIcon color="inherit" />,
-            items: [
-              {
-                name: "Profile Overview",
-                secondaryNavbar: true,
-                path: "/pages/profile/overview",
-                component: Overview,
-                layout: "/admin",
-              },
-              {
-                name: "Teams",
-                secondaryNavbar: true,
-                path: "/pages/profile/teams",
-                component: Teams,
-                layout: "/admin",
-              },
-              {
-                name: "All Projects",
-                secondaryNavbar: true,
-                path: "/pages/profile/profile-projects",
-                component: Projects,
-                layout: "/admin",
-              },
-            ],
+            name: "Profile Overview",
+            secondaryNavbar: true,
+            path: "/pages/profile/overview",
+            component: Overview,
+            layout: "/admin",
           },
           {
-            name: "Survey",
-            path: "/survey/csurvey",
-             /* 
-            I should remove item but removing it cause an error 
-            so I change collapse to false
-            */
-            collapse: false,
-            authIcon: <PersonIcon color="inherit" />,
-            items: [
-              {
-                name: "Add Employee",
-                path: "/pages/demployee/addemployee",
-                component: Reports,
-                layout: "/admin",
-              },
-              {
-                name: "New User",
-                path: "/pages/users/new-user",
-                component: NewUser,
-                layout: "/admin",
-              },
-            ],
+            name: "Teams",
+            secondaryNavbar: true,
+            path: "/pages/profile/teams",
+            component: Teams,
+            layout: "/admin",
           },
-
+          {
+            name: "All Projects",
+            secondaryNavbar: true,
+            path: "/pages/profile/profile-projects",
+            component: Projects,
+            layout: "/admin",
+          },
         ],
       },
       {
@@ -126,7 +90,6 @@ const dashRoutes = [
         path: "/demployees",
         icon: <PersonIcon color="inherit" />,
         collapse: true,
-
         items: [
           {
             name: "Add Employee",
@@ -136,16 +99,14 @@ const dashRoutes = [
             layout: "/admin",
           },
           {
-            name: "Employees Tabel",
+            name: "Employees Table",
             component: DataTables,
             authIcon: <PersonIcon color="inherit" />,
             path: "/demployees/employeestable",
             layout: "/admin",
-    
           },
         ],
       },
-
       {
         name: "Authentication",
         path: "/authentication",
@@ -155,10 +116,6 @@ const dashRoutes = [
           {
             name: "Users",
             path: "/authentication/users",
-             /* 
-            I should remove item but removing it cause an error 
-            so I change collapse to false
-            */
             collapse: false,
             authIcon: <DocumentIcon color="inherit" />,
             items: [
@@ -186,10 +143,6 @@ const dashRoutes = [
           {
             name: "New User",
             path: "/authentication/newuser",
-             /* 
-            I should remove item but removing it cause an error 
-            so I change collapse to false
-            */
             collapse: false,
             authIcon: <DocumentIcon color="inherit" />,
             items: [
@@ -231,10 +184,6 @@ const dashRoutes = [
           {
             name: "Company Report",
             path: "/companyreport",
-            /* 
-            I should remove item but removing it cause an error 
-            so I change collapse to false
-            */
             collapse: false,
             authIcon: <HomeIcon color="inherit" />,
             items: [
@@ -248,12 +197,8 @@ const dashRoutes = [
             ],
           },
           {
-            name: "Retension Rate",
+            name: "Retention Rate",
             path: "/companiesreport/rrate",
-             /* 
-            I should remove item but removing it cause an error 
-            so I change collapse to false
-            */
             collapse: true,
             authIcon: <PersonIcon color="inherit" />,
             items: [
@@ -280,10 +225,6 @@ const dashRoutes = [
           {
             name: "Reasons",
             path: "/reasons",
-             /* 
-            I should remove item but removing it cause an error 
-            so I change collapse to false
-            */
             collapse: true,
             authIcon: <PersonIcon color="inherit" />,
             items: [
@@ -316,12 +257,8 @@ const dashRoutes = [
         icon: <StatsIcon color="inherit" />,
         items: [
           {
-            name: "Retension Rate",
+            name: "Retention Rate",
             path: "/companiesreport/rrate",
-             /* 
-            I should remove item but removing it cause an error 
-            so I change collapse to false
-            */
             collapse: true,
             authIcon: <PersonIcon color="inherit" />,
             items: [
@@ -348,10 +285,6 @@ const dashRoutes = [
           {
             name: "Reasons",
             path: "/reasons",
-             /* 
-            I should remove item but removing it cause an error 
-            so I change collapse to false
-            */
             collapse: true,
             authIcon: <PersonIcon color="inherit" />,
             items: [
@@ -377,8 +310,8 @@ const dashRoutes = [
           },
         ],
       },
-     ],
-    },
+    ],
+  },
 ];
 
 export default dashRoutes;
