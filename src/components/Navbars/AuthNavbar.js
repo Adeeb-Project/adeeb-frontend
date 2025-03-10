@@ -22,6 +22,7 @@ const AuthNavbar = () => {
     "drop-shadow(0px 7px 23px rgba(0, 0, 0, 0.05))"
   );
   const navbarBackdrop = "blur(21px)";
+  const hoverBg = useColorModeValue("gray.100", "gray.700");
 
   // This helper will scroll to the given element ID without re-routing.
   const handleScroll = (id) => (event) => {
@@ -30,6 +31,13 @@ const AuthNavbar = () => {
     if (element) {
       element.scrollIntoView({ behavior: "smooth" });
     }
+  };
+
+  // Placeholder login handler
+  const handleLogin = (event) => {
+    event.preventDefault();
+    console.log("Login tab clicked");
+    // Add your login logic here
   };
 
   return (
@@ -58,31 +66,32 @@ const AuthNavbar = () => {
           Adeeb
         </Text>
 
-        {/* Navigation Links – these call handleScroll instead of using href */}
+        {/* Navigation Links */}
         <HStack spacing="12px">
-          <Link
-            onClick={handleScroll("home")}
-            fontSize="sm"
-            color={mainText}
-            cursor="pointer"
-          >
+          <Link onClick={handleScroll("home")} fontSize="sm" color={mainText} cursor="pointer">
             Home
           </Link>
-          <Link
-            onClick={handleScroll("pricing")}
-            fontSize="sm"
-            color={mainText}
-            cursor="pointer"
-          >
+          <Link onClick={handleScroll("pricing")} fontSize="sm" color={mainText} cursor="pointer">
             Pricing
           </Link>
+          <Link onClick={handleScroll("faq")} fontSize="sm" color={mainText} cursor="pointer">
+            FAQ
+          </Link>
+          {/* Login Tab */}
           <Link
-            onClick={handleScroll("faq")}
+            onClick={handleLogin}
             fontSize="sm"
+            fontWeight="medium"
             color={mainText}
             cursor="pointer"
+            px="10px"
+            py="6px"
+            border="1px solid"
+            borderColor={mainText}
+            borderRadius="5px"
+            _hover={{ bg: hoverBg }}
           >
-            FAQ
+            Login
           </Link>
         </HStack>
       </Flex>

@@ -273,29 +273,6 @@ function Pricing() {
             </Card>
           </Stack>
           <Flex direction="column" mb="110px" justify="center" align="center">
-            <Text
-              color="gray.300"
-              fontWeight="bold"
-              fontSize="md"
-              mb={{ sm: "32px", xl: "16px" }}
-              maxW={{ sm: "250px", md: "100%" }}
-              textAlign="center"
-            >
-              More than 50+ companies that trust Adeeb
-            </Text>
-            <SimpleGrid
-              columns={{ sm: 2, md: 3, lg: 6 }}
-              rows={{ sm: 3, md: 2, lg: 1 }}
-              spacingX={{ sm: "65px", lg: "40px", xl: "65px" }}
-              spacingY={{ sm: "30px" }}
-            >
-              <Image src={googleLogo} alt="Google Logo" />
-              <Image src={msnLogo} alt="MSN Logo" />
-              <Image src={microsoftLogo} alt="Microsoft Logo" />
-              <Image src={zohoLogo} alt="Zoho Logo" />
-              <Image src={georgiaLogo} alt="Georgia Logo" />
-              <Image src={deloitteLogo} alt="Deloitte Logo" />
-            </SimpleGrid>
           </Flex>
         </Flex>
       </Box>
