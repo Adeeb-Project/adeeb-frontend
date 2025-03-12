@@ -111,10 +111,10 @@ const Notifications = () => {
                       fontSize="sm"
                       mb="4px"
                     >
-                      Mentions
+                      Changes
                     </Text>
                     <Text color="gray.400" fontSize="xs" fontWeight="normal">
-                      Notify when another user mentions you in a comment
+                      Notify when another user edit any thing (e.g. create a template or add employees)
                     </Text>
                   </Flex>
                 </Td>
@@ -137,10 +137,10 @@ const Notifications = () => {
                       fontSize="sm"
                       mb="4px"
                     >
-                      Comments
+                      New Insights
                     </Text>
                     <Text color="gray.400" fontSize="xs" fontWeight="normal">
-                      Notify when another user comments your item.
+                      Notify when Adeeb generate new insights.
                     </Text>
                   </Flex>
                 </Td>
@@ -163,10 +163,36 @@ const Notifications = () => {
                       fontSize="sm"
                       mb="4px"
                     >
-                      Follows
+                      New Graphs
                     </Text>
                     <Text color="gray.400" fontSize="xs" fontWeight="normal">
-                      Notify when another user follows you.
+                      Notify when Adeeb generate new graphs.
+                    </Text>
+                  </Flex>
+                </Td>
+                <Td>
+                  <Switch defaultIsChecked colorScheme="teal" />
+                </Td>
+                <Td>
+                  <Switch colorScheme="teal" />
+                </Td>
+                <Td>
+                  <Switch defaultIsChecked colorScheme="teal" />
+                </Td>
+              </Tr>
+              <Tr>
+                <Td ps="0px" minW={{ sm: "300px" }}>
+                  <Flex direction="column">
+                    <Text
+                      color={textColor}
+                      fontWeight="normal"
+                      fontSize="sm"
+                      mb="4px"
+                    >
+                      Updates
+                    </Text>
+                    <Text color="gray.400" fontSize="xs" fontWeight="normal">
+                      Notify when there is a new update for Adeeb website.
                     </Text>
                   </Flex>
                 </Td>

@@ -26,6 +26,9 @@ import NewUser from "views/Pages/Users/NewUser/index";
 import Reports from "views/Pages/Users/Reports/index";
 import DataTables from "views/Applications/DataTables";
 import Survey from "views/Survey/Survey";
+import Settings from "views/Pages/Account/Settings";
+import ManageUsers from "views/Pages/Account/Settings/indexManageUsers";
+import { layout } from "@chakra-ui/system";
 
 {/* Side bar routers names */}
 
@@ -107,7 +110,7 @@ const dashRoutes = [
               {
                 name: "Add Employee",
                 path: "/pages/demployee/addemployee",
-                component: Reports,
+                //component: Reports,
                 layout: "/admin",
               },
               {
@@ -130,7 +133,7 @@ const dashRoutes = [
         items: [
           {
             name: "Add Employee",
-            component: Kanban,
+            //component: Kanban,
             authIcon: <DocumentIcon color="inherit" />,
             path: "/demployees/addemployee",
             layout: "/admin",
@@ -142,77 +145,6 @@ const dashRoutes = [
             path: "/demployees/employeestable",
             layout: "/admin",
     
-          },
-        ],
-      },
-
-      {
-        name: "Authentication",
-        path: "/authentication",
-        icon: <AuthenticationIcon color="inherit" />,
-        collapse: true,
-        items: [
-          {
-            name: "Users",
-            path: "/authentication/users",
-             /* 
-            I should remove item but removing it cause an error 
-            so I change collapse to false
-            */
-            collapse: false,
-            authIcon: <DocumentIcon color="inherit" />,
-            items: [
-              {
-                name: "Basic",
-                secondaryNavbar: true,
-                component: SignInBasic,
-                path: "/authentication/sign-in/basic",
-                layout: "/auth",
-              },
-              {
-                name: "Cover",
-                component: SignInCover,
-                path: "/authentication/sign-in/cover",
-                layout: "/auth",
-              },
-              {
-                name: "Illustration",
-                component: SignInIllustration,
-                path: "/authentication/sign-in/illustration",
-                layout: "/auth",
-              },
-            ],
-          },
-          {
-            name: "New User",
-            path: "/authentication/newuser",
-             /* 
-            I should remove item but removing it cause an error 
-            so I change collapse to false
-            */
-            collapse: false,
-            authIcon: <DocumentIcon color="inherit" />,
-            items: [
-              {
-                name: "Basic",
-                secondaryNavbar: true,
-                component: SignUpBasic,
-                path: "/authentication/sign-up/basic",
-                layout: "/auth",
-              },
-              {
-                name: "Cover",
-                component: SignUpCover,
-                path: "/authentication/sign-up/cover",
-                layout: "/auth",
-              },
-              {
-                name: "Illustration",
-                component: SignUpIllustration,
-                path: "/authentication/sign-up/illustration",
-                layout: "/auth",
-              },
-            ],
           },
         ],
       },
@@ -379,6 +311,47 @@ const dashRoutes = [
       },
      ],
     },
+    {
+      name: "Users",
+      category: "users",
+      items: [
+        {
+          name: "Current Users",
+          path: "/current-users",
+          collapse: true,
+          icon: <DocumentIcon color="inherit" />,
+          items: [
+            {
+              name: "Settings",
+              path: "/settings",
+              component: Settings,
+              layout: "/admin"
+            },
+            {
+              name: "Manage Users",
+              path: "/manage-users",
+              component: ManageUsers,
+              layout: "/admin"
+            },
+          ],
+        },
+        
+        {
+          name: "New Users",
+          path: "/new-users",
+          collapse: true,
+          icon: <DocumentIcon color="inherit" />,
+          items: [
+            {
+              name: "Add User",
+              path: "/add-account",
+              component: NewUser,
+              layout: "/admin"
+            },
+          ],
+        },
+      ],
+    }
 ];
 
 export default dashRoutes;

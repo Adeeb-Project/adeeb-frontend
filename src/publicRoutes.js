@@ -1,6 +1,7 @@
 import Survey from "views/Survey/Survey";
 import Pricing from "views/Pages/Pricing";
 import SignUp from "views/Authentication/SignUp/SignUpCover";
+import Settings from "views/Pages/Account/Settings";
 const publicRoutes = [
   {
     name: "Survey",
@@ -18,6 +19,18 @@ const publicRoutes = [
     name: "Sign Up",
     path: "/sign-up",
     component: SignUp,
+    layout: "/admin",
+  },
+  {
+    name: "Sign Up",
+    path: "/sign-up",
+    component: SignUp,
+    layout: "/admin",
+  },
+  {
+    name: "Settings",
+    path: "/settings",
+    component: Settings,
     layout: "/admin",
   },
 ];

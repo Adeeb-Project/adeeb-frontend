@@ -197,7 +197,49 @@ function SignUp() {
                   {nameError}
                 </Text>
               )}
+
+              <FormLabel ms="4px" fontSize="sm" fontWeight="normal">
+                User Name
+              </FormLabel>
+              <Input
+                borderRadius="15px"
+                mb={nameError ? "8px" : "24px"}
+                fontSize="sm"
+                type="text"
+                placeholder="Your company name"
+                size="lg"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+              />
+
+              <FormLabel ms="4px" fontSize="sm" fontWeight="normal">
+                Email
+              </FormLabel>
+              <Input
+                borderRadius="15px"
+                mb={nameError ? "8px" : "24px"}
+                fontSize="sm"
+                type="text"
+                placeholder="Your company name"
+                size="lg"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+              />
               
+              <FormLabel ms="4px" fontSize="sm" fontWeight="normal">
+                Password
+              </FormLabel>
+              <Input
+                borderRadius="15px"
+                mb={nameError ? "8px" : "24px"}
+                fontSize="sm"
+                type="text"
+                placeholder="Your company name"
+                size="lg"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+              />
+
               <FormLabel ms="4px" fontSize="sm" fontWeight="normal">
                 Number of Employees
               </FormLabel>

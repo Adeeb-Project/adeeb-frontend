@@ -28,8 +28,11 @@ import Tabs from "./components/Tabs";
 import TwoFactorAuth from "./components/TwoFactorAuth";
 import DeleteAccount from "./components/DeleteAccount";
 import Notifications from "./components/Notifications";
+import Header1 from "./components/Header1";
+import Header2 from "./components/Header2";
+import Header3 from "./components/Header3";
 
-function Settings() {
+function ManageUsers() {
   return (
     <Flex direction="column" pt={{ sm: "125px", lg: "75px" }}>
       {/*
@@ -37,7 +40,6 @@ function Settings() {
       in the top of the screen
       ----->  <Tabs />  <-----
       */}
-      <Buttons />
       <Stack
         direction="column"
         spacing="24px"
@@ -46,10 +48,9 @@ function Settings() {
         justify={{ lg: "flex-end" }}
         w="100%"
       >
-        <Header />
-        <BasicInfo />
-        <ChangePassword />
-        <TwoFactorAuth />
+        <Header1 />
+        <Header2 />
+        <Header3 />
         {/*
         this will the component of linking an account 
         with other platforms account
@@ -57,12 +58,9 @@ function Settings() {
         ---->  <Accounts />  <--------
          
          */}
-        <Notifications />
-        <Sessions />
-        <DeleteAccount />
       </Stack>
     </Flex>
   );
 }
 
-export default Settings;
+export default ManageUsers;

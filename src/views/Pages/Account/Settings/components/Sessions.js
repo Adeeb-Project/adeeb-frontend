@@ -79,7 +79,7 @@ const Sessions = () => {
                 />
                 <Flex direction="column" mb={{ sm: "8px", lg: null }}>
                   <Text color={textColor} fontWeight="normal" fontSize="sm">
-                    Bucharest 68.133.163.201
+                  Chrome on macOS
                   </Text>
                   <Text color="gray.400" fontSize="xs" fontWeight="normal">
                     Your current session
@@ -97,76 +97,19 @@ const Sessions = () => {
                   ACTIVE
                 </Badge>
                 <Text color="gray.400" fontSize="md" fontWeight="normal">
-                  EU
+                  KSA (Dhahran)
                 </Text>
                 <Button variant="transparent-with-icon" color="teal.300">
                   <Flex align="center" color="teal.300" w="100%" fontSize="sm">
-                    <Text
-                      me="6px"
-                      transition="all .3s ease"
-                      _hover={{ me: "14px" }}
-                      fontSize="sm"
-                    >
-                      See more
-                    </Text>
-                    <Icon
-                      as={BsArrowRight}
-                      w="20px"
-                      h="20px"
-                      transition="all .3s ease"
-                      _hover={{ transform: "translateX(50%)" }}
-                    />
-                  </Flex>
-                </Button>
-              </Stack>
-            </Flex>
-            <HSeparator />
-            <Flex
-              direction={{ sm: "column", md: "row" }}
-              justify="space-between"
-              w="100%"
-            >
-              <Flex align="center">
-                <Icon
-                  as={RiComputerLine}
-                  me="30px"
-                  w="28px"
-                  h="28px"
-                  color="gray.400"
-                />
-                <Flex direction="column">
-                  <Text color={textColor} fontWeight="normal" fontSize="sm">
-                    Chrome on macOS
-                  </Text>
-                </Flex>
-              </Flex>
-              <Stack
-                direction="row"
-                spacing="24px"
-                align="center"
-                alignSelf={{ sm: "flex-end", lg: null }}
-                minW={{ lg: "185px" }}
-              >
-                <Text color="gray.400" fontSize="md" fontWeight="normal">
-                  US
-                </Text>
-                <Button variant="transparent-with-icon" color="teal.300">
-                  <Flex align="center" color="teal.300" w="100%" fontSize="sm">
-                    <Text
-                      me="6px"
-                      transition="all .3s ease"
-                      _hover={{ me: "14px" }}
-                      fontSize="sm"
-                    >
-                      See more
-                    </Text>
-                    <Icon
-                      as={BsArrowRight}
-                      w="20px"
-                      h="20px"
-                      transition="all .3s ease"
-                      _hover={{ transform: "translateX(50%)" }}
-                    />
+                    <Button
+                        variant="outline"
+                        colorScheme="red"
+                        w="150px"
+                        h="35px"
+                        fontSize="xs"
+                        >
+                        REMOVE DEVICE
+                    </Button>
                   </Flex>
                 </Button>
               </Stack>
@@ -200,25 +143,18 @@ const Sessions = () => {
                 minW={{ lg: "185px" }}
               >
                 <Text color="gray.400" fontSize="md" fontWeight="normal">
-                  US
+                  KSA (Dhahran)
                 </Text>
                 <Button variant="transparent-with-icon" color="teal.300">
-                  <Flex align="center" color="teal.300" w="100%" fontSize="sm">
-                    <Text
-                      me="6px"
-                      transition="all .3s ease"
-                      _hover={{ me: "14px" }}
-                      fontSize="sm"
-                    >
-                      See more
-                    </Text>
-                    <Icon
-                      as={BsArrowRight}
-                      w="20px"
-                      h="20px"
-                      transition="all .3s ease"
-                      _hover={{ transform: "translateX(50%)" }}
-                    />
+                  <Flex align="center" color="teal.300" w="100%" fontSize="sm"><Button
+                        variant="outline"
+                        colorScheme="red"
+                        w="150px"
+                        h="35px"
+                        fontSize="xs"
+                        >
+                        REMOVE DEVICE
+                    </Button>
                   </Flex>
                 </Button>
               </Stack>
