@@ -19,18 +19,20 @@ import SignUpBasic from "views/Authentication/SignUp/SignUpBasic.js";
 import SignUpCover from "views/Authentication/SignUp/SignUpCover.js";
 import SignUpIllustration from "views/Authentication/SignUp/SignUpIllustration.js";
 import Default from "views/Dashboard/Default";
-import Overview from "views/Pages/Profile/Overview/index";
-import Projects from "views/Pages/Profile/Projects/index";
-import Teams from "views/Pages/Profile/Teams/index";
 import NewUser from "views/Pages/Users/NewUser/index";
 import Reports from "views/Pages/Users/Reports/index";
 import DataTables from "views/Applications/DataTables";
 import Survey from "views/Survey/Survey";
 import Settings from "views/Pages/Account/Settings";
 import ManageUsers from "views/Pages/Account/Settings/indexManageUsers";
+import RetentionRateGraphs from "views/Pages/Graphs";
+import ReasonsGraphs from "views/Pages/Graphs";
 import { layout } from "@chakra-ui/system";
+import CompanyReports from "views/Pages/Summary/CompanyReports";
+import RetentionRateReport from "views/Pages/Summary/RetentionRate";
+import ReasonsReport from "views/Pages/Summary/Reasons";
 
-{/* Side bar routers names */}
+/* Side bar routers names */
 
 const dashRoutes = [
   {
@@ -46,12 +48,7 @@ const dashRoutes = [
         component: Default,
         layout: "/admin",
       },
-      // {
-      //   name: "CRM",
-      //   path: "/dashboard/crm",
-      //   component: CRM,
-      //   layout: "/admin",
-      // },
+
     ],
   },
   {
@@ -67,59 +64,16 @@ const dashRoutes = [
           {
             name: "My Surveys",
             path: "/mysurveys",
-            /* 
-            I should remove item but removing it cause an error 
-            so I change collapse to false
-            */
-            collapse: false,
-            authIcon: <HomeIcon color="inherit" />,
-            items: [
-              {
-                name: "Profile Overview",
-                secondaryNavbar: true,
-                path: "/pages/profile/overview",
-                component: Overview,
-                layout: "/admin",
-              },
-              {
-                name: "Teams",
-                secondaryNavbar: true,
-                path: "/pages/profile/teams",
-                component: Teams,
-                layout: "/admin",
-              },
-              {
-                name: "All Projects",
-                secondaryNavbar: true,
-                path: "/pages/profile/profile-projects",
-                component: Projects,
-                layout: "/admin",
-              },
-            ],
+            component: Survey,
+            authIcon: <DocumentIcon color="inherit" />,
+            layout: "/admin",
           },
           {
             name: "Survey",
             path: "/survey/csurvey",
-             /* 
-            I should remove item but removing it cause an error 
-            so I change collapse to false
-            */
-            collapse: false,
-            authIcon: <PersonIcon color="inherit" />,
-            items: [
-              {
-                name: "Add Employee",
-                path: "/pages/demployee/addemployee",
-                //component: Reports,
-                layout: "/admin",
-              },
-              {
-                name: "New User",
-                path: "/pages/users/new-user",
-                component: NewUser,
-                layout: "/admin",
-              },
-            ],
+            component: Survey,
+            authIcon: <DocumentIcon color="inherit" />,
+            layout: "/admin",            
           },
 
         ],
@@ -162,82 +116,26 @@ const dashRoutes = [
         items: [
           {
             name: "Company Report",
-            path: "/companyreport",
-            /* 
-            I should remove item but removing it cause an error 
-            so I change collapse to false
-            */
-            collapse: false,
+            path: "/summary/companyreport",
             authIcon: <HomeIcon color="inherit" />,
-            items: [
-              {
-                name: "Profile Overview",
-                secondaryNavbar: true,
-                path: "/pages/profile/overview",
-                component: Overview,
-                layout: "/admin",
-              },
-            ],
+            component: CompanyReports,
+            layout: "/admin",
+            
           },
           {
             name: "Retension Rate",
-            path: "/companiesreport/rrate",
-             /* 
-            I should remove item but removing it cause an error 
-            so I change collapse to false
-            */
-            collapse: true,
-            authIcon: <PersonIcon color="inherit" />,
-            items: [
-              {
-                name: "Company",
-                path: "/companiesreport/rrate/company",
-                component: Reports,
-                layout: "/admin",
-              },
-              {
-                name: "Departments",
-                path: "/companiesreport/rrate/departments",
-                component: NewUser,
-                layout: "/admin",
-              },
-              {
-                name: "Gender",
-                path: "/companiesreport/rrate/gender",
-                component: NewUser,
-                layout: "/admin",
-              },
-            ],
+            path: "/summary/rrate",
+            authIcon: <HomeIcon color="inherit" />,
+            component: RetentionRateReport,
+            layout: "/admin",
+            
           },
           {
             name: "Reasons",
-            path: "/reasons",
-             /* 
-            I should remove item but removing it cause an error 
-            so I change collapse to false
-            */
-            collapse: true,
-            authIcon: <PersonIcon color="inherit" />,
-            items: [
-              {
-                name: "Company",
-                path: "/reasons/company",
-                component: Reports,
-                layout: "/admin",
-              },
-              {
-                name: "Departments",
-                path: "/reasons/departments",
-                component: NewUser,
-                layout: "/admin",
-              },
-              {
-                name: "Gender",
-                path: "/reasons/gender",
-                component: NewUser,
-                layout: "/admin",
-              },
-            ],
+            path: "/summary/reasons",
+            authIcon: <HomeIcon color="inherit" />,
+            component: ReasonsReport,
+            layout: "/admin",
           },
         ],
       },
@@ -250,62 +148,16 @@ const dashRoutes = [
           {
             name: "Retension Rate",
             path: "/companiesreport/rrate",
-             /* 
-            I should remove item but removing it cause an error 
-            so I change collapse to false
-            */
-            collapse: true,
             authIcon: <PersonIcon color="inherit" />,
-            items: [
-              {
-                name: "Company",
-                path: "/companiesreport/rrate/company",
-                component: Reports,
-                layout: "/admin",
-              },
-              {
-                name: "Departments",
-                path: "/companiesreport/rrate/departments",
-                component: NewUser,
-                layout: "/admin",
-              },
-              {
-                name: "Gender",
-                path: "/companiesreport/rrate/gender",
-                component: NewUser,
-                layout: "/admin",
-              },
-            ],
+            component: RetentionRateGraphs,
+            layout: "/admin",
           },
           {
             name: "Reasons",
             path: "/reasons",
-             /* 
-            I should remove item but removing it cause an error 
-            so I change collapse to false
-            */
-            collapse: true,
             authIcon: <PersonIcon color="inherit" />,
-            items: [
-              {
-                name: "Company",
-                path: "/reasons/company",
-                component: Reports,
-                layout: "/admin",
-              },
-              {
-                name: "Departments",
-                path: "/reasons/departments",
-                component: NewUser,
-                layout: "/admin",
-              },
-              {
-                name: "Gender",
-                path: "/reasons/gender",
-                component: NewUser,
-                layout: "/admin",
-              },
-            ],
+            component: ReasonsGraphs,
+            layout: "/admin",
           },
         ],
       },
