@@ -6,25 +6,38 @@ import {Link, useHistory} from "react-router-dom";
 
 const SurveyManagement = () => {
     const history = useHistory();
-    const [showAddSurvey, setShowAddSurvey] = useState(false);
 
+    React.useEffect(() => {
+        const surveys_data = JSON.parse(localStorage.getItem('surveys')) || [];
+        if (surveys_data.length==0 || !surveys_data.some(survey => survey.id === "employee_exit")) {
+            surveys_data.push({id: "employee_exit", name: "Employee Exit Feedback Survey", created: "2021-08-01"});
+        }
+        if (surveys_data.length > 0) {
+            setSurveys(surveys_data);
+            localStorage.setItem('surveys', JSON.stringify(surveys_data));
+        }
+    }, []);
 
-    const handleViewSurvey = (id) => {
-        history.push(`/survey/${id}`);
+    const handleViewSurvey = (sid) => {
+        history.push(`/admin/survey/ViewSurvey/${sid}`);
     };
 
-    const handleEditSurvey = (id) => {
-        // history.push(`/survey/${id}?edit=true`);
-        alert('working on it');
+    const handleEditSurvey = (sid) => {
+        history.push(`/admin/survey/addSurvey/${sid}`);
     }
 
-    const [surveys, setSurveys] = useState([{id: 1, name: "Employee Feedback", created: "2024-01-10"}, {
-        id: 2, name: "Customer Satisfaction", created: "2024-02-05"
-    }, {id: 3, name: "Market Research", created: "2024-02-15"},]);
+    const [surveys, setSurveys] = useState([]);
 
-    const handleDelete = (id) => {
-        setSurveys((prev) => prev.filter((survey) => survey.id !== id));
+    const handleDelete = (sid) => {
+        setSurveys((prevSurveys) => {
+            const updatedSurveys = prevSurveys.filter((survey) => survey.id !== sid);
+            localStorage.setItem('surveys', JSON.stringify(updatedSurveys)); // Save updated list
+            return updatedSurveys;
+        });
+    
+        localStorage.removeItem(`${sid}`);
     };
+    
 
     const columns = useMemo(() => [{
         Header: "Survey Name", accessor: "name",
@@ -36,13 +49,13 @@ const SurveyManagement = () => {
                 icon={<ViewIcon/>}
                 size="sm"
                 mr="2"
-                onClick={() => handleViewSurvey(row.original.id)}
+                onClick={() => handleViewSurvey(row.original.id)} 
             />
             <IconButton
                 icon={<EditIcon/>}
                 size="sm"
                 mr="2"
-                onClick={() => handleEditSurvey(row.original.id)}
+                onClick={() => handleEditSurvey(row.original.id)} /* why id is object of history etc? */
             />
             <IconButton
                 icon={<DeleteIcon/>}
@@ -60,7 +73,7 @@ const SurveyManagement = () => {
     } = useTable({columns, data}, useFilters, useSortBy);
 
     return (<Box mt="100px" p={5} boxShadow="lg" borderRadius="lg">
-        <Link to="/admin/survey/addSurvey">
+        <Link to="/admin/survey/addSurvey/new">
             <Button colorScheme="blue" mx={4}>
                 Add Survey
             </Button>

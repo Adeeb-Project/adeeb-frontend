@@ -28,6 +28,7 @@ import DataTables from "views/Applications/DataTables";
 import SurveyManagement from "views/Survey/SurveyManagement";
 import EditSurvey from "views/Survey/EditSurvey";
 import AddSurvey from "./views/Survey/AddSurvey";
+import ViewSurvey from "./views/Survey/ViewSurvey";
 import Survey from "views/Survey/Survey";
 
 {/* Side bar routers names */}
@@ -72,8 +73,14 @@ const dashRoutes = [
           },
           {
             name: "Add Surveys",
-            path: "/survey/addSurvey",
+            path: "/survey/addSurvey/:id",
             component: AddSurvey, // Updated to the new Survey Management Page
+            layout: "/admin",
+          },
+          {
+            name: "View Surveys",
+            path: "/survey/viewSurvey/:id",
+            component: ViewSurvey, // Updated to the new Survey Management Page
             layout: "/admin",
           },
         ],

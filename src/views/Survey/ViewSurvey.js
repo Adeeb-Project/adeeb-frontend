@@ -12,7 +12,7 @@ import { useHistory,useParams } from "react-router-dom";
 
 
 
-const AddSurvey = () => {
+const ViewSurvey = () => {
     const history = useHistory();
     const { id } = useParams();
     const {control,
@@ -348,7 +348,6 @@ const AddSurvey = () => {
             new_id = Math.random().toString(16);
         }
         localStorage.setItem(new_id, JSON.stringify(data));
-        
         const surveys_data = localStorage.getItem('surveys');
         if(surveys_data){
             var parsed_surveys_data =JSON.parse(surveys_data);
@@ -397,12 +396,12 @@ const AddSurvey = () => {
                 mt={-1}
             >
                 <Controller
-                    name="title"
+                    name="title"                    
                     control={control}
                     render={({field}) => (
                         <Input
-                        required
                         {...field}
+                        readOnly={true}
                         placeholder='Survey title here'
                         _placeholder={{ color: "black" }}
                         outline={'none'}
@@ -422,10 +421,10 @@ const AddSurvey = () => {
                     control={control}
                     render={({field}) => (
                         <Input
-                        required
                         {...field}
                         mt={2}
                         p={0}
+                        readOnly={true}
                         color="black"
                         placeholder="Survey description here"
                         _placeholder={{
@@ -466,11 +465,11 @@ const AddSurvey = () => {
                                 control={control}
                                 render={({field}) => (
                                     <Input
-                                    required
                                     {...field}
+                                    readOnly={true}
                                     placeholder="Question"
                                     _placeholder={{ color: "#9ba0a6" }}
-                                    width={'70%'}
+                                    width={'99%'}
                                     height={'56px'}
                                     outline={'none'}
                                     border={'none'}
@@ -486,46 +485,12 @@ const AddSurvey = () => {
                                 )}
                             />
 
-                            <Controller
-                                name={`questions.${index}.questionType`}
-                                control={control}
-                                render={({field}) => (
-                                    <Select
-                                    {...field}
-                                    w="30%"
-                                    height={'48px'}
-                                    position={'relative'}
-                                    top={'-4px'}
-                                    verticalAlign={'top'}
-                                    onChange={(e) => {
-                                        field.onChange(e);
-                                        const selectedValue = e.target.value;
-                                        setValue(`questions.${index}.questionType`, selectedValue);
-                                        setValue(`questions.${index}.answer`, '');
-                                        if(selectedValue === 'single_choice'){
-                                            setValue(`questions.${index}.options`, [{ optionText: '' },{ optionText: '' }]);
-                                        }else if(selectedValue === 'multiple_choice'){
-                                            setValue(`questions.${index}.options`, [{ optionText: '' }]);
-                                        }else{
-                                            setValue(`questions.${index}.options`, []);
-                                        }
-                                    }}
-                                >
-                                    <option value="text"> Short answer</option>
-                                    <option value="paragraph">Paragraph</option>
-                                    <option value="multiple_choice">Multiple choice</option>
-                                    <option value="single_choice">Single choice</option>
-                                    <option value="stars">Ratings</option>
-                                </Select>)}
-                            />
                         </HStack>
 
                         {questionType === 'text' && (<Controller
                             name={`questions.${index}.answer`}
                             control={control}
-                            render={({field}) => (
-                            <Input
-                                // required
+                            render={({field}) => (<Input
                                 {...field}
                                 placeholder="Short answer text"
                                 _placeholder={{ color: "gray.500" }}
@@ -547,7 +512,6 @@ const AddSurvey = () => {
                             name={`questions.${index}.answer`}
                             control={control}
                             render={({field}) => (<Input
-                                // required
                                 {...field}
                                 placeholder="Long answer text"
                                 _placeholder={{ color: "gray.500" }}
@@ -566,34 +530,6 @@ const AddSurvey = () => {
 
                         {questionType === 'stars' && (
                             <HStack mt={5}>
-                            <Controller
-                                name={`stars.${index}.stars_count`}
-                                control={control}
-                                defaultValue={'5'}
-                                render={({field}) => (
-                                    <Select
-                                    {...field}
-                                    w="10%"
-                                    onChange={(e) => {
-                                        field.onChange(e);
-                                        const selectedValue = e.target.value;
-                                        setValue(`stars.${index}.stars_count`, selectedValue);
-                                        setValue(`questions.${index}.answer`, '');
-                                        setValue(`star_value`, Array.from({length: selectedValue}, (_, i) => i + 1));
-                                    }}
-                                >
-                                    <option value="1">1</option>
-                                    <option value="2">2</option>
-                                    <option value="3">3</option>
-                                    <option value="4">4</option>
-                                    <option value="5">5</option>
-                                    <option value="6">6</option>
-                                    <option value="7">7</option>
-                                    <option value="8">8</option>
-                                    <option value="9">9</option>
-                                    <option value="10">10</option>
-                                </Select>)}
-                            />
                             {Array.from({length: watch(`stars.${index}.stars_count`) || 5}, (_, star) => (
                                 <IconButton
                                 key={star}
@@ -654,8 +590,8 @@ const AddSurvey = () => {
                                                             <HStack w="100%" justifyContent="space-between">
                                                             {/* Input Field */}
                                                             <Input
-                                                                required
                                                                 {...field}
+                                                                readOnly={true}
                                                                 placeholder={`Option ${idx + 1}`}
                                                                 _placeholder={{ color: "black" }}
                                                                 border="none"
@@ -674,17 +610,6 @@ const AddSurvey = () => {
                                                                 }}
                                                             />
 
-                                                                <ImCross
-                                                                    fontSize={'10px'}
-                                                                    cursor="pointer"
-                                                                    onClick={() => {
-                                                                        deleteOption(index, idx)
-                                                                    }}
-                                                                    aria-label={`Delete Option ${idx + 1}`}
-                                                                />
-
-
-
                                                             </HStack>
                                                         </>
                                                     )}
@@ -692,75 +617,17 @@ const AddSurvey = () => {
                                             </HStack>
                                         ))}
                                     </RadioGroup>
-
-                                    {/* Add Option Button */}
-                                    <Button
-                                        size="sm"
-                                        onClick={() => {
-                                            const options = watch(`questions.${index}.options`) || [];
-                                            setValue(`questions.${index}.options`, [...options, { optionText: '' }]);
-                                        }}
-                                        mt="20px"
-                                    >
-                                        Add Option
-                                    </Button>
                                 </Box>
                             )}
 
-                        <Box w="100%" h="1px" mt={'40px'} bg="gray.300"/>
+                        
 
-                        <HStack justifyContent={'flex-end'} mt={'20px'}>
 
-                            <Box>
-                                <IconButton
-                                    icon={<MdContentCopy/>}
-                                    fontSize={'20px'}
-                                    aria-label={`Copy question ${index + 1}`}
-                                    onClick={() => handleCopy(index)}
-                                    variant="ghost"
-                                    mr={0}
-                                />
-
-                                <IconButton
-                                    icon={<RiDeleteBin6Line/>}
-                                    fontSize={'20px'}
-                                    onClick={() => deleteQuestion(index)}
-                                    aria-label={`Delete question ${index - 1}`}
-                                    variant="ghost"
-                                    mr={0}
-                                    ml={'10px'}
-
-                                />
-                            </Box>
-
-                            <Box w="1px" h="40px" mt={'3px'} bg="gray.300"/>
-
-                            <HStack>
-                                <FormLabel ml={'7px'} mb="0" fontWeight={'light'} fontSize={'sm'}>
-                                    Required
-                                </FormLabel>
-                                <Switch colorScheme="blue" size="md" onChange={(e) => {
-                                    const isChecked = event.target.checked;
-                                    setRequired(isChecked);
-                                }}/>
-                            </HStack>
-
-                        </HStack>
 
                     </Box>);
                 })}
 
-                <Button
-                    leftIcon={<AddIcon/>}
-                    mt={'12px'}
-                    className="fixed bottom-10 right-10 bg-blue-600 text-white rounded-full p-4 shadow-lg hover:bg-blue-700"
-                    onClick={() => addQuestion()}>
-                    Add Question
-                </Button
-                >
-                <Button type="submit" mt={3} ml={3} colorScheme="green">
-                    Submit
-                </Button>
+
             </Box>
             </VStack>
     </form>
@@ -768,4 +635,4 @@ const AddSurvey = () => {
 
 };
 
-export default AddSurvey;
+export default ViewSurvey;
