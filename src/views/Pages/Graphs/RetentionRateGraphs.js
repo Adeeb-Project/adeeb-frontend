@@ -222,7 +222,7 @@ const RetentionRateGraphs = () => {
             <Element id="info" name="info">
               <CardHeader mb="40px">
                 <Text color={textColor} fontSize="lg" fontWeight="bold">
-                  Reasons Graphs
+                  Retention Rate Graphs
                 </Text>
               </CardHeader>
               <CardBody>
