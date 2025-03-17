@@ -1,19 +1,43 @@
 import React, { useState, useEffect } from "react";
-import { Table, Thead, Tbody, Tr, Th, Td, TableContainer, Button, Flex, Heading } from "@chakra-ui/react";
+import {
+  Table,
+  Thead,
+  Tbody,
+  Tr,
+  Th,
+  Td,
+  TableContainer,
+  Button,
+  Flex,
+  Heading,
+} from "@chakra-ui/react";
 import { Link } from "react-router-dom";
 
 const MySurvey = () => {
   const [surveys, setSurveys] = useState([]);
 
+  // Load surveys from localStorage (or use dummy data if not available)
   useEffect(() => {
-    // Simulate fetching surveys (replace with your API call)
-    const dummySurveys = [
-      { id: 1, title: "Exit Survey Q1", date: "2023-12-01", status: "Completed" },
-      { id: 2, title: "Employee Engagement Survey", date: "2023-11-15", status: "Pending" },
-      { id: 3, title: "Exit Survey Q2", date: "2024-01-10", status: "Draft" },
-    ];
-    setSurveys(dummySurveys);
+    const storedSurveys = localStorage.getItem("surveys");
+    if (storedSurveys) {
+      setSurveys(JSON.parse(storedSurveys));
+    } else {
+      // Dummy data as fallback
+      const dummySurveys = [
+        { id: 1, title: "Exit Survey Q1", date: "2023-12-01", status: "Completed" },
+        { id: 2, title: "Employee Engagement Survey", date: "2023-11-15", status: "Pending" },
+        { id: 3, title: "Exit Survey Q2", date: "2024-01-10", status: "Draft" },
+      ];
+      setSurveys(dummySurveys);
+    }
   }, []);
+
+  // Delete a survey
+  const handleDelete = (id) => {
+    const updatedSurveys = surveys.filter((survey) => survey.id !== id);
+    setSurveys(updatedSurveys);
+    localStorage.setItem("surveys", JSON.stringify(updatedSurveys));
+  };
 
   return (
     <Flex direction="column" p={6}>
@@ -40,10 +64,20 @@ const MySurvey = () => {
                 <Td>{survey.date}</Td>
                 <Td>{survey.status}</Td>
                 <Td>
-                  <Button size="sm" colorScheme="blue" mr={2} as={Link} to={`/survey?surveyId=${survey.id}`}>
+                  <Button
+                    size="sm"
+                    colorScheme="blue"
+                    mr={2}
+                    as={Link}
+                    to={`/survey?surveyId=${survey.id}&edit=true`}
+                  >
                     View/Edit
                   </Button>
-                  <Button size="sm" colorScheme="red">
+                  <Button
+                    size="sm"
+                    colorScheme="red"
+                    onClick={() => handleDelete(survey.id)}
+                  >
                     Delete
                   </Button>
                 </Td>
