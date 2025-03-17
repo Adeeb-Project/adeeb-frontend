@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useHistory } from "react-router-dom";
 import {
   Box,
   Text,
@@ -13,50 +13,102 @@ import {
   HStack,
   IconButton,
   Icon,
+  Radio,
+  RadioGroup,
+  Select,
 } from "@chakra-ui/react";
-import { FaStar, FaEdit, FaGripVertical, FaTrash, FaCheck, FaTimes } from "react-icons/fa";
+import {
+  FaStar,
+  FaEdit,
+  FaGripVertical,
+  FaTrash,
+  FaCheck,
+  FaTimes,
+} from "react-icons/fa";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 
 const Survey = () => {
   const { userId } = useParams();
+  const history = useHistory();
   const searchParams = new URLSearchParams(window.location.search);
   const isEditMode = searchParams.get("edit") === "true";
+  const editingSurveyId = searchParams.get("surveyId");
 
-  // Initial questions based on an exit interview template
+  // Original 12 professional exit survey questions
   const initialQuestions = [
     {
+      type: "mcq",
+      question: "What is the primary reason for your departure?",
+      options: [
+        "Better opportunity",
+        "Work-life balance",
+        "Career advancement",
+        "Compensation",
+        "Other",
+      ],
+      isEditing: false,
+    },
+    {
+      type: "mcq",
+      question: "How would you rate your overall experience working at the company?",
+      options: ["Excellent", "Good", "Average", "Poor", "Very Poor"],
+      isEditing: false,
+    },
+    {
+      type: "mcq",
+      question: "Did you feel that your contributions were recognized by management?",
+      options: ["Yes", "No", "Sometimes", "Not Sure"],
+      isEditing: false,
+    },
+    {
+      type: "mcq",
+      question: "How satisfied were you with the opportunities for professional growth?",
+      options: ["Very Satisfied", "Satisfied", "Neutral", "Dissatisfied", "Very Dissatisfied"],
+      isEditing: false,
+    },
+    {
       type: "text",
-      question:
-        "Please describe the primary reason(s) you are leaving your current position?",
+      question: "What was the most positive aspect of your job?",
       isEditing: false,
     },
     {
-      type: "yesno",
-      question:
-        "Did dissatisfaction with the following factor influence your decision to leave: Type of work?",
+      type: "text",
+      question: "What was the most challenging aspect of your job?",
       isEditing: false,
     },
     {
-      type: "yesno",
-      question:
-        "Did dissatisfaction with the following factor influence your decision to leave: Working conditions?",
+      type: "mcq",
+      question: "How likely are you to recommend our company as a place to work?",
+      options: ["Definitely", "Probably", "Not Sure", "Probably Not", "Definitely Not"],
       isEditing: false,
     },
     {
-      type: "rating",
-      question:
-        "Rate the following aspect of the job: Type of work performed",
+      type: "mcq",
+      question: "Did you feel that the workload was manageable?",
+      options: ["Yes", "No", "Sometimes"],
       isEditing: false,
     },
     {
-      type: "rating",
-      question:
-        "Rate the following aspect of the organization: Recruitment process",
+      type: "mcq",
+      question: "How effective was the communication within the organization?",
+      options: ["Very Effective", "Effective", "Neutral", "Ineffective", "Very Ineffective"],
+      isEditing: false,
+    },
+    {
+      type: "mcq",
+      question: "Were you provided with adequate tools and resources to perform your job?",
+      options: ["Yes", "No", "Partially"],
+      isEditing: false,
+    },
+    {
+      type: "mcq",
+      question: "Would you consider returning to the company in the future?",
+      options: ["Yes", "No", "Maybe"],
       isEditing: false,
     },
     {
       type: "textarea",
-      question: "What do you think can be improved about the job?",
+      question: "Please share any additional comments or suggestions for improvement.",
       isEditing: false,
     },
   ];
@@ -64,8 +116,16 @@ const Survey = () => {
   const [user, setUser] = useState(null);
   const [questions, setQuestions] = useState(initialQuestions);
   const [responses, setResponses] = useState({}); // Keyed by question index
-  // Store temporary editing text for each question
+
+  // States for editing question text and (if MCQ) options
   const [editingTexts, setEditingTexts] = useState({});
+  const [editingOptions, setEditingOptions] = useState({});
+
+  // States for adding a new question
+  const [addingQuestion, setAddingQuestion] = useState(false);
+  const [newQuestionType, setNewQuestionType] = useState("mcq");
+  const [newQuestionText, setNewQuestionText] = useState("");
+  const [newQuestionOptions, setNewQuestionOptions] = useState(["Option 1", "Option 2"]);
 
   useEffect(() => {
     // Simulate fetching user data
@@ -80,12 +140,18 @@ const Survey = () => {
     if (isEditMode) {
       // Simulate pre-filling responses for edit mode
       const existingResponses = {
-        0: "I left for better opportunities.",
-        1: true, // Yes for Type of work
-        2: false, // No for Working conditions
-        3: 4, // Rating
-        4: 3, // Rating
-        5: "More flexible hours would help.",
+        0: "Compensation",
+        1: "Good",
+        2: "Yes",
+        3: "Satisfied",
+        4: "I enjoyed the collaborative environment.",
+        5: "Communication issues sometimes arose.",
+        6: "Probably",
+        7: "Yes",
+        8: "Effective",
+        9: "Yes",
+        10: "Maybe",
+        11: "More transparent communication would help.",
       };
       setResponses(existingResponses);
     }
@@ -95,47 +161,59 @@ const Survey = () => {
     setResponses((prev) => ({ ...prev, [index]: value }));
   };
 
-  const handleYesNo = (index, answer) => {
-    setResponses((prev) => ({ ...prev, [index]: answer }));
-  };
-
   const handleRating = (index, ratingValue) => {
     setResponses((prev) => ({ ...prev, [index]: ratingValue }));
   };
 
-  // Start editing: set the temporary text and mark as editing
+  // Start editing a question; if it's MCQ, load its options for editing
   const startEditingQuestion = (index) => {
     setEditingTexts((prev) => ({ ...prev, [index]: questions[index].question }));
+    if (questions[index].type === "mcq") {
+      setEditingOptions((prev) => ({ ...prev, [index]: questions[index].options || [] }));
+    }
     setQuestions((prev) =>
-      prev.map((q, i) =>
-        i === index ? { ...q, isEditing: true } : q
-      )
+      prev.map((q, i) => (i === index ? { ...q, isEditing: true } : q))
     );
   };
 
-  // Save the edited text and exit editing mode
+  // Save edited question text and options (if MCQ)
   const saveEditingQuestion = (index) => {
     const newText = editingTexts[index];
     setQuestions((prev) =>
-      prev.map((q, i) =>
-        i === index ? { ...q, question: newText, isEditing: false } : q
-      )
+      prev.map((q, i) => {
+        if (i === index) {
+          if (q.type === "mcq") {
+            return { ...q, question: newText, options: editingOptions[index] || [], isEditing: false };
+          } else {
+            return { ...q, question: newText, isEditing: false };
+          }
+        }
+        return q;
+      })
     );
     setEditingTexts((prev) => {
       const newEditing = { ...prev };
       delete newEditing[index];
       return newEditing;
     });
+    setEditingOptions((prev) => {
+      const newEditing = { ...prev };
+      delete newEditing[index];
+      return newEditing;
+    });
   };
 
-  // Cancel editing without saving changes
+  // Cancel editing a question
   const cancelEditingQuestion = (index) => {
     setQuestions((prev) =>
-      prev.map((q, i) =>
-        i === index ? { ...q, isEditing: false } : q
-      )
+      prev.map((q, i) => (i === index ? { ...q, isEditing: false } : q))
     );
     setEditingTexts((prev) => {
+      const newEditing = { ...prev };
+      delete newEditing[index];
+      return newEditing;
+    });
+    setEditingOptions((prev) => {
       const newEditing = { ...prev };
       delete newEditing[index];
       return newEditing;
@@ -161,15 +239,19 @@ const Survey = () => {
       });
       return newResponses;
     });
-    // Also remove temporary editing text if exists
     setEditingTexts((prev) => {
+      const newEditing = { ...prev };
+      delete newEditing[index];
+      return newEditing;
+    });
+    setEditingOptions((prev) => {
       const newEditing = { ...prev };
       delete newEditing[index];
       return newEditing;
     });
   };
 
-  // Handler for drag end from react-beautiful-dnd
+  // Drag and drop handler for reordering questions
   const onDragEnd = (result) => {
     if (!result.destination) return;
     const newQuestions = Array.from(questions);
@@ -178,24 +260,143 @@ const Survey = () => {
     setQuestions(newQuestions);
   };
 
-  // Add a new question to the survey
-  const addNewQuestion = () => {
-    setQuestions((prev) => [
-      ...prev,
-      { type: "text", question: "New question", isEditing: false },
-    ]);
+  // Handler for saving a new question from the add form
+  const handleAddQuestion = () => {
+    let newQuestion = {
+      type: newQuestionType,
+      question: newQuestionText,
+      isEditing: false,
+    };
+    if (newQuestionType === "mcq") {
+      newQuestion.options = newQuestionOptions;
+    }
+    setQuestions((prev) => [...prev, newQuestion]);
+    // Reset new question form states
+    setNewQuestionType("mcq");
+    setNewQuestionText("");
+    setNewQuestionOptions(["Option 1", "Option 2"]);
+    setAddingQuestion(false);
   };
 
+  // Render the form to add a new question
+  const renderAddQuestionForm = () => (
+    <Box p={4} borderWidth={1} borderRadius="md" mb={4}>
+      <Text fontSize="lg" mb={2}>
+        Add New Question
+      </Text>
+      <FormControl mb={2}>
+        <FormLabel>Question Type</FormLabel>
+        <Select
+          value={newQuestionType}
+          onChange={(e) => {
+            const value = e.target.value;
+            setNewQuestionType(value);
+            if (value === "mcq") {
+              setNewQuestionOptions(["Option 1", "Option 2"]);
+            }
+          }}
+        >
+          <option value="mcq">MCQ</option>
+          <option value="text">Written</option>
+          <option value="rating">Rating</option>
+          <option value="textarea">Paragraph</option>
+        </Select>
+      </FormControl>
+      <FormControl mb={2}>
+        <FormLabel>Question Text</FormLabel>
+        <Input
+          value={newQuestionText}
+          onChange={(e) => setNewQuestionText(e.target.value)}
+          placeholder="Enter your question here"
+        />
+      </FormControl>
+      {newQuestionType === "mcq" && (
+        <Box mb={2}>
+          <Text mb={1}>MCQ Options:</Text>
+          <VStack spacing={2} align="start">
+            {newQuestionOptions.map((option, idx) => (
+              <HStack key={idx}>
+                <Input
+                  value={option}
+                  onChange={(e) => {
+                    const optionsCopy = [...newQuestionOptions];
+                    optionsCopy[idx] = e.target.value;
+                    setNewQuestionOptions(optionsCopy);
+                  }}
+                  placeholder={`Option ${idx + 1}`}
+                />
+                <IconButton
+                  icon={<FaTrash />}
+                  size="sm"
+                  onClick={() => {
+                    const optionsCopy = [...newQuestionOptions];
+                    optionsCopy.splice(idx, 1);
+                    setNewQuestionOptions(optionsCopy);
+                  }}
+                  aria-label="Remove option"
+                />
+              </HStack>
+            ))}
+            <Button
+              size="sm"
+              onClick={() =>
+                setNewQuestionOptions([...newQuestionOptions, "New Option"])
+              }
+            >
+              Add Option
+            </Button>
+          </VStack>
+        </Box>
+      )}
+      <HStack spacing={4}>
+        <Button onClick={handleAddQuestion} colorScheme="teal">
+          Save Question
+        </Button>
+        <Button
+          onClick={() => {
+            setAddingQuestion(false);
+            setNewQuestionText("");
+          }}
+          colorScheme="red"
+        >
+          Cancel
+        </Button>
+      </HStack>
+    </Box>
+  );
+
+  // When the survey is submitted, save it and navigate to MySurveys
   const handleSubmit = (event) => {
     event.preventDefault();
-    // Prepare submission data (replace with your API call)
-    const submissionData = {
-      user,
+    // Create a survey object – you might add more metadata as needed.
+    const surveyData = {
+      id: editingSurveyId || Date.now(), // use current timestamp as id if new
+      title: "Exit Survey", // Customize title as needed
+      date: new Date().toISOString().split("T")[0],
+      status: "Completed",
       questions,
       responses,
-      isEditMode,
+      user,
     };
-    console.log("Survey submitted:", submissionData);
+
+    // Retrieve existing surveys from localStorage (if any)
+    const storedSurveys = localStorage.getItem("surveys");
+    const surveys = storedSurveys ? JSON.parse(storedSurveys) : [];
+
+    // If editing, replace the survey; else, add new survey.
+    let updatedSurveys;
+    if (editingSurveyId) {
+      updatedSurveys = surveys.map((s) =>
+        s.id.toString() === editingSurveyId ? surveyData : s
+      );
+    } else {
+      updatedSurveys = [...surveys, surveyData];
+    }
+
+    localStorage.setItem("surveys", JSON.stringify(updatedSurveys));
+
+    // Redirect to MySurveys page using useHistory from react-router-dom v5
+    history.push("/mysurveys");
   };
 
   if (!user) {
@@ -226,6 +427,16 @@ const Survey = () => {
             <strong>Duration:</strong> {user.duration}
           </Text>
         </VStack>
+
+        {/* Add New Question Form */}
+        {addingQuestion ? (
+          renderAddQuestionForm()
+        ) : (
+          <Button onClick={() => setAddingQuestion(true)} colorScheme="blue" mb={4}>
+            Add New Question
+          </Button>
+        )}
+
         <form onSubmit={handleSubmit}>
           <DragDropContext onDragEnd={onDragEnd}>
             <Droppable droppableId="questions">
@@ -252,7 +463,11 @@ const Survey = () => {
                           borderWidth={1}
                           borderRadius="md"
                         >
-                          <HStack justifyContent="space-between" align="center" mb={2}>
+                          <HStack
+                            justifyContent="space-between"
+                            align="center"
+                            mb={2}
+                          >
                             <HStack {...provided.dragHandleProps} cursor="grab">
                               <Icon as={FaGripVertical} mr={2} />
                               {q.isEditing ? (
@@ -305,44 +520,74 @@ const Survey = () => {
                               </HStack>
                             )}
                           </HStack>
+
                           {/* Render answer input based on question type */}
                           {q.type === "text" && (
                             <Input
                               placeholder="Your answer"
                               value={responses[index] || ""}
-                              onChange={(e) =>
-                                handleInputChange(index, e.target.value)
-                              }
+                              onChange={(e) => handleInputChange(index, e.target.value)}
                             />
                           )}
                           {q.type === "textarea" && (
                             <Textarea
                               placeholder="Your answer"
                               value={responses[index] || ""}
-                              onChange={(e) =>
-                                handleInputChange(index, e.target.value)
-                              }
+                              onChange={(e) => handleInputChange(index, e.target.value)}
                             />
                           )}
-                          {q.type === "yesno" && (
-                            <HStack spacing={4}>
-                              <Button
-                                colorScheme={
-                                  responses[index] === true ? "teal" : "gray"
-                                }
-                                onClick={() => handleYesNo(index, true)}
-                              >
-                                Yes
-                              </Button>
-                              <Button
-                                colorScheme={
-                                  responses[index] === false ? "teal" : "gray"
-                                }
-                                onClick={() => handleYesNo(index, false)}
-                              >
-                                No
-                              </Button>
-                            </HStack>
+                          {q.type === "mcq" && (
+                            <>
+                              {q.isEditing ? (
+                                <VStack align="start" spacing={2} mb={2}>
+                                  {editingOptions[index]?.map((option, idx) => (
+                                    <HStack key={idx}>
+                                      <Input
+                                        value={option}
+                                        onChange={(e) => {
+                                          const opts = editingOptions[index].slice();
+                                          opts[idx] = e.target.value;
+                                          setEditingOptions((prev) => ({ ...prev, [index]: opts }));
+                                        }}
+                                      />
+                                      <IconButton
+                                        icon={<FaTrash />}
+                                        size="sm"
+                                        onClick={() => {
+                                          const opts = editingOptions[index].slice();
+                                          opts.splice(idx, 1);
+                                          setEditingOptions((prev) => ({ ...prev, [index]: opts }));
+                                        }}
+                                        aria-label="Remove option"
+                                      />
+                                    </HStack>
+                                  ))}
+                                  <Button
+                                    size="sm"
+                                    onClick={() => {
+                                      const opts = editingOptions[index] ? editingOptions[index].slice() : [];
+                                      opts.push("New Option");
+                                      setEditingOptions((prev) => ({ ...prev, [index]: opts }));
+                                    }}
+                                  >
+                                    Add Option
+                                  </Button>
+                                </VStack>
+                              ) : (
+                                <RadioGroup
+                                  value={responses[index] || ""}
+                                  onChange={(value) => handleInputChange(index, value)}
+                                >
+                                  <HStack spacing={4}>
+                                    {q.options.map((option, idx) => (
+                                      <Radio key={idx} value={option}>
+                                        {option}
+                                      </Radio>
+                                    ))}
+                                  </HStack>
+                                </RadioGroup>
+                              )}
+                            </>
                           )}
                           {q.type === "rating" && (
                             <HStack spacing={1}>
@@ -350,11 +595,7 @@ const Survey = () => {
                                 <Icon
                                   key={star}
                                   as={FaStar}
-                                  color={
-                                    responses[index] >= star
-                                      ? "teal.500"
-                                      : "gray.300"
-                                  }
+                                  color={responses[index] >= star ? "teal.500" : "gray.300"}
                                   cursor="pointer"
                                   onClick={() => handleRating(index, star)}
                                 />
@@ -370,9 +611,6 @@ const Survey = () => {
               )}
             </Droppable>
           </DragDropContext>
-          <Button onClick={addNewQuestion} colorScheme="blue" alignSelf="flex-start" mt={4}>
-            Add New Question
-          </Button>
           <Button type="submit" colorScheme="teal" width="full" mt={4}>
             {isEditMode ? "Update Survey" : "Submit Survey"}
           </Button>
