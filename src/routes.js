@@ -1,6 +1,3 @@
-// import
-// To be changed
-// import Tables from "views/Dashboard/Tables.js";
 import { RocketIcon } from "components/Icons/Icons";
 import { AuthenticationIcon } from "components/Icons/Icons";
 import {
@@ -30,8 +27,7 @@ import EditSurvey from "views/Survey/EditSurvey";
 import AddSurvey from "./views/Survey/AddSurvey";
 import ViewSurvey from "./views/Survey/ViewSurvey";
 import Survey from "views/Survey/Survey";
-
-{/* Side bar routers names */}
+import MySurvey from "views/Survey/mysurveys";
 
 const dashRoutes = [
   {
@@ -47,52 +43,46 @@ const dashRoutes = [
         component: Default,
         layout: "/admin",
       },
-      // {
-      //   name: "CRM",
-      //   path: "/dashboard/crm",
-      //   component: CRM,
-      //   layout: "/admin",
-      // },
     ],
   },
   {
     name: "PAGES",
     category: "pages",
     items: [
+      // Directly linking Survey to the Survey component
       {
         name: "Survey",
         path: "/survey",
         collapse: true,
         icon: <DocumentIcon color="inherit" />,
-        items: [
+            items: [
           {
             name: "Manage Surveys",
             path: "/survey/manage",
             component: SurveyManagement, // Updated to the new Survey Management Page
             layout: "/admin",
           },
-          {
+              {
             name: "Add Surveys",
             path: "/survey/addSurvey/:id",
             component: AddSurvey, // Updated to the new Survey Management Page
-            layout: "/admin",
-          },
-          {
+                layout: "/admin",
+              },
+              {
             name: "View Surveys",
             path: "/survey/viewSurvey/:id",
             component: ViewSurvey, // Updated to the new Survey Management Page
-            layout: "/admin",
+                layout: "/admin",
+              },
+            ],
           },
-        ],
-      },
-      
+
       
       {
         name: "Departing Employees",
         path: "/demployees",
         icon: <PersonIcon color="inherit" />,
         collapse: true,
-
         items: [
           {
             name: "Add Employee",
@@ -107,11 +97,9 @@ const dashRoutes = [
             authIcon: <PersonIcon color="inherit" />,
             path: "/demployees/employeestable",
             layout: "/admin",
-    
           },
         ],
       },
-
       {
         name: "Authentication",
         path: "/authentication",
@@ -121,10 +109,6 @@ const dashRoutes = [
           {
             name: "Users",
             path: "/authentication/users",
-             /* 
-            I should remove item but removing it cause an error 
-            so I change collapse to false
-            */
             collapse: false,
             authIcon: <DocumentIcon color="inherit" />,
             items: [
@@ -152,10 +136,6 @@ const dashRoutes = [
           {
             name: "New User",
             path: "/authentication/newuser",
-             /* 
-            I should remove item but removing it cause an error 
-            so I change collapse to false
-            */
             collapse: false,
             authIcon: <DocumentIcon color="inherit" />,
             items: [
@@ -197,10 +177,6 @@ const dashRoutes = [
           {
             name: "Company Report",
             path: "/companyreport",
-            /* 
-            I should remove item but removing it cause an error 
-            so I change collapse to false
-            */
             collapse: false,
             authIcon: <HomeIcon color="inherit" />,
             items: [
@@ -214,12 +190,8 @@ const dashRoutes = [
             ],
           },
           {
-            name: "Retension Rate",
+            name: "Retention Rate",
             path: "/companiesreport/rrate",
-             /* 
-            I should remove item but removing it cause an error 
-            so I change collapse to false
-            */
             collapse: true,
             authIcon: <PersonIcon color="inherit" />,
             items: [
@@ -246,10 +218,6 @@ const dashRoutes = [
           {
             name: "Reasons",
             path: "/reasons",
-             /* 
-            I should remove item but removing it cause an error 
-            so I change collapse to false
-            */
             collapse: true,
             authIcon: <PersonIcon color="inherit" />,
             items: [
@@ -282,12 +250,8 @@ const dashRoutes = [
         icon: <StatsIcon color="inherit" />,
         items: [
           {
-            name: "Retension Rate",
+            name: "Retention Rate",
             path: "/companiesreport/rrate",
-             /* 
-            I should remove item but removing it cause an error 
-            so I change collapse to false
-            */
             collapse: true,
             authIcon: <PersonIcon color="inherit" />,
             items: [
@@ -314,10 +278,6 @@ const dashRoutes = [
           {
             name: "Reasons",
             path: "/reasons",
-             /* 
-            I should remove item but removing it cause an error 
-            so I change collapse to false
-            */
             collapse: true,
             authIcon: <PersonIcon color="inherit" />,
             items: [
@@ -343,8 +303,8 @@ const dashRoutes = [
           },
         ],
       },
-     ],
-    },
+    ],
+  },
 ];
 
 export default dashRoutes;
