@@ -1,19 +1,3 @@
-/*!
-
-=========================================================
-* Purity UI Dashboard PRO - v1.0.0
-=========================================================
-
-* Product Page: https://www.creative-tim.com/product/purity-ui-dashboard-pro
-* Copyright 2021 Creative Tim (https://www.creative-tim.com/)
-
-* Design by Creative Tim & Coded by Simmmple
-
-=========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-
-*/
 
 // Chakra imports
 import {
@@ -30,11 +14,16 @@ import {
   useColorModeValue,
   Alert,
   AlertIcon,
+  InputGroup,
+  InputRightElement,
+  IconButton,
+  SimpleGrid
 } from "@chakra-ui/react";
 // Assets
-import cover from "assets/img/cover-auth.png";
+import cover from "assets/img/basic-auth.png";
 import React, { useState } from "react";
 import { Link as RouterLink, useHistory } from "react-router-dom";
+import { ViewIcon, ViewOffIcon, } from "@chakra-ui/icons";
 
 
 function SignIn() {
@@ -46,6 +35,8 @@ function SignIn() {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
+  
 
   const history = useHistory();
 
@@ -55,11 +46,18 @@ function SignIn() {
     setIsLoading(true);
     
     try {
-      const response = await fetch("http://localhost:5246/api/Users/login", {
-        method: "POST",
+      const formData = new FormData();
+      formData.append('Email', email);
+      formData.append('Password', password);
+
+      const response = await fetch("https://server.adeebcompany.com/api/Users/login", {
+        method: "POST", // Ensure we use POST
+        //body: formData,
+
         headers: {
           "Content-Type": "application/json",
         },
+        // Payload now includes a "loginRequest" property containing email and password
         body: JSON.stringify({ email, password }),
       });
 
@@ -77,8 +75,15 @@ function SignIn() {
       }
 
       const result = await response.json();
+
+      if (result.token) {
+        localStorage.setItem("authToken", `Bearer ${result.token}`);
+      }  
+      
       console.log("Login successful:", result);
       // Handle successful login here
+      history.push('/admin/dashboard/default');
+
       
     } catch (error) {
       setError(error.message);
@@ -126,33 +131,47 @@ function SignIn() {
               Enter your email and password to sign in
             </Text>
             <FormControl>
-              <FormLabel ms="4px" fontSize="sm" fontWeight="normal">
-                Email
-              </FormLabel>
-              <Input
-                borderRadius="15px"
-                mb="24px"
-                fontSize="sm"
-                type="text"
-                placeholder="Your email adress"
-                size="lg"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-              />
-              <FormLabel ms="4px" fontSize="sm" fontWeight="normal">
-                Password
-              </FormLabel>
-              <Input
-                borderRadius="15px"
-                mb="36px"
-                fontSize="sm"
-                type="password"
-                placeholder="Your password"
-                size="lg"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-              />
-              <FormControl display="flex" alignItems="center">
+          
+          <SimpleGrid columns={{ base: 1}} spacing={5}>
+              {/* Email */}
+              <Box>
+                <FormLabel fontSize="sm" fontWeight="bold">Email</FormLabel>
+                <Input
+                  borderRadius="15px"
+                  fontSize="sm"
+                  type="email"
+                  placeholder="Write Your Email"
+                  size="lg"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                />
+              </Box>
+
+              {/* Password */}
+              <Box>
+                <FormLabel fontSize="sm" fontWeight="bold">Password</FormLabel>
+                <InputGroup>
+                  <Input
+                    borderRadius="15px"
+                    fontSize="sm"
+                    type={showPassword ? "text" : "password"}
+                    placeholder="Write Password"
+                    size="lg"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                  />
+                  <InputRightElement>
+                    <IconButton
+                      variant="ghost"
+                      onClick={() => setShowPassword(!showPassword)}
+                      icon={showPassword ? <ViewIcon /> : <ViewOffIcon />}
+                    />
+                  </InputRightElement>
+                </InputGroup>
+              </Box>
+              
+              <Box>
+                <FormControl display="flex" alignItems="center">
                 <Switch id="remember-login" colorScheme="teal" me="10px" />
                 <FormLabel
                   htmlFor="remember-login"
@@ -169,6 +188,11 @@ function SignIn() {
                   {error}
                 </Alert>
               )}
+              </Box>
+
+            </SimpleGrid>            
+
+              
               <Button
                 fontSize="sm"
                 type="submit"
@@ -199,7 +223,7 @@ function SignIn() {
               <Text color={textColor} fontWeight="medium">
                 Don't have an account?
                 <Link 
-                  onClick={() => history.push('/auth/authentication/sign-up/cover')}
+                  onClick={() => history.push('/sign-up')}
                   color={titleColor} 
                   ms="5px" 
                   fontWeight="bold"

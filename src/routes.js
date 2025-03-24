@@ -22,7 +22,6 @@ import Default from "views/Dashboard/Default";
 import NewUser from "views/Pages/Users/NewUser/index";
 import Reports from "views/Pages/Users/Reports/index";
 import DataTables from "views/Applications/DataTables";
-import Survey from "views/Survey/Survey";
 import Settings from "views/Pages/Account/Settings";
 import ManageUsers from "views/Pages/Account/Settings/indexManageUsers";
 import RetentionRateGraphs from "views/Pages/Graphs/RetentionRateGraphs";
@@ -31,6 +30,8 @@ import { layout } from "@chakra-ui/system";
 import CompanyReports from "views/Pages/Summary/CompanyReports";
 import RetentionRateReport from "views/Pages/Summary/RetentionRate";
 import ReasonsReport from "views/Pages/Summary/Reasons";
+import Survey from "views/Survey/Survey";
+import MySurvey from "views/Survey/mysurveys";
 
 /* Side bar routers names */
 
@@ -63,17 +64,15 @@ const dashRoutes = [
         items: [
           {
             name: "My Surveys",
-            path: "/mysurveys",
-            component: Survey,
-            authIcon: <DocumentIcon color="inherit" />,
+            path: "/survey/manage",
+            component: MySurvey, // Updated to the new Survey Management Page
             layout: "/admin",
           },
           {
             name: "Survey",
-            path: "/survey/csurvey",
-            component: Survey,
-            authIcon: <DocumentIcon color="inherit" />,
-            layout: "/admin",            
+            path: "/survey/viewSurvey/:id",
+            component: Survey, // Updated to the new Survey Management Page
+            layout: "/admin",
           },
 
         ],

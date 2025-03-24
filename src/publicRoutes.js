@@ -29,12 +29,6 @@ const publicRoutes = [
     layout: "/admin",
   },
   {
-    name: "Sign Up",
-    path: "/sign-up",
-    component: SignUp,
-    layout: "/admin",
-  },
-  {
     name: "Settings",
     path: "/settings",
     component: Settings,

@@ -25,7 +25,7 @@ import cover from "assets/img/basic-auth.png";
 import React, { useState, useRef } from "react";
 import { ViewIcon, ViewOffIcon, } from "@chakra-ui/icons";
 import { useHistory } from "react-router-dom";
-import { FiUpload } from "react-icons/fi";
+import { FiUpload, FiX } from "react-icons/fi";
 
 function SignUp() {
   // Chakra color mode
@@ -48,21 +48,39 @@ function SignUp() {
   const [passwordError, setPasswordError] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [showRepeatPassword, setShowRepeatPassword] = useState(false);
+  const fileInputRef = useRef(null); 
+  const [previewImage, setPreviewImage] = useState("");
+  const [companyLogo, setCompanyLogo] = useState(null);
+  const [fileName, setFileName] = useState("");
 
   const history = useHistory();
 
-  // const handleImageChange = (e) => {
-  //   const file = e.target.files[0];
-  //   if (file) {
-  //     setCompanyLogo(file);
-  //     // Create a preview URL
-  //     const reader = new FileReader();
-  //     reader.onload = () => {
-  //       setPreviewImage(reader.result);
-  //     };
-  //     reader.readAsDataURL(file);
-  //   }
-  // };
+  const handleImageChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      setFileName(file.name); // Store the file name
+      setCompanyLogo(file);    // Save the file
+
+      // Create a preview URL
+      const reader = new FileReader();
+      reader.onload = () => {
+        setPreviewImage(reader.result);
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
+  // Remove the selected file
+  const handleRemoveImage = () => {
+    setCompanyLogo(null);
+    setPreviewImage("");
+    setFileName("");
+
+    // Reset file input value to allow re-selection of the same file
+    if (fileInputRef.current) {
+      fileInputRef.current.value = "";
+    }
+  };
 
   const validateForm = () => {
     let isValid = true;
@@ -113,12 +131,13 @@ function SignUp() {
     try {
       // Create a FormData object to handle file upload
       const formData = new FormData();
-      formData.append('companyName', companyName);
-      formData.append('name', name);
-      formData.append('email', email);
-      formData.append('password', password);
-      formData.append('totalNumberOfEmployees', employeeCount);
-      formData.append('bundle', bundle);
+      formData.append('Name', companyName);
+      formData.append('NameOfUser', name);
+      formData.append('Email', email);
+      formData.append('Password', password);
+      formData.append('TotalNumberOfEmployees', employeeCount);
+      formData.append('Bundle', bundle);
+      formData.append('CompannyLogo', companyLogo);
       
 
       const response = await fetch("https://server.adeebcompany.com/api/companies/register", {
@@ -140,10 +159,14 @@ function SignUp() {
           
         }
       }
+
+      if (result.token) {
+        localStorage.setItem("authToken", `Bearer ${result.token}`);
+      }  
         
       console.log("Registration successful:", result);
       // Redirect to sign in page after successful registration
-      history.push('/auth/authentication/sign-in/cover');
+      history.push('/sign-in');
       
     } catch (error) {
       setError(error.message);
@@ -268,7 +291,7 @@ function SignUp() {
                     <IconButton
                       variant="ghost"
                       onClick={() => setShowPassword(!showPassword)}
-                      icon={showPassword ? <ViewOffIcon /> : <ViewIcon />}
+                      icon={showPassword ? <ViewIcon /> : <ViewOffIcon />}
                     />
                   </InputRightElement>
                 </InputGroup>
@@ -291,7 +314,7 @@ function SignUp() {
                     <IconButton
                       variant="ghost"
                       onClick={() => setShowRepeatPassword(!showRepeatPassword)}
-                      icon={showRepeatPassword ? <ViewOffIcon /> : <ViewIcon />}
+                      icon={showRepeatPassword ? <ViewIcon /> : <ViewOffIcon />}
                     />
                   </InputRightElement>
                 </InputGroup>
@@ -312,6 +335,82 @@ function SignUp() {
                   <option value="Basic">Basic</option>
                 </Select>
               </Box>
+            <Box>
+              <FormLabel fontSize="sm" fontWeight="bold">Company Logo</FormLabel>
+              <Input
+                type="file"
+                accept="image/*"
+                display="none"
+                ref={fileInputRef}
+                onChange={handleImageChange}
+              />
+
+              {/* Input Group with Image Preview and Remove Button */}
+              <Flex
+                border="1px solid #E2E8F0"
+                borderRadius="15px"
+                alignItems="center"
+                overflow="hidden"
+                width="100%"
+              >
+                {/* Left Box - Image Preview */}
+                {previewImage && (
+                  <Box
+                    width="48px" // Adjust the preview box width
+                    height="48px" // Keep it square
+                    display="flex"
+                    alignItems="center"
+                    justifyContent="center"
+                    bg="gray.100"
+                    borderRight="1px solid #E2E8F0"
+                    p={1}
+                  >
+                    <Image 
+                      src={previewImage} 
+                      alt="Company Logo Preview" 
+                      width="100%"
+                      height="100%"
+                      objectFit="cover" // Ensures proper aspect ratio
+                      borderRadius="8px"
+                    />
+                  </Box>
+                )}
+
+                {/* Text Input for File Name */}
+                <Input
+                  flex="1"
+                  border="none"
+                  fontSize="sm"
+                  type="text"
+                  placeholder="Upload company logo"
+                  size="lg"
+                  readOnly
+                  value={fileName}
+                  onClick={() => fileInputRef.current.click()} // Open file picker
+                  pl={previewImage ? "10px" : "16px"} // Adjust padding if image is present
+                />
+
+                {/* Right Box - Remove Button or Upload Button */}
+                <Box pr={2}>
+                  {fileName ? (
+                    <IconButton
+                      size="md"
+                      colorScheme="red"
+                      icon={<FiX />}
+                      borderRadius="full"
+                      onClick={handleRemoveImage} // Remove file when clicked
+                    />
+                  ) : (
+                    <IconButton
+                      variant="ghost"
+                      icon={<FiUpload />}
+                      onClick={() => fileInputRef.current.click()}
+                    />
+                  )}
+                </Box>
+              </Flex>
+            </Box>
+            
             </SimpleGrid>
 
             {/* Register Button */}
@@ -340,7 +439,7 @@ function SignUp() {
               <Text color={textColor} fontWeight="medium">
                 Already have an account?
                 <Link 
-                  onClick={() => history.push('/auth/authentication/sign-in/cover')}
+                  onClick={() => history.push('/sign-in')}
                   color={titleColor} 
                   ms="5px" 
                   fontWeight="bold"
