@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+
 import { useParams, useHistory } from "react-router-dom";
 import {
   Box,
@@ -260,6 +261,7 @@ const Survey = () => {
     setQuestions(newQuestions);
   };
 
+
   // Handler for saving a new question from the add form
   const handleAddQuestion = () => {
     let newQuestion = {
@@ -397,6 +399,7 @@ const Survey = () => {
 
     // Redirect to MySurveys page using useHistory from react-router-dom v5
     history.push("/mysurveys");
+
   };
 
   if (!user) {
@@ -405,6 +408,7 @@ const Survey = () => {
 
   return (
     <Flex direction="column" align="center" p={4}>
+
       <Text fontSize="2xl" mb={6}>
         {isEditMode ? "Edit Exit Survey" : `Exit Survey for ${user.name}`}
       </Text>
@@ -614,6 +618,7 @@ const Survey = () => {
           <Button type="submit" colorScheme="teal" width="full" mt={4}>
             {isEditMode ? "Update Survey" : "Submit Survey"}
           </Button>
+
         </form>
       </Box>
     </Flex>

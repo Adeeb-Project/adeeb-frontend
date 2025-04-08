@@ -28,6 +28,7 @@ import AddSurvey from "./views/Survey/AddSurvey";
 import ViewSurvey from "./views/Survey/ViewSurvey";
 import Survey from "views/Survey/Survey";
 import MySurvey from "views/Survey/mysurveys";
+import ViewSurveyResponses from "views/Survey/ViewSurveyResponses";
 
 const dashRoutes = [
   {
@@ -55,29 +56,36 @@ const dashRoutes = [
         path: "/survey",
         collapse: true,
         icon: <DocumentIcon color="inherit" />,
-            items: [
+        items: [
           {
             name: "Manage Surveys",
             path: "/survey/manage",
             component: SurveyManagement, // Updated to the new Survey Management Page
             layout: "/admin",
           },
-              {
+          {
             name: "Add Surveys",
             path: "/survey/addSurvey/:id",
             component: AddSurvey, // Updated to the new Survey Management Page
-                layout: "/admin",
-              },
-              {
+            layout: "/admin",
+            hidden:true,
+          },
+          {
             name: "View Surveys",
             path: "/survey/viewSurvey/:id",
             component: ViewSurvey, // Updated to the new Survey Management Page
-                layout: "/admin",
-              },
-            ],
+            layout: "/admin",
+            hidden:true,
           },
-
-      
+          {
+            name: "View Response",
+            path: "/survey/view-responses/:id",
+            component: ViewSurveyResponses, // Updated to the new Survey Management Page
+            layout: "/admin",
+            hidden:true,
+          },
+        ],
+      },
       {
         name: "Departing Employees",
         path: "/demployees",
