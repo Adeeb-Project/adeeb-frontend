@@ -1,4 +1,3 @@
-
 import {
   Avatar,
   Button,
@@ -43,10 +42,60 @@ function NewUser() {
     profile: false,
   });
 
+  // Refs to access tabs for navigation
   const userInfoTab = useRef();
-  //const addressTab = useRef();
-  //const socialsTab = useRef();
   const profileTab = useRef();
+
+  // State variables for capturing input values
+  const [fullName, setFullName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [repeatPassword, setRepeatPassword] = useState("");
+
+  // Handler to send data to the backend on submission
+  const handleSubmit = async () => {
+    if (password !== repeatPassword) {
+      alert("Passwords do not match!");
+      return;
+    }
+
+    // Create form data
+    const newUser = {
+      Name: fullName,
+      Email: email,
+      Password: password,
+    };
+
+    // Retrieve token from localStorage (if available)
+    const token = localStorage.getItem("token");
+
+    try {
+      const response = await fetch("https://server.adeebcompany.com/api/users/register", {
+        method: "POST",
+        body: newUser,
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": "Bearer "
+        },
+        body: JSON.stringify(newUser),
+      });
+
+      if (response.ok) {
+        // Data sent successfully. Optionally process the success response.
+        console.log("User information sent successfully!");
+        // Navigate to the Profile tab if submission is successful.
+        if (profileTab && profileTab.current) {
+          profileTab.current.click();
+        }
+      } else {
+        // If response was not ok, log details.
+        const errorData = await response.json();
+        console.error("Error sending user info:", errorData);
+      }
+    } catch (error) {
+      console.error("Error occurred while sending data:", error);
+    }
+  };
 
   return (
     <Flex
@@ -104,7 +153,6 @@ function NewUser() {
               </Text>
             </Flex>
           </Tab>
-          
           <Tab
             ref={profileTab}
             _focus="none"
@@ -169,40 +217,14 @@ function NewUser() {
                         fontWeight="bold"
                         fontSize="xs"
                       >
-                        First Name
+                        Full Name
                       </FormLabel>
                       <Input
                         borderRadius="15px"
                         placeholder="eg. Michael"
                         fontSize="xs"
-                      />
-                    </FormControl>
-                    <FormControl>
-                      <FormLabel
-                        color={textColor}
-                        fontWeight="bold"
-                        fontSize="xs"
-                      >
-                        Last Name
-                      </FormLabel>
-                      <Input
-                        borderRadius="15px"
-                        placeholder="eg. Jackson"
-                        fontSize="xs"
-                      />
-                    </FormControl>
-                    <FormControl>
-                      <FormLabel
-                        color={textColor}
-                        fontWeight="bold"
-                        fontSize="xs"
-                      >
-                        Position
-                      </FormLabel>
-                      <Input
-                        borderRadius="15px"
-                        placeholder="HR Manager"
-                        fontSize="xs"
+                        value={fullName}
+                        onChange={(e) => setFullName(e.target.value)}
                       />
                     </FormControl>
                     <FormControl>
@@ -218,6 +240,8 @@ function NewUser() {
                         type="email"
                         placeholder="anonymous@example.com"
                         fontSize="xs"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
                       />
                     </FormControl>
                     <FormControl>
@@ -231,8 +255,10 @@ function NewUser() {
                       <Input
                         borderRadius="15px"
                         type="password"
-                        placeholder="******"
+                        placeholder="write your password"
                         fontSize="xs"
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
                       />
                     </FormControl>
                     <FormControl>
@@ -245,8 +271,11 @@ function NewUser() {
                       </FormLabel>
                       <Input
                         borderRadius="15px"
-                        placeholder="******"
+                        type="password"
+                        placeholder="repeat your password"
                         fontSize="xs"
+                        value={repeatPassword}
+                        onChange={(e) => setRepeatPassword(e.target.value)}
                       />
                     </FormControl>
                   </Grid>
@@ -257,7 +286,7 @@ function NewUser() {
                     mt="24px"
                     w="100px"
                     h="35px"
-                    onClick={() => profileTab.current.click()}
+                    onClick={handleSubmit}
                   >
                     <Text fontSize="xs" color="#fff" fontWeight="bold">
                       NEXT
@@ -282,41 +311,46 @@ function NewUser() {
               <CardBody>
                 <Flex direction="column" w="100%">
                   <Stack direction="column" spacing="24px">
-
-                  <CardBody>
-          <Flex
-            direction={{ sm: "column", md: "row" }}
-            justify="space-between"
-            align="center"
-            w="100%"
-          >
-            <Flex align="center">
-              <Avatar
-                src={avatar4}
-                w="85px"
-                h="85px"
-                me="25px"
-                borderRadius="50px"
-              />
-              <Flex direction="column">
-                <Text color={textColor} fontWeight="bold" fontSize="lg">
-                  Muath Alghamdi
-                </Text>
-                <Text color="gray.400" fontWeight="normal" fontSize="sm">
-                  muath@adeeb.com
-                </Text>
-              </Flex>
-            </Flex>
-            <Flex
-              align="center"
-              alignSelf={{ sm: "flex-start", lg: null }}
-              mt={{ sm: "16px", lg: null }}
-              ms={{ sm: "6px", lg: null }}
-            >
-
-            </Flex>
-          </Flex>
-        </CardBody>
+                    <CardBody>
+                      <Flex
+                        direction={{ sm: "column", md: "row" }}
+                        justify="space-between"
+                        align="center"
+                        w="100%"
+                      >
+                        <Flex align="center">
+                          <Avatar
+                            src={avatar4}
+                            w="85px"
+                            h="85px"
+                            me="25px"
+                            borderRadius="50px"
+                          />
+                          <Flex direction="column">
+                            <Text
+                              color={textColor}
+                              fontWeight="bold"
+                              fontSize="lg"
+                              value={fullName}
+                            >
+                            </Text>
+                            <Text
+                              color="gray.400"
+                              fontWeight="normal"
+                              fontSize="sm"
+                              value={email}
+                            >
+                            </Text>
+                          </Flex>
+                        </Flex>
+                        <Flex
+                          align="center"
+                          alignSelf={{ sm: "flex-start", lg: null }}
+                          mt={{ sm: "16px", lg: null }}
+                          ms={{ sm: "6px", lg: null }}
+                        ></Flex>
+                      </Flex>
+                    </CardBody>
                   </Stack>
                   <Flex justify="space-between">
                     <Button

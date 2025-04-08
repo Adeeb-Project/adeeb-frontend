@@ -1,4 +1,3 @@
-
 // Chakra imports
 import {
   Box,
@@ -17,26 +16,25 @@ import {
   InputGroup,
   InputRightElement,
   IconButton,
-  SimpleGrid
+  SimpleGrid,
 } from "@chakra-ui/react";
 // Assets
 import cover from "assets/img/basic-auth.png";
 import React, { useState } from "react";
 import { Link as RouterLink, useHistory } from "react-router-dom";
-import { ViewIcon, ViewOffIcon, } from "@chakra-ui/icons";
-
+import { ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
 
 function SignIn() {
   // Chakra color mode
   const titleColor = useColorModeValue("teal.300", "teal.200");
   const textColor = useColorModeValue("gray.400", "white");
 
+  // State variables for input values and UI feedback
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
-  
 
   const history = useHistory();
 
@@ -44,20 +42,15 @@ function SignIn() {
     e.preventDefault();
     setError(""); // Clear any previous errors
     setIsLoading(true);
-    
+
     try {
-      const formData = new FormData();
-      formData.append('Email', email);
-      formData.append('Password', password);
-
+      // We can either send as JSON or as FormData.
+      // Here we're sending a JSON payload:
       const response = await fetch("https://server.adeebcompany.com/api/Users/login", {
-        method: "POST", // Ensure we use POST
-        //body: formData,
-
+        method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        // Payload now includes a "loginRequest" property containing email and password
         body: JSON.stringify({ email, password }),
       });
 
@@ -76,15 +69,14 @@ function SignIn() {
 
       const result = await response.json();
 
+      // If a token is received, save it to localStorage
       if (result.token) {
         localStorage.setItem("authToken", `Bearer ${result.token}`);
-      }  
-      
-      console.log("Login successful:", result);
-      // Handle successful login here
-      history.push('/admin/dashboard/default');
+      }
 
-      
+      console.log("Login successful:", result);
+      // Handle successful login here and redirect to the dashboard
+      history.push("/admin/dashboard/default");
     } catch (error) {
       setError(error.message);
     } finally {
@@ -131,74 +123,76 @@ function SignIn() {
               Enter your email and password to sign in
             </Text>
             <FormControl>
-          
-          <SimpleGrid columns={{ base: 1}} spacing={5}>
-              {/* Email */}
-              <Box>
-                <FormLabel fontSize="sm" fontWeight="bold">Email</FormLabel>
-                <Input
-                  borderRadius="15px"
-                  fontSize="sm"
-                  type="email"
-                  placeholder="Write Your Email"
-                  size="lg"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                />
-              </Box>
-
-              {/* Password */}
-              <Box>
-                <FormLabel fontSize="sm" fontWeight="bold">Password</FormLabel>
-                <InputGroup>
+              <SimpleGrid columns={{ base: 1 }} spacing={5}>
+                {/* Email */}
+                <Box>
+                  <FormLabel fontSize="sm" fontWeight="bold">
+                    Email
+                  </FormLabel>
                   <Input
                     borderRadius="15px"
                     fontSize="sm"
-                    type={showPassword ? "text" : "password"}
-                    placeholder="Write Password"
+                    type="email"
+                    placeholder="Write Your Email"
                     size="lg"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
                   />
-                  <InputRightElement>
-                    <IconButton
-                      variant="ghost"
-                      onClick={() => setShowPassword(!showPassword)}
-                      icon={showPassword ? <ViewIcon /> : <ViewOffIcon />}
+                </Box>
+
+                {/* Password */}
+                <Box>
+                  <FormLabel fontSize="sm" fontWeight="bold">
+                    Password
+                  </FormLabel>
+                  <InputGroup>
+                    <Input
+                      borderRadius="15px"
+                      fontSize="sm"
+                      type={showPassword ? "text" : "password"}
+                      placeholder="Write Password"
+                      size="lg"
+                      value={password}
+                      onChange={(e) => setPassword(e.target.value)}
                     />
-                  </InputRightElement>
-                </InputGroup>
-              </Box>
-              
-              <Box>
-                <FormControl display="flex" alignItems="center">
-                <Switch id="remember-login" colorScheme="teal" me="10px" />
-                <FormLabel
-                  htmlFor="remember-login"
-                  mb="0"
-                  ms="1"
-                  fontWeight="normal"
-                >
-                  Remember me
-                </FormLabel>
-              </FormControl>
-              {error && (
-                <Alert status="error" borderRadius="15px" mb="5px" mt="15px">
-                  <AlertIcon />
-                  {error}
-                </Alert>
-              )}
-              </Box>
+                    <InputRightElement>
+                      <IconButton
+                        variant="ghost"
+                        onClick={() => setShowPassword(!showPassword)}
+                        icon={showPassword ? <ViewIcon /> : <ViewOffIcon />}
+                      />
+                    </InputRightElement>
+                  </InputGroup>
+                </Box>
 
-            </SimpleGrid>            
+                {/* Remember Me and Error Alert */}
+                <Box>
+                  <FormControl display="flex" alignItems="center">
+                    <Switch id="remember-login" colorScheme="teal" me="10px" />
+                    <FormLabel
+                      htmlFor="remember-login"
+                      mb="0"
+                      ms="1"
+                      fontWeight="normal"
+                    >
+                      Remember me
+                    </FormLabel>
+                  </FormControl>
+                  {error && (
+                    <Alert status="error" borderRadius="15px" mb="5px" mt="15px">
+                      <AlertIcon />
+                      {error}
+                    </Alert>
+                  )}
+                </Box>
+              </SimpleGrid>
 
-              
               <Button
                 fontSize="sm"
                 type="submit"
                 bg="teal.300"
                 w="100%"
-                h="45"
+                h="45px"
                 mb="20px"
                 color="white"
                 mt="20px"
@@ -222,10 +216,10 @@ function SignIn() {
             >
               <Text color={textColor} fontWeight="medium">
                 Don't have an account?
-                <Link 
-                  onClick={() => history.push('/sign-up')}
-                  color={titleColor} 
-                  ms="5px" 
+                <Link
+                  onClick={() => history.push("/sign-up")}
+                  color={titleColor}
+                  ms="5px"
                   fontWeight="bold"
                   cursor="pointer"
                 >

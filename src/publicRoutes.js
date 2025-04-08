@@ -28,12 +28,6 @@ const publicRoutes = [
     component: SignUp,
     layout: "/admin",
   },
-  {
-    name: "Settings",
-    path: "/settings",
-    component: Settings,
-    layout: "/admin",
-  },
 ];
 
 export default publicRoutes;

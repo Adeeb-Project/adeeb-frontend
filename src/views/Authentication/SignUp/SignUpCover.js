@@ -25,7 +25,7 @@ import cover from "assets/img/basic-auth.png";
 import React, { useState, useRef } from "react";
 import { ViewIcon, ViewOffIcon, } from "@chakra-ui/icons";
 import { useHistory } from "react-router-dom";
-import { FiUpload, FiX } from "react-icons/fi";
+import { FiUpload, FiX, FiArrowLeft } from "react-icons/fi";
 
 function SignUp() {
   // Chakra color mode
@@ -178,6 +178,18 @@ function SignUp() {
 
   return (
     <Flex position="relative" mb="70px">
+      <IconButton
+        icon={<FiArrowLeft />}
+        aria-label="Go back to landing page"
+        variant="ghost"
+        fontSize="2xl"
+        position="absolute"
+        top="20px"
+        left="20px"
+        onClick={() => history.push("/land-page")} 
+        zIndex="1000"
+      />
+
       <Flex
         h={{ sm: "initial", md: "75vh", lg: "85vh" }}
         w="100%"
