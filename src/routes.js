@@ -24,6 +24,7 @@ import Reports from "views/Pages/Users/Reports/index";
 import DataTables from "views/Applications/DataTables";
 import Survey from "views/Survey/Survey";
 import MySurvey from "views/Survey/mysurveys";
+import Payment from "views/Pages/Account/Payment/Payment.js";
 
 const dashRoutes = [
   {
@@ -195,6 +196,12 @@ const dashRoutes = [
                 layout: "/admin",
               },
             ],
+          },
+          {
+            path: "/Account/Payment",   // Suitable route path for the Payment page
+            name: "Payment",
+            component: Payment,
+            layout: "/admin",
           },
           {
             name: "Retention Rate",
