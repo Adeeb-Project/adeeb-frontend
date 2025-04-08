@@ -25,6 +25,8 @@ import DataTables from "views/Applications/DataTables";
 import Survey from "views/Survey/Survey";
 import MySurvey from "views/Survey/mysurveys";
 import Payment from "views/Pages/Account/Payment/Payment.js";
+import EmployeeOTPAuth from "./views/Authentication/OTP/EmployeeOTPAuth";
+
 
 const dashRoutes = [
   {
@@ -104,6 +106,13 @@ const dashRoutes = [
             component: DataTables,
             authIcon: <PersonIcon color="inherit" />,
             path: "/demployees/employeestable",
+            layout: "/admin",
+          },
+          {
+            name: "OTP Verification",
+            component: EmployeeOTPAuth,
+            authIcon: <AuthenticationIcon color="inherit" />,
+            path: "/demployees/otpauth",
             layout: "/admin",
           },
         ],
