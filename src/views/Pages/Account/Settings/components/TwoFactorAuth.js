@@ -59,40 +59,6 @@ const TwoFactorAuth = () => {
         </CardHeader>
         <CardBody>
           <Stack direction="column" spacing="22px" w="100%">
-            <Flex
-              direction={{ sm: "column", md: "row" }}
-              justify="space-between"
-              align="center"
-            >
-              <Text
-                color="gray.400"
-                fontWeight="bold"
-                fontSize="sm"
-                alignSelf={{ sm: "center", lg: null }}
-                mb={{ sm: "12px", lg: null }}
-              >
-                Security keys
-              </Text>
-              <Flex align="center">
-                <Text
-                  color="gray.500"
-                  fontWeight="normal"
-                  fontSize="sm"
-                  me="28px"
-                >
-                  No Security keys
-                </Text>
-                <Button
-                  variant="outline"
-                  colorScheme="dark"
-                  w="90px"
-                  h="35px"
-                  fontSize={{ sm: "xs", lg: "sm" }}
-                >
-                  ADD
-                </Button>
-              </Flex>
-            </Flex>
             <HSeparator />
             <Flex
               direction={{ sm: "column", md: "row" }}
@@ -115,7 +81,7 @@ const TwoFactorAuth = () => {
                   fontSize="sm"
                   me="28px"
                 >
-                  +40 941 264 232
+                  +966555555555
                 </Text>
                 <Button
                   variant="outline"
@@ -129,40 +95,7 @@ const TwoFactorAuth = () => {
               </Flex>
             </Flex>
             <HSeparator />
-            <Flex
-              direction={{ sm: "column", md: "row" }}
-              justify="space-between"
-              align="center"
-            >
-              <Text
-                color="gray.400"
-                fontWeight="bold"
-                fontSize="sm"
-                alignSelf={{ sm: "center", lg: null }}
-                mb={{ sm: "12px", lg: null }}
-              >
-                Authenticator App
-              </Text>
-              <Flex align="center">
-                <Text
-                  color="gray.500"
-                  fontWeight="normal"
-                  fontSize="sm"
-                  me="28px"
-                >
-                  Not Configured
-                </Text>
-                <Button
-                  variant="outline"
-                  colorScheme="dark"
-                  w="90px"
-                  h="35px"
-                  fontSize={{ sm: "xs", lg: "sm" }}
-                >
-                  SET UP
-                </Button>
-              </Flex>
-            </Flex>
+            
           </Stack>
         </CardBody>
       </Element>

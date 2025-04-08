@@ -1,20 +1,3 @@
-/*!
-
-=========================================================
-* Purity UI Dashboard PRO - v1.0.0
-=========================================================
-
-* Product Page: https://www.creative-tim.com/product/purity-ui-dashboard-pro
-* Copyright 2021 Creative Tim (https://www.creative-tim.com/)
-
-* Design by Creative Tim & Coded by Simmmple
-
-=========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-
-*/
-
 // Chakra imports
 import {
   Box,
@@ -30,22 +13,28 @@ import {
   useColorModeValue,
   Alert,
   AlertIcon,
+  InputGroup,
+  InputRightElement,
+  IconButton,
+  SimpleGrid,
 } from "@chakra-ui/react";
 // Assets
-import cover from "assets/img/cover-auth.png";
+import cover from "assets/img/basic-auth.png";
 import React, { useState } from "react";
 import { Link as RouterLink, useHistory } from "react-router-dom";
-
+import { ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
 
 function SignIn() {
   // Chakra color mode
   const titleColor = useColorModeValue("teal.300", "teal.200");
   const textColor = useColorModeValue("gray.400", "white");
 
+  // State variables for input values and UI feedback
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
 
   const history = useHistory();
 
@@ -53,9 +42,11 @@ function SignIn() {
     e.preventDefault();
     setError(""); // Clear any previous errors
     setIsLoading(true);
-    
+
     try {
-      const response = await fetch("http://localhost:5246/api/Users/login", {
+      // We can either send as JSON or as FormData.
+      // Here we're sending a JSON payload:
+      const response = await fetch("https://server.adeebcompany.com/api/Users/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -77,9 +68,15 @@ function SignIn() {
       }
 
       const result = await response.json();
+
+      // If a token is received, save it to localStorage
+      if (result.token) {
+        localStorage.setItem("authToken", `Bearer ${result.token}`);
+      }
+
       console.log("Login successful:", result);
-      // Handle successful login here
-      
+      // Handle successful login here and redirect to the dashboard
+      history.push("/admin/dashboard/default");
     } catch (error) {
       setError(error.message);
     } finally {
@@ -126,55 +123,76 @@ function SignIn() {
               Enter your email and password to sign in
             </Text>
             <FormControl>
-              <FormLabel ms="4px" fontSize="sm" fontWeight="normal">
-                Email
-              </FormLabel>
-              <Input
-                borderRadius="15px"
-                mb="24px"
-                fontSize="sm"
-                type="text"
-                placeholder="Your email adress"
-                size="lg"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-              />
-              <FormLabel ms="4px" fontSize="sm" fontWeight="normal">
-                Password
-              </FormLabel>
-              <Input
-                borderRadius="15px"
-                mb="36px"
-                fontSize="sm"
-                type="password"
-                placeholder="Your password"
-                size="lg"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-              />
-              <FormControl display="flex" alignItems="center">
-                <Switch id="remember-login" colorScheme="teal" me="10px" />
-                <FormLabel
-                  htmlFor="remember-login"
-                  mb="0"
-                  ms="1"
-                  fontWeight="normal"
-                >
-                  Remember me
-                </FormLabel>
-              </FormControl>
-              {error && (
-                <Alert status="error" borderRadius="15px" mb="5px" mt="15px">
-                  <AlertIcon />
-                  {error}
-                </Alert>
-              )}
+              <SimpleGrid columns={{ base: 1 }} spacing={5}>
+                {/* Email */}
+                <Box>
+                  <FormLabel fontSize="sm" fontWeight="bold">
+                    Email
+                  </FormLabel>
+                  <Input
+                    borderRadius="15px"
+                    fontSize="sm"
+                    type="email"
+                    placeholder="Write Your Email"
+                    size="lg"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                  />
+                </Box>
+
+                {/* Password */}
+                <Box>
+                  <FormLabel fontSize="sm" fontWeight="bold">
+                    Password
+                  </FormLabel>
+                  <InputGroup>
+                    <Input
+                      borderRadius="15px"
+                      fontSize="sm"
+                      type={showPassword ? "text" : "password"}
+                      placeholder="Write Password"
+                      size="lg"
+                      value={password}
+                      onChange={(e) => setPassword(e.target.value)}
+                    />
+                    <InputRightElement>
+                      <IconButton
+                        variant="ghost"
+                        onClick={() => setShowPassword(!showPassword)}
+                        icon={showPassword ? <ViewIcon /> : <ViewOffIcon />}
+                      />
+                    </InputRightElement>
+                  </InputGroup>
+                </Box>
+
+                {/* Remember Me and Error Alert */}
+                <Box>
+                  <FormControl display="flex" alignItems="center">
+                    <Switch id="remember-login" colorScheme="teal" me="10px" />
+                    <FormLabel
+                      htmlFor="remember-login"
+                      mb="0"
+                      ms="1"
+                      fontWeight="normal"
+                    >
+                      Remember me
+                    </FormLabel>
+                  </FormControl>
+                  {error && (
+                    <Alert status="error" borderRadius="15px" mb="5px" mt="15px">
+                      <AlertIcon />
+                      {error}
+                    </Alert>
+                  )}
+                </Box>
+              </SimpleGrid>
+
               <Button
                 fontSize="sm"
                 type="submit"
                 bg="teal.300"
                 w="100%"
-                h="45"
+                h="45px"
                 mb="20px"
                 color="white"
                 mt="20px"
@@ -198,10 +216,10 @@ function SignIn() {
             >
               <Text color={textColor} fontWeight="medium">
                 Don't have an account?
-                <Link 
-                  onClick={() => history.push('/auth/authentication/sign-up/cover')}
-                  color={titleColor} 
-                  ms="5px" 
+                <Link
+                  onClick={() => history.push("/sign-up")}
+                  color={titleColor}
+                  ms="5px"
                   fontWeight="bold"
                   cursor="pointer"
                 >

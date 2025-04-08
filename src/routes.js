@@ -16,15 +16,19 @@ import SignUpBasic from "views/Authentication/SignUp/SignUpBasic.js";
 import SignUpCover from "views/Authentication/SignUp/SignUpCover.js";
 import SignUpIllustration from "views/Authentication/SignUp/SignUpIllustration.js";
 import Default from "views/Dashboard/Default";
-import Overview from "views/Pages/Profile/Overview/index";
-import Projects from "views/Pages/Profile/Projects/index";
-import Teams from "views/Pages/Profile/Teams/index";
 import NewUser from "views/Pages/Users/NewUser/index";
 import Reports from "views/Pages/Users/Reports/index";
 import DataTables from "views/Applications/DataTables";
+import Settings from "views/Pages/Account/Settings";
+import ManageUsers from "views/Pages/Account/Settings/indexManageUsers";
+import RetentionRateGraphs from "views/Pages/Graphs/RetentionRateGraphs";
+import ReasonsGraphs from "views/Pages/Graphs/Reasons";
+import Payment from "views/Pages/Account/Payment/Payment.js";
+import CompanyReports from "views/Pages/Summary/CompanyReports";
+import RetentionRateReport from "views/Pages/Summary/RetentionRate";
+import ReasonsReport from "views/Pages/Summary/Reasons";
 import Survey from "views/Survey/Survey";
 import MySurvey from "views/Survey/mysurveys";
-import Payment from "views/Pages/Account/Payment/Payment.js";
 
 const dashRoutes = [
   {
@@ -46,7 +50,6 @@ const dashRoutes = [
     name: "PAGES",
     category: "pages",
     items: [
-      // Directly linking Survey to the Survey component
       {
         name: "Survey",
         path: "/survey",
@@ -64,24 +67,15 @@ const dashRoutes = [
         layout: "/admin",
         items: [
           {
-            name: "Profile Overview",
-            secondaryNavbar: true,
-            path: "/pages/profile/overview",
-            component: Overview,
+            name: "My Surveys",
+            path: "/survey/manage",
+            component: MySurvey,
             layout: "/admin",
           },
           {
-            name: "Teams",
-            secondaryNavbar: true,
-            path: "/pages/profile/teams",
-            component: Teams,
-            layout: "/admin",
-          },
-          {
-            name: "All Projects",
-            secondaryNavbar: true,
-            path: "/pages/profile/profile-projects",
-            component: Projects,
+            name: "Survey",
+            path: "/survey/viewSurvey/:id",
+            component: Survey,
             layout: "/admin",
           },
         ],
@@ -94,8 +88,6 @@ const dashRoutes = [
         items: [
           {
             name: "Add Employee",
-            component: Kanban,
-            authIcon: <DocumentIcon color="inherit" />,
             path: "/demployees/addemployee",
             layout: "/admin",
           },
@@ -173,6 +165,46 @@ const dashRoutes = [
     ],
   },
   {
+    name: "Users",
+    category: "users",
+    items: [
+      {
+        name: "Current Users",
+        path: "/current-users",
+        collapse: true,
+        icon: <DocumentIcon color="inherit" />,
+        items: [
+          {
+            name: "Settings",
+            path: "/settings",
+            component: Settings,
+            layout: "/admin",
+          },
+          {
+            name: "Manage Users",
+            path: "/manage-users",
+            component: ManageUsers,
+            layout: "/admin",
+          },
+        ],
+      },
+      {
+        name: "New Users",
+        path: "/new-users",
+        collapse: true,
+        icon: <DocumentIcon color="inherit" />,
+        items: [
+          {
+            name: "Add User",
+            path: "/add-account",
+            component: NewUser,
+            layout: "/admin",
+          },
+        ],
+      },
+    ],
+  },
+  {
     name: "DOCS",
     category: "docs",
     items: [
@@ -184,76 +216,30 @@ const dashRoutes = [
         items: [
           {
             name: "Company Report",
-            path: "/companyreport",
-            collapse: false,
+            path: "/summary/companyreport",
             authIcon: <HomeIcon color="inherit" />,
-            items: [
-              {
-                name: "Profile Overview",
-                secondaryNavbar: true,
-                path: "/pages/profile/overview",
-                component: Overview,
-                layout: "/admin",
-              },
-            ],
-          },
-          {
-            path: "/Account/Payment",   // Suitable route path for the Payment page
-            name: "Payment",
-            component: Payment,
+            component: CompanyReports,
             layout: "/admin",
           },
           {
             name: "Retention Rate",
-            path: "/companiesreport/rrate",
-            collapse: true,
-            authIcon: <PersonIcon color="inherit" />,
-            items: [
-              {
-                name: "Company",
-                path: "/companiesreport/rrate/company",
-                component: Reports,
-                layout: "/admin",
-              },
-              {
-                name: "Departments",
-                path: "/companiesreport/rrate/departments",
-                component: NewUser,
-                layout: "/admin",
-              },
-              {
-                name: "Gender",
-                path: "/companiesreport/rrate/gender",
-                component: NewUser,
-                layout: "/admin",
-              },
-            ],
+            path: "/summary/rrate",
+            authIcon: <HomeIcon color="inherit" />,
+            component: RetentionRateReport,
+            layout: "/admin",
           },
           {
             name: "Reasons",
-            path: "/reasons",
-            collapse: true,
-            authIcon: <PersonIcon color="inherit" />,
-            items: [
-              {
-                name: "Company",
-                path: "/reasons/company",
-                component: Reports,
-                layout: "/admin",
-              },
-              {
-                name: "Departments",
-                path: "/reasons/departments",
-                component: NewUser,
-                layout: "/admin",
-              },
-              {
-                name: "Gender",
-                path: "/reasons/gender",
-                component: NewUser,
-                layout: "/admin",
-              },
-            ],
+            path: "/summary/reasons",
+            authIcon: <HomeIcon color="inherit" />,
+            component: ReasonsReport,
+            layout: "/admin",
+          },
+          {
+            name: "Payment",
+            path: "/Account/Payment",
+            component: Payment,
+            layout: "/admin",
           },
         ],
       },
@@ -266,54 +252,16 @@ const dashRoutes = [
           {
             name: "Retention Rate",
             path: "/companiesreport/rrate",
-            collapse: true,
             authIcon: <PersonIcon color="inherit" />,
-            items: [
-              {
-                name: "Company",
-                path: "/companiesreport/rrate/company",
-                component: Reports,
-                layout: "/admin",
-              },
-              {
-                name: "Departments",
-                path: "/companiesreport/rrate/departments",
-                component: NewUser,
-                layout: "/admin",
-              },
-              {
-                name: "Gender",
-                path: "/companiesreport/rrate/gender",
-                component: NewUser,
-                layout: "/admin",
-              },
-            ],
+            component: RetentionRateGraphs,
+            layout: "/admin",
           },
           {
             name: "Reasons",
             path: "/reasons",
-            collapse: true,
             authIcon: <PersonIcon color="inherit" />,
-            items: [
-              {
-                name: "Company",
-                path: "/reasons/company",
-                component: Reports,
-                layout: "/admin",
-              },
-              {
-                name: "Departments",
-                path: "/reasons/departments",
-                component: NewUser,
-                layout: "/admin",
-              },
-              {
-                name: "Gender",
-                path: "/reasons/gender",
-                component: NewUser,
-                layout: "/admin",
-              },
-            ],
+            component: ReasonsGraphs,
+            layout: "/admin",
           },
         ],
       },

@@ -134,7 +134,7 @@ const Buttons = () => {
               </Flex>
             </Button>
           </Link>
-          <Link to="accounts" spy={true} smooth={true} duration={500}>
+          {/* <Link to="accounts" spy={true} smooth={true} duration={500}>
             <Button
               variant="transparent-with-icon"
               borderRadius="15px"
@@ -154,7 +154,7 @@ const Buttons = () => {
                 </Text>
               </Flex>
             </Button>
-          </Link>
+          </Link> */}
           <Link to="notifications" spy={true} smooth={true} duration={500}>
             <Button
               variant="transparent-with-icon"
