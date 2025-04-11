@@ -1,20 +1,3 @@
-/*!
-
-=========================================================
-* Purity UI Dashboard PRO - v1.0.0
-=========================================================
-
-* Product Page: https://www.creative-tim.com/product/purity-ui-dashboard-pro
-* Copyright 2021 Creative Tim (https://www.creative-tim.com/)
-
-* Design by Creative Tim & Coded by Simmmple
-
-=========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-
-*/
-
 // Chakra Icons
 import { BellIcon, SearchIcon } from "@chakra-ui/icons";
 // Chakra Imports
@@ -42,8 +25,9 @@ import { ProfileIcon, SettingsIcon } from "components/Icons/Icons";
 import { ItemContent } from "components/Menu/ItemContent";
 import { SidebarResponsive } from "components/Sidebar/Sidebar";
 import PropTypes from "prop-types";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
+import { jwtDecode } from "jwt-decode"; 
 import routes from "routes.js";
 
 export default function HeaderLinks(props) {
@@ -60,7 +44,28 @@ export default function HeaderLinks(props) {
     navbarIcon = "white";
     mainText = "white";
   }
+
   const settingsRef = React.useRef();
+
+  const [userName, setUserName] = useState("");
+
+ useEffect(() => {
+  const token = localStorage.getItem("authToken");
+
+  if (token) {
+    try {
+      const decoded = jwtDecode(token);
+      console.log("Decoded token:", decoded);
+      setUserName(
+        decoded.userName || decoded.name || decoded.username || "User"
+      );
+    } catch (err) {
+      console.error("Error decoding token:", err);
+    }
+  }
+}, []);
+
+
   return (
     <Flex
       pe={{ sm: "0px", md: "16px" }}
@@ -76,12 +81,8 @@ export default function HeaderLinks(props) {
           md: "200px",
         }}
         me={{ sm: "auto", md: "20px" }}
-        _focus={{
-          borderColor: { mainTeal },
-        }}
-        _active={{
-          borderColor: { mainTeal },
-        }}
+        _focus={{ borderColor: { mainTeal } }}
+        _active={{ borderColor: { mainTeal } }}
       >
         <InputLeftElement
           children={
@@ -94,11 +95,9 @@ export default function HeaderLinks(props) {
                 transform: "none",
                 borderColor: "transparent",
               }}
-              _focus={{
-                boxShadow: "none",
-              }}
+              _focus={{ boxShadow: "none" }}
               icon={<SearchIcon color={searchIcon} w="15px" h="15px" />}
-            ></IconButton>
+            />
           }
         />
         <Input
@@ -109,27 +108,31 @@ export default function HeaderLinks(props) {
           borderRadius="inherit"
         />
       </InputGroup>
-      <NavLink to="/auth/signin">
-        <Button
-          ms="0px"
-          px="0px"
-          me={{ sm: "2px", md: "16px" }}
-          color={navbarIcon}
-          variant="transparent-with-icon"
-          leftIcon={
-            <ProfileIcon color={navbarIcon} w="22px" h="22px" me="0px" />
-          }
-        >
-          <Text display={{ sm: "none", md: "flex" }}>Sign In</Text>
-        </Button>
-      </NavLink>
+
+      {userName && (
+        <NavLink to="/admin/settings">
+          <Button
+            ms="0px"
+            px="0px"
+            me={{ sm: "2px", md: "16px" }}
+            color={navbarIcon}
+            variant="transparent-with-icon"
+            leftIcon={
+              <ProfileIcon color={navbarIcon} w="22px" h="22px" me="0px" />
+            }
+          >
+            {userName}
+          </Button>
+        </NavLink>
+      )}
+
       <SidebarResponsive
         logoText={props.logoText}
         secondary={props.secondary}
         routes={routes}
-        // logo={logo}
         {...rest}
       />
+
       <SettingsIcon
         cursor="pointer"
         me="16px"
@@ -139,6 +142,7 @@ export default function HeaderLinks(props) {
         w="18px"
         h="18px"
       />
+
       <Menu>
         <MenuButton>
           <BellIcon color={navbarIcon} w="18px" h="18px" />
@@ -166,7 +170,7 @@ export default function HeaderLinks(props) {
             <MenuItem borderRadius="8px">
               <ItemContent
                 time="3 days ago"
-                info="Payment succesfully completed!"
+                info="Payment successfully completed!"
                 boldInfo=""
                 aName="Kara"
                 aSrc={avatar3}

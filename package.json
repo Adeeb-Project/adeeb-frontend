@@ -26,6 +26,7 @@
     "framer-motion": "^4.1.17",
     "fullcalendar": "^5.9.0",
     "globalize": "^1.7.0",
+    "jwt-decode": "^4.0.0",
     "match-sorter": "6.3.0",
     "moment": "^2.29.1",
     "nouislider": "15.0.0",

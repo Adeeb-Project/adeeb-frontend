@@ -16,39 +16,63 @@
 */
 
 // Chakra imports
+import React, { useEffect, useState } from "react"; // Add useState here
 import {
-    Box,
-    Flex,
-    Grid, SimpleGrid, Stack, Text, useColorModeValue
+  Box,
+  Flex,
+  Grid,
+  SimpleGrid,
+  Stack,
+  Text,
+  useColorModeValue,
 } from "@chakra-ui/react";
 import BarChart from "components/Charts/BarChart";
 import LineChart from "components/Charts/LineChart";
 import Globe from "components/Globe/Globe";
 // Custom icons
 import {
-    CartIcon,
-    DocumentIcon,
-    GlobeIcon, WalletIcon
+  CartIcon,
+  DocumentIcon,
+  GlobeIcon,
+  WalletIcon,
 } from "components/Icons/Icons.js";
-import React from "react";
 import {
-    barChartDataDefault,
-    barChartOptionsDefault,
-    lineChartDataDefault,
-    lineChartOptionsDefault
+  barChartDataDefault,
+  barChartOptionsDefault,
+  lineChartDataDefault,
+  lineChartOptionsDefault,
 } from "variables/charts";
 import { salesData } from "variables/general";
 import ActiveUsers from "./components/ActiveUsers";
 import MiniStatistics from "./components/MiniStatistics";
 import SalesByCountry from "./components/SalesByCountry";
 import SalesOverview from "./components/SalesOverview";
-
+import { jwtDecode}  from "jwt-decode"; 
 
 export default function Default() {
+  const [userName, setUserName] = useState(""); // Initialize useState
+
+  useEffect(() => {
+    const token = localStorage.getItem("authToken");
+
+    if (token) {
+      try {
+        const decoded = jwtDecode(token);
+        console.log("Decoded token:", decoded);
+        setUserName(
+          decoded.userName || decoded.name || decoded.username || "User"
+        );
+      } catch (err) {
+        console.error("Error decoding token:", err);
+      }
+    }
+  }, []);
+
   // Chakra Color Mode
   const iconTeal = useColorModeValue("teal.300", "teal.300");
   const iconBoxInside = useColorModeValue("white", "white");
   const textColor = useColorModeValue("gray.700", "white");
+
   return (
     <Flex flexDirection="column" pt={{ base: "120px", md: "75px" }}>
       <Text
@@ -58,7 +82,7 @@ export default function Default() {
         mb="30px"
         ps="20px"
       >
-      Exit Interviews insights
+        👋 Welcome, {userName}!
       </Text>
       <Grid
         templateColumns={{ sm: "4fr 1fr", xl: "1.2fr 1fr" }}
@@ -113,8 +137,8 @@ export default function Default() {
             />
           </SimpleGrid>
           <SalesByCountry
-            title={"Top Reasons for leaving"}
-            labels={["Reason", "Occurance", "Imact", "Rate"]}
+            title={"Top Reasons for Leaving"}
+            labels={["Reason", "Occurrence", "Impact", "Rate"]}
             salesData={salesData}
           />
         </Stack>
@@ -135,7 +159,7 @@ export default function Default() {
           }
         />
         <SalesOverview
-          title={"Exit Feedbacks trends"}
+          title={"Exit Feedback Trends"}
           percentage={5}
           chart={
             <LineChart
