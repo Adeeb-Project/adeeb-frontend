@@ -29,6 +29,10 @@ import '@fontsource/roboto/400.css';
 import '@fontsource/roboto/500.css';
 import '@fontsource/roboto/700.css';
 
+// Import authentication components directly
+import SignInCover from "views/Authentication/SignIn/SignInCover.js";
+import SignUpCover from "views/Authentication/SignUp/SignUpCover.js";
+
 export default function Pages(props) {
 	const { ...rest } = props;
 	// ref for the wrapper div
@@ -109,6 +113,9 @@ export default function Pages(props) {
 					<Box ref={wrapper} w='100%'>
 						<Switch>
 							{getRoutes(routes)}
+							{/* Add direct routes for authentication pages */}
+							<Route path="/authentication/sign-in/cover" component={SignInCover} />
+							<Route path="/authentication/sign-up/cover" component={SignUpCover} />
 							<Redirect from='/auth' to='/auth/authentication/sign-in/cover' />
 						</Switch>
 					</Box>
