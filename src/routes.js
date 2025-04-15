@@ -1,3 +1,6 @@
+// import
+// To be changed
+// import Tables from "views/Dashboard/Tables.js";
 import { RocketIcon } from "components/Icons/Icons";
 import { AuthenticationIcon } from "components/Icons/Icons";
 import {
@@ -23,12 +26,14 @@ import Settings from "views/Pages/Account/Settings";
 import ManageUsers from "views/Pages/Account/Settings/indexManageUsers";
 import RetentionRateGraphs from "views/Pages/Graphs/RetentionRateGraphs";
 import ReasonsGraphs from "views/Pages/Graphs/Reasons";
-import Payment from "views/Pages/Account/Payment/Payment.js";
+import { layout } from "@chakra-ui/system";
 import CompanyReports from "views/Pages/Summary/CompanyReports";
 import RetentionRateReport from "views/Pages/Summary/RetentionRate";
 import ReasonsReport from "views/Pages/Summary/Reasons";
 import Survey from "views/Survey/Survey";
 import MySurvey from "views/Survey/mysurveys";
+
+/* Side bar routers names */
 
 const dashRoutes = [
   {
@@ -44,6 +49,7 @@ const dashRoutes = [
         component: Default,
         layout: "/admin",
       },
+
     ],
   },
   {
@@ -53,31 +59,22 @@ const dashRoutes = [
       {
         name: "Survey",
         path: "/survey",
-        collapse: false,
+        collapse: true,
         icon: <DocumentIcon color="inherit" />,
-        component: Survey,
-        layout: "/admin",
-      },
-      {
-        name: "My Surveys",
-        path: "/Mysurveys",
-        collapse: false,
-        authIcon: <HomeIcon color="inherit" />,
-        component: MySurvey,
-        layout: "/admin",
         items: [
           {
             name: "My Surveys",
             path: "/survey/manage",
-            component: MySurvey,
+            component: MySurvey, // Updated to the new Survey Management Page
             layout: "/admin",
           },
           {
             name: "Survey",
             path: "/survey/viewSurvey/:id",
-            component: Survey,
+            component: Survey, // Updated to the new Survey Management Page
             layout: "/admin",
           },
+
         ],
       },
       {
@@ -85,120 +82,22 @@ const dashRoutes = [
         path: "/demployees",
         icon: <PersonIcon color="inherit" />,
         collapse: true,
+
         items: [
           {
             name: "Add Employee",
+            //component: Kanban,
+            authIcon: <DocumentIcon color="inherit" />,
             path: "/demployees/addemployee",
             layout: "/admin",
           },
           {
-            name: "Employees Table",
+            name: "Employees Tabel",
             component: DataTables,
             authIcon: <PersonIcon color="inherit" />,
             path: "/demployees/employeestable",
             layout: "/admin",
-          },
-        ],
-      },
-      {
-        name: "Authentication",
-        path: "/authentication",
-        icon: <AuthenticationIcon color="inherit" />,
-        collapse: true,
-        items: [
-          {
-            name: "Users",
-            path: "/authentication/users",
-            collapse: false,
-            authIcon: <DocumentIcon color="inherit" />,
-            items: [
-              {
-                name: "Basic",
-                secondaryNavbar: true,
-                component: SignInBasic,
-                path: "/authentication/sign-in/basic",
-                layout: "/auth",
-              },
-              {
-                name: "Cover",
-                component: SignInCover,
-                path: "/authentication/sign-in/cover",
-                layout: "/auth",
-              },
-              {
-                name: "Illustration",
-                component: SignInIllustration,
-                path: "/authentication/sign-in/illustration",
-                layout: "/auth",
-              },
-            ],
-          },
-          {
-            name: "New User",
-            path: "/authentication/newuser",
-            collapse: false,
-            authIcon: <DocumentIcon color="inherit" />,
-            items: [
-              {
-                name: "Basic",
-                secondaryNavbar: true,
-                component: SignUpBasic,
-                path: "/authentication/sign-up/basic",
-                layout: "/auth",
-              },
-              {
-                name: "Cover",
-                component: SignUpCover,
-                path: "/authentication/sign-up/cover",
-                layout: "/auth",
-              },
-              {
-                name: "Illustration",
-                component: SignUpIllustration,
-                path: "/authentication/sign-up/illustration",
-                layout: "/auth",
-              },
-            ],
-          },
-        ],
-      },
-    ],
-  },
-  {
-    name: "Users",
-    category: "users",
-    items: [
-      {
-        name: "Current Users",
-        path: "/current-users",
-        collapse: true,
-        icon: <DocumentIcon color="inherit" />,
-        items: [
-          {
-            name: "Settings",
-            path: "/settings",
-            component: Settings,
-            layout: "/admin",
-          },
-          {
-            name: "Manage Users",
-            path: "/manage-users",
-            component: ManageUsers,
-            layout: "/admin",
-          },
-        ],
-      },
-      {
-        name: "New Users",
-        path: "/new-users",
-        collapse: true,
-        icon: <DocumentIcon color="inherit" />,
-        items: [
-          {
-            name: "Add User",
-            path: "/add-account",
-            component: NewUser,
-            layout: "/admin",
+    
           },
         ],
       },
@@ -220,25 +119,21 @@ const dashRoutes = [
             authIcon: <HomeIcon color="inherit" />,
             component: CompanyReports,
             layout: "/admin",
+            
           },
           {
-            name: "Retention Rate",
+            name: "Retension Rate",
             path: "/summary/rrate",
             authIcon: <HomeIcon color="inherit" />,
             component: RetentionRateReport,
             layout: "/admin",
+            
           },
           {
             name: "Reasons",
             path: "/summary/reasons",
             authIcon: <HomeIcon color="inherit" />,
             component: ReasonsReport,
-            layout: "/admin",
-          },
-          {
-            name: "Payment",
-            path: "/Account/Payment",
-            component: Payment,
             layout: "/admin",
           },
         ],
@@ -250,7 +145,7 @@ const dashRoutes = [
         icon: <StatsIcon color="inherit" />,
         items: [
           {
-            name: "Retention Rate",
+            name: "Retension Rate",
             path: "/companiesreport/rrate",
             authIcon: <PersonIcon color="inherit" />,
             component: RetentionRateGraphs,
@@ -265,8 +160,49 @@ const dashRoutes = [
           },
         ],
       },
-    ],
-  },
+     ],
+    },
+    {
+      name: "Users",
+      category: "users",
+      items: [
+        {
+          name: "Current Users",
+          path: "/current-users",
+          collapse: true,
+          icon: <DocumentIcon color="inherit" />,
+          items: [
+            {
+              name: "Settings",
+              path: "/settings",
+              component: Settings,
+              layout: "/admin"
+            },
+            {
+              name: "Manage Users",
+              path: "/manage-users",
+              component: ManageUsers,
+              layout: "/admin"
+            },
+          ],
+        },
+        
+        {
+          name: "New Users",
+          path: "/new-users",
+          collapse: true,
+          icon: <DocumentIcon color="inherit" />,
+          items: [
+            {
+              name: "Add User",
+              path: "/add-account",
+              component: NewUser,
+              layout: "/admin"
+            },
+          ],
+        },
+      ],
+    }
 ];
 
 export default dashRoutes;
