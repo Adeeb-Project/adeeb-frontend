@@ -1,7 +1,6 @@
 import Survey from "views/Survey/Survey";
 import Pricing from "views/Pages/Pricing";
 import SignUp from "views/Authentication/SignUp/SignUpCover";
-import Settings from "views/Pages/Account/Settings";
 import SignIn from "views/Authentication/SignIn/SignInCover";
 const publicRoutes = [
   {
