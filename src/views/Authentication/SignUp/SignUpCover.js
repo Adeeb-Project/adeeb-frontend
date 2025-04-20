@@ -451,7 +451,7 @@ function SignUp() {
               <Text color={textColor} fontWeight="medium">
                 Already have an account?
                 <Link 
-                  onClick={() => history.push('/sign-in')}
+                  onClick={() => history.push('/authentication/sign-in/cover')}
                   color={titleColor} 
                   ms="5px" 
                   fontWeight="bold"
