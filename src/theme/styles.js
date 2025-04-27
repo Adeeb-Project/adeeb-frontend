@@ -23,8 +23,18 @@ export const globalStyles = {
 			700: '#1f2733'
 		},
 		teal: {
-			500: 'rgb(79, 209, 197)'
+			50:  "#f2e6ff",
+    		100: "#d9b3ff",
+			200: "#bf80ff",
+			300: "#AD00FF",  // ← all the shade you care about
+			400: "#9900e6",
+			500: "#8800cc",
+			600: "#7300a3",
+			700: "#520075",
+			800: "#3a004e",
+			900: "#22002e",
 		}
+		
 	},
 	styles: {
 		global: (props) => ({
