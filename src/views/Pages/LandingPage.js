@@ -71,7 +71,7 @@ function LandingPage() {
       >
         <Container maxW="container.xl">
           <Flex justify="space-between" align="center">
-            <Text fontSize="xl" fontWeight="bold" color={textColor}>
+            <Text fontSize="28px" fontWeight="bold" color={textColor}>
               Adeeb
             </Text>
             <HStack spacing="8">

@@ -665,7 +665,7 @@ function NewProduct() {
                               borderRadius="12px"
                               variant="solid"
                               bg="linear-gradient(81.62deg, #313860 2.25%, #151928 79.87%)"
-                              key={index}
+                              
                             >
                               <TagLabel w="100%">{skill.name}</TagLabel>
                               <TagCloseButton

@@ -234,7 +234,6 @@ function SearchTable2(props) {
           direction={{ sm: "column", md: "row" }}
           justify="space-between"
           align="center"
-          px="22px"
           w="100%"
           px={{ md: "22px" }}
         >
