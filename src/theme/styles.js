@@ -23,17 +23,17 @@ export const globalStyles = {
 			700: '#AD00FF'
 		},
 		teal: {
-			50:  "#AD00FF",
-    		100: "#AD00FF",
-			200: "#AD00FF	",
-			300: "#AD00FF",  // ← all the shade you care about
-			400: "#AD00FF",
-			500: "#AD00FF",
-			600: "#AD00FF",
-			700: "#AD00FF",
-			800: "#AD00FF",
-			900: "#AD00FF",
-			teal: "#AD00FF",
+			50:  "#2E005E",
+    		100: "#2E005E",
+			200: "#2E005E	",
+			300: "#2E005E",  // ← all the shade you care about
+			400: "#2E005E",
+			500: "#2E005E",
+			600: "#2E005E",
+			700: "#2E005E",
+			800: "#2E005E",
+			900: "#2E005E",
+			teal: "#2E005E",
 		}
 		
 	},
