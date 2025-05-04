@@ -1,4 +1,4 @@
-// Chakra imports
+
 import { Box, Flex, Spacer, Text } from "@chakra-ui/react";
 // Custom components
 import Card from "components/Card/Card.js";
