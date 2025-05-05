@@ -140,7 +140,7 @@ function SignUp() {
       formData.append('CompannyLogo', companyLogo);
       
 
-      const response = await fetch("https://server.adeebcompany.com/api/companies/register", {
+      const response = await fetch("http://localhost:5347/api/companies/register", {
         method: "POST",
         body: formData,
      

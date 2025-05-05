@@ -23,6 +23,7 @@ import {
   useColorModeValue,
   useDisclosure,
   useToast,
+  Box,
 } from "@chakra-ui/react";
 import { CloseIcon } from "@chakra-ui/icons";
 import { FiPlus } from "react-icons/fi";
@@ -31,17 +32,61 @@ import CardBody from "components/Card/CardBody";
 import CardHeader from "components/Card/CardHeader";
 import SearchTable1 from "components/Tables/SearchTable1";
 
-/*  Columns returned by GET /api/employees                            */
+/*  Columns returned by GET /api/employees                            */
 
 const columns = [
-  { Header: "ID", accessor: "Id" },
-  { Header: "Full Name", accessor: "FullName" },
-  { Header: "Email", accessor: "Email" },
-  { Header: "Join Date", accessor: "JoinDate" },
-  { Header: "Department", accessor: "Department" },
-  { Header: "Position", accessor: "Position" },
-  { Header: "Phone", accessor: "PhoneNumber" },
-  { Header: "Status", accessor: "Status" },
+  { Header: "ID", accessor: "id" },
+  { Header: "Full Name", accessor: "fullName" },
+  { Header: "Email", accessor: "email" },
+  { Header: "Join Date", accessor: "joinDate" },
+  { Header: "Department", accessor: "department" },
+  { Header: "Position", accessor: "position" },
+  { Header: "Phone", accessor: "phoneNumber" },
+  { 
+    Header: "Survey Status",
+    accessor: "surveyStatus",
+    Cell: ({ value }) => {
+      const statusConfig = {
+        "SurveyNotAssigned": {
+          color: "red.500",
+          bg: "red.100",
+          text: "Not Assigned",
+        },
+        "SurveySent": {
+          color: "yellow.500",
+          bg: "yellow.100",
+          text: "Pending",
+        },
+        "SurveyCompleted": {
+          color: "green.500",
+          bg: "green.100",
+          text: "Completed",
+        },
+      };
+
+      const config = statusConfig[value] || {
+        color: "gray.500",
+        bg: "gray.100",
+        text: "Unknown",
+      };
+
+      return (
+        <Flex align="center" gap={2}>
+          <Box
+            px={3}
+            py={1}
+            borderRadius="full"
+            bg={config.bg}
+            color={config.color}
+            fontSize="sm"
+            fontWeight="medium"
+          >
+            {config.text}
+          </Box>
+        </Flex>
+      );
+    }
+  },
 ];
 
 function DataTables() {
@@ -76,16 +121,8 @@ function DataTables() {
       if (!res.ok) throw new Error(`${res.status} ${res.statusText}`);
 
       const raw = await res.json();
-      const mapped = raw.map((e) => ({
-        id: e.Id,
-        fullName: e.FullName,
-        email: e.Email,
-        joinDate: e.JoinDate,
-        department: e.Department,
-        position: e.Position,
-        phoneNumber: e.PhoneNumber,
-      }));
-      setTableData(mapped);
+     
+      setTableData(raw);
     } catch (err) {
       toast({
         status: "error",
@@ -142,31 +179,28 @@ function DataTables() {
 
   const handleManualSubmit = async () => {
     try {
-      // Decode the authToken to extract the companyId
       const token = localStorage.getItem("authToken");
-      const decodedToken = JSON.parse(atob(token.split(".")[1])); // Decode JWT payload
-      const companyId = decodedToken.companyId; // Extract companyId from the token
-      console.log("companyId:", companyId);
-
-      // Add the companyId to the manualForm
-      const formData = { ...manualForm, companyId };
+      const formData = { ...manualForm };
 
       const res = await fetch("http://localhost:5347/api/employees", {
         method: "POST",
         headers: {
-          Authorization: `${token}`,
+          "Authorization": token,
           "Content-Type": "application/json",
         },
         body: JSON.stringify(formData),
       });
 
-      /* Controller returns 201 Created with empty body */
-      if (res.status !== 201) throw new Error(`${res.status} ${res.statusText}`);
+      // Accept both 201 and 204 as success
+      if (res.status !== 201 && res.status !== 204) {
+        const errorData = await res.text();
+        throw new Error(`${res.status} ${res.statusText} - ${errorData}`);
+      }
 
       toast({ status: "success", title: "Employee added", position: "top" });
-      await fetchEmployees(); // Refresh the employee list
-      onClose();
-      setManualForm({
+      await fetchEmployees(); // Refresh the table
+      onClose(); // Close the modal
+      setManualForm({ // Reset the form
         fullName: "",
         email: "",
         phoneNumber: "",
