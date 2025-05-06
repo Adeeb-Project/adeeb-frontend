@@ -1,3 +1,4 @@
+// RetentionRateGraphs.js
 import React, { useState, useRef } from "react";
 import {
   Table,
@@ -14,45 +15,19 @@ import {
   MenuList,
   MenuItem,
   IconButton,
+  Spinner,
 } from "@chakra-ui/react";
-import { HamburgerIcon } from "@chakra-ui/icons";
+import axios from "axios";
 import Card from "components/Card/Card";
 import CardBody from "components/Card/CardBody";
 import CardHeader from "components/Card/CardHeader";
-import { Element } from "react-scroll";
-
-// Import your custom chart components and chart configs
 import LineChart from "components/Charts/LineChart";
-import BarChart from "components/Charts/BarChart";
-import BubbleChart from "components/Charts/BubbleChart";
-import DonutChart from "components/Charts/DonutChart";
-import LineBarChart from "components/Charts/LineBarChart";
-import PieChart from "components/Charts/PieChart";
-import PolarChart from "components/Charts/PolarChart";
-import RadarChart from "components/Charts/RadarChart";
 
 import {
-  lineChartDataCharts1,
-  lineChartOptionsCharts1,
-  lineChartDataCharts2,
-  lineChartOptionsCharts2,
-  barChartDataCharts1,
-  barChartOptionsCharts1,
-  barChartDataCharts2,
-  barChartOptionsCharts2,
-  lineBarChartData,
-  lineBarChartOptions,
-  bubbleChartData,
-  bubbleChartOptions,
-  donutChartDataCharts1,
-  donutChartOptionsCharts1,
-  pieChartDataCharts1,
-  pieChartOptionsCharts1,
-  radarChartDataCharts,
-  radarChartOptionsCharts,
-  polarChartDataCharts,
-  polarChartOptionsCharts,
-} from "variables/charts";
+  combinedLineChartOptions,
+  turnoverLineChartOptions,
+  retentionLineChartOptions,
+} from "variables/employeeMetricsCharts";
 
 const RetentionRateGraphs = () => {
   const textColor = useColorModeValue("gray.700", "white");
@@ -61,294 +36,173 @@ const RetentionRateGraphs = () => {
     "gray.800"
   );
 
-  // State to store the user's selected graph type and whether to show the chart card
   const [selectedGraph, setSelectedGraph] = useState("");
+  const [selectedPeriod, setSelectedPeriod] = useState("");
   const [showChart, setShowChart] = useState(false);
+  const [chartResponse, setChartResponse] = useState({
+    labels: [],
+    data: { turnover: [], retention: [] },
+    currentStatus: { turnover: 0, retention: 0 },
+    lastUpdated: null,
+  });
+  const [isLoading, setIsLoading] = useState(false);
 
-  // Reference to the chart instance (requires your custom charts to forward refs)
   const chartRef = useRef(null);
+  const token = localStorage.getItem("authToken");
+  const headers = { headers: { Authorization: `${token}` } };
 
-  // Handle the "which Graph?" selection
-  const handleGraphChange = (event) => {
-    setSelectedGraph(event.target.value);
+  const handleGraphChange = (e) => setSelectedGraph(e.target.value);
+  const handlePeriodChange = (e) => setSelectedPeriod(e.target.value);
+
+  const handleNextClick = async () => {
+    if (!selectedGraph || !selectedPeriod) return;
+    setIsLoading(true);
+    try {
+      const res = await axios.get(
+        `http://localhost:5347/api/companies/charts?period=${selectedPeriod}&graphType=${selectedGraph}`,
+        headers
+      );
+      setChartResponse(res.data);
+      setShowChart(true);
+    } catch (err) {
+      console.error("Failed to load chart data", err);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
-  // Show the chart card when NEXT is clicked
-  const handleNextClick = () => {
-    setShowChart(true);
-  };
 
-  // Download chart as PNG
-  const handleDownloadPNG = () => {
-    if (!chartRef.current) return;
-    // chartRef.current should be the Chart.js instance
-    const chartInstance = chartRef.current;
-    const base64Image = chartInstance.toBase64Image();
-    // Create a temporary link to trigger the download
-    const link = document.createElement("a");
-    link.href = base64Image;
-    link.download = "chart.png";
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-  };
-
-  // Download chart data as CSV (simple example)
-  const handleDownloadCSV = () => {
-    if (!chartRef.current) return;
-    const chartInstance = chartRef.current;
-    const { labels, datasets } = chartInstance.data;
-    // Build a simple CSV (Label, Value) for each dataset
-    let csvContent = "data:text/csv;charset=utf-8,Label,Value\n";
-
-    // If you have multiple datasets, you can enhance the logic to export them all
-    datasets.forEach((dataset) => {
-      dataset.data.forEach((value, index) => {
-        csvContent += `${labels[index]},${value}\n`;
-      });
-    });
-
-    const encodedUri = encodeURI(csvContent);
-    const link = document.createElement("a");
-    link.setAttribute("href", encodedUri);
-    link.setAttribute("download", "chart_data.csv");
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-  };
-
-  // Render the appropriate chart based on the user selection
   const renderChart = () => {
+    const { labels, data, currentStatus } = chartResponse;
+    let chartData;
+    let chartOptions;
+
     switch (selectedGraph) {
-      case "option1":
-        return (
-          <LineChart
-            chartData={lineChartDataCharts1}
-            chartOptions={lineChartOptionsCharts1}
-            chartRef={chartRef}
-          />
-        );
-      case "option2":
-        return (
-          <LineChart
-            chartData={lineChartDataCharts2}
-            chartOptions={lineChartOptionsCharts2}
-            chartRef={chartRef}
-          />
-        );
-      case "option3":
-        return (
-          <BarChart
-            chartData={barChartDataCharts1}
-            chartOptions={barChartOptionsCharts1}
-            chartRef={chartRef}
-          />
-        );
-      case "option4":
-        return (
-          <BarChart
-            chartData={barChartDataCharts2}
-            chartOptions={barChartOptionsCharts2}
-            chartRef={chartRef}
-          />
-        );
-      case "option5":
-        return (
-          <LineBarChart
-            chartData={lineBarChartData}
-            chartOptions={lineBarChartOptions}
-            chartRef={chartRef}
-          />
-        );
-      case "option6":
-        return (
-          <DonutChart
-            chartData={donutChartDataCharts1}
-            chartOptions={donutChartOptionsCharts1}
-            chartRef={chartRef}
-          />
-        );
-      case "option7":
-        return (
-          <PieChart
-            chartData={pieChartDataCharts1}
-            chartOptions={pieChartOptionsCharts1}
-            chartRef={chartRef}
-          />
-        );
-      case "option8":
-        return (
-          <RadarChart
-            chartData={radarChartDataCharts}
-            chartOptions={radarChartOptionsCharts}
-            chartRef={chartRef}
-          />
-        );
+      case "combined":
+        chartData = [
+          { name: "Turnover Rate", data: data.turnover },
+          { name: "Retention Rate", data: data.retention },
+        ];
+        chartOptions = {
+          ...combinedLineChartOptions,
+          xaxis: {
+            ...combinedLineChartOptions.xaxis,
+            categories: labels,
+          },
+        };
+        return <LineChart chartData={chartData} chartOptions={chartOptions} chartRef={chartRef} />;
+      case "turnover":
+        chartData = [{ name: "Turnover Rate", data: data.turnover }];
+        chartOptions = {
+          ...turnoverLineChartOptions,
+          xaxis: { ...turnoverLineChartOptions.xaxis, categories: labels },
+        };
+        return <LineChart chartData={chartData} chartOptions={chartOptions} chartRef={chartRef} />;
+      case "retention":
+        chartData = [{ name: "Retention Rate", data: data.retention }];
+        chartOptions = {
+          ...retentionLineChartOptions,
+          xaxis: { ...retentionLineChartOptions.xaxis, categories: labels },
+        };
+        return <LineChart chartData={chartData} chartOptions={chartOptions} chartRef={chartRef} />;
       default:
         return null;
     }
   };
 
-  // Dynamically update the chart title based on the selected graph
   const getChartTitle = () => {
-    switch (selectedGraph) {
-      case "option1":
-        return "Line Chart";
-      case "option2":
-        return "Line Chart with Gradient";
-      case "option3":
-        return "Bar Chart";
-      case "option4":
-        return "Bar Chart Horizontal";
-      case "option5":
-        return "Mixed Chart";
-      case "option6":
-        return "Doughnut Chart";
-      case "option7":
-        return "Pie Chart";
-      case "option8":
-        return "Radar Chart";
-      default:
-        return "";
-    }
+    const periodMap = { quarterly: "Quarterly", yearly: "Yearly"};
+    const graphMap = {
+      combined: "Combined",
+      turnover: "Turnover",
+      retention: "Retention",
+
+    };
+    return `${graphMap[selectedGraph] || ""} Chart - ${periodMap[selectedPeriod] || ""}`;
   };
 
   return (
     <>
-      {/* Main card with form controls */}
       <Card overflowX={{ sm: "scroll", lg: "hidden" }}>
         <CardBody>
           <Table variant="simple" color={textColor}>
-            <Element id="info" name="info">
-              <CardHeader mb="40px">
-                <Text color={textColor} fontSize="lg" fontWeight="bold">
-                  Retention Rate Graphs
-                </Text>
-              </CardHeader>
-              <CardBody>
-                <Stack direction="column" spacing="20px" w="100%">
-                  <Stack
-                    direction={{ sm: "column", lg: "row" }}
-                    spacing={{ sm: "24px", lg: "30px" }}
-                  >
-                    {/* 1. Graphs For? */}
-                    <FormControl flex="1">
-                      <FormLabel fontWeight="semibold" fontSize="xs" mb="10px">
-                        Graphs For?
-                      </FormLabel>
-                      <Select
-                        borderRadius="15px"
-                        placeholder="Choose a Category"
-                        color="gray.400"
-                        fontSize="xs"
-                      >
-                        <option value="option1">Company</option>
-                        <option value="option2">Departments</option>
-                        <option value="option3">Gender</option>
-                      </Select>
-                    </FormControl>
-
-                    {/* 2. which Graph? */}
-                    <FormControl flex="1">
-                      <FormLabel fontWeight="semibold" fontSize="xs" mb="10px">
-                        which Graph?
-                      </FormLabel>
-                      <Select
-                        borderRadius="15px"
-                        placeholder="Choose a Graph"
-                        color="gray.400"
-                        fontSize="xs"
-                        onChange={handleGraphChange}
-                      >
-                        <option value="option1">Line chart</option>
-                        <option value="option2">Line chart with gradient</option>
-                        <option value="option3">Bar chart</option>
-                        <option value="option4">Bar chart horizontal</option>
-                        <option value="option5">Mixed chart</option>
-                        <option value="option6">Doughnut chart</option>
-                        <option value="option7">Pie chart</option>
-                        <option value="option8">Radar chart</option>
-                      </Select>
-                    </FormControl>
-
-                    {/* 3. Which Period? */}
-                    <FormControl flex="1">
-                      <FormLabel fontWeight="semibold" fontSize="xs" mb="10px">
-                        Which Period?
-                      </FormLabel>
-                      <Select
-                        borderRadius="15px"
-                        placeholder="Choose a Period"
-                        color="gray.400"
-                        fontSize="xs"
-                      >
-                        <option value="option1">Last quarter</option>
-                        <option value="option2">Last 2 quarters</option>
-                        <option value="option3">Last year</option>
-                        <option value="option4">All time</option>
-                      </Select>
-                    </FormControl>
-
-                    {/* NEXT Button */}
-                    <Button
-                      variant="no-hover"
-                      bg={bgButton}
-                      w="150px"
-                      h="35px"
-                      alignSelf="flex-end"
-                      onClick={handleNextClick}
+            <CardHeader mb="40px">
+              <Text color={textColor} fontSize="lg" fontWeight="bold">
+                Retention Rate Graphs
+              </Text>
+            </CardHeader>
+            <CardBody>
+              <Stack direction="column" spacing="20px" w="100%">
+                <Stack direction={{ sm: "column", lg: "row" }} spacing={{ sm: "24px", lg: "30px" }}>
+                  <FormControl flex="1">
+                    <FormLabel fontWeight="semibold" fontSize="xs" mb="10px">
+                      Which Graph?
+                    </FormLabel>
+                    <Select
+                      borderRadius="15px"
+                      placeholder="Choose a Graph"
+                      color="gray.400"
+                      fontSize="xs"
+                      onChange={handleGraphChange}
+                      isDisabled={isLoading}
                     >
-                      <Text fontSize="xs" color="#fff" fontWeight="bold">
-                        NEXT
-                      </Text>
-                    </Button>
-                  </Stack>
+                      <option value="combined">Combined Line Chart</option>
+                      <option value="turnover">Turnover Line Chart</option>
+                      <option value="retention">Retention Line Chart</option>
+
+                    </Select>
+                  </FormControl>
+                  <FormControl flex="1">
+                    <FormLabel fontWeight="semibold" fontSize="xs" mb="10px">
+                      Which Period?
+                    </FormLabel>
+                    <Select
+                      borderRadius="15px"
+                      placeholder="Choose a Period"
+                      color="gray.400"
+                      fontSize="xs"
+                      onChange={handlePeriodChange}
+                      isDisabled={isLoading}
+                    >
+                      <option value="quarterly">Quarterly</option>
+                      <option value="yearly">Yearly</option>
+                    </Select>
+                  </FormControl>
+                  <Button
+                    variant="no-hover"
+                    bg={bgButton}
+                    w="150px"
+                    h="35px"
+                    alignSelf="flex-end"
+                    onClick={handleNextClick}
+                    isLoading={isLoading}
+                    isDisabled={!selectedGraph || !selectedPeriod}
+                  >
+                    <Text fontSize="xs" color="#fff" fontWeight="bold">
+                      NEXT
+                    </Text>
+                  </Button>
                 </Stack>
-              </CardBody>
-            </Element>
+              </Stack>
+            </CardBody>
           </Table>
         </CardBody>
       </Card>
 
-      {/* Conditionally render the chart card once NEXT is clicked */}
-      {showChart && (
+      {isLoading && (
+        <Box textAlign="center" p={10}>
+          <Spinner size="xl" />
+        </Box>
+      )}
+
+      {showChart && !isLoading && (
         <Card mt="20px">
-          <CardHeader
-            display="flex"
-            justifyContent="space-between"
-            alignItems="center"
-            px="22px"
-          >
+          <CardHeader display="flex" justifyContent="space-between" alignItems="center" px="22px">
             <Text fontSize="lg" fontWeight="bold" color={textColor}>
               {getChartTitle()}
             </Text>
-
-            {/* Download menu (Hamburger icon) */}
-            <Menu>
-              <MenuButton
-                as={IconButton}
-                aria-label="Options"
-                icon={<HamburgerIcon />}
-                variant="outline"
-                size="sm"
-              />
-              <MenuList>
-                {/* PNG download */}
-                <MenuItem onClick={handleDownloadPNG}>Download PNG</MenuItem>
-
-                {/* CSV download */}
-                <MenuItem onClick={handleDownloadCSV}>Download CSV</MenuItem>
-
-                
-              </MenuList>
-            </Menu>
           </CardHeader>
-
           <CardBody>
-            {/* 
-              Set a dynamic / responsive min height so the chart grows for larger screens. 
-              You can adjust these values as needed.
-            */}
             <Box w="100%" minH={{ base: "300px", md: "400px", xl: "500px" }}>
               {renderChart()}
             </Box>

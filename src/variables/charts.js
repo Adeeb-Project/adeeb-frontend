@@ -4,8 +4,8 @@
 * Purity UI Dashboard PRO - v1.0.0
 =========================================================
 
-* Product Page: https://www.creative-tim.com/product/purity-ui-dashboard-pro
-* Copyright 2021 Creative Tim (https://www.creative-tim.com/)
+* Product Page: https://www.adeebcompany.com/product/purity-ui-dashboard-pro
+* Copyright 2021 Creative Tim (https://www.adeebcompany.com/)
 
 * Design by Creative Tim & Coded by Simmmple
 
@@ -17,7 +17,7 @@
 
 export const barChartDataDefault = [
   {
-    name: "Sales",
+    name: "Surveys",
     data: [330, 250, 110, 300, 490, 350, 270, 130, 425],
   },
 ];
@@ -95,11 +95,11 @@ export const barChartOptionsDefault = {
 
 export const lineChartDataDefault = [
   {
-    name: "Mobile apps",
+    name: "Retension",
     data: [50, 40, 300, 220, 500, 250, 400, 230, 500],
   },
   {
-    name: "Websites",
+    name: "TurnOver",
     data: [30, 90, 40, 140, 290, 290, 340, 230, 400],
   },
 ];
@@ -822,11 +822,11 @@ export const lineChartOptionsCharts1 = {
 
 export const lineChartDataCharts2 = [
   {
-    name: "Mobile apps",
+    name: "Retension",
     data: [50, 40, 300, 220, 500, 250, 400, 230, 500],
   },
   {
-    name: "Websites",
+    name: "TurnOver",
     data: [400, 500, 40, 140, 290, 290, 340, 230, 400],
   },
 ];

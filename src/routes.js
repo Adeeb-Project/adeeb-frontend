@@ -22,16 +22,18 @@ import Default from "views/Dashboard/Default";
 import NewUser from "views/Pages/Users/NewUser/index";
 import Reports from "views/Pages/Users/Reports/index";
 import DataTables from "views/Applications/DataTables";
+import AssignSurvey from "views/Survey/AssignSurvey";
+
 import Settings from "views/Pages/Account/Settings";
 import ManageUsers from "views/Pages/Account/Settings/indexManageUsers";
 import RetentionRateGraphs from "views/Pages/Graphs/RetentionRateGraphs";
-import ReasonsGraphs from "views/Pages/Graphs/Reasons";
 import { layout } from "@chakra-ui/system";
-import CompanyReports from "views/Pages/Summary/CompanyReports";
-import RetentionRateReport from "views/Pages/Summary/RetentionRate";
-import ReasonsReport from "views/Pages/Summary/Reasons";
+import SurveySummary from "views/Pages/Summary/SurveySummary";
 import Survey from "views/Survey/Survey";
 import MySurvey from "views/Survey/mysurveys";
+import SurveysList from "views/Survey/SurveysList";
+import CreateSurvey from "views/Survey/CreateSurvey";
+import EditSurvey from "views/Survey/EditSurvey";
 
 /* Side bar routers names */
 
@@ -58,23 +60,28 @@ const dashRoutes = [
     items: [
       {
         name: "Survey",
-        path: "/survey",
+        path: "/surveys",
         collapse: true,
         icon: <DocumentIcon color="inherit" />,
         items: [
           {
-            name: "My Surveys",
-            path: "/survey/manage",
-            component: MySurvey, // Updated to the new Survey Management Page
+            name: "Surveys",
+            path: "/surveys/main",
+            component: SurveysList,
             layout: "/admin",
           },
           {
-            name: "Survey",
-            path: "/survey/viewSurvey/:id",
-            component: Survey, // Updated to the new Survey Management Page
+            name: "Create Survey",
+            path: "/surveys/create",
+            component: CreateSurvey,
             layout: "/admin",
           },
-
+          {
+            name: "Edit Survey",
+            path: "/surveys/:surveyId/edit",
+            component: EditSurvey,
+            layout: "/admin",
+          },
         ],
       },
       {
@@ -85,10 +92,10 @@ const dashRoutes = [
 
         items: [
           {
-            name: "Add Employee",
-            //component: Kanban,
+            name: "Assign Survey",
+            component: AssignSurvey,
             authIcon: <DocumentIcon color="inherit" />,
-            path: "/demployees/addemployee",
+            path: "/demployees/assignsurvey",
             layout: "/admin",
           },
           {
@@ -114,27 +121,12 @@ const dashRoutes = [
         icon: <RocketIcon color="inherit" />,
         items: [
           {
-            name: "Company Report",
+            name: "Survey Summary",
             path: "/summary/companyreport",
             authIcon: <HomeIcon color="inherit" />,
-            component: CompanyReports,
+            component: SurveySummary,
             layout: "/admin",
             
-          },
-          {
-            name: "Retension Rate",
-            path: "/summary/rrate",
-            authIcon: <HomeIcon color="inherit" />,
-            component: RetentionRateReport,
-            layout: "/admin",
-            
-          },
-          {
-            name: "Reasons",
-            path: "/summary/reasons",
-            authIcon: <HomeIcon color="inherit" />,
-            component: ReasonsReport,
-            layout: "/admin",
           },
         ],
       },
@@ -145,19 +137,13 @@ const dashRoutes = [
         icon: <StatsIcon color="inherit" />,
         items: [
           {
-            name: "Retension Rate",
-            path: "/companiesreport/rrate",
+            name: "Company Graphs",
+            path: "/companiesreport/graphs",
             authIcon: <PersonIcon color="inherit" />,
             component: RetentionRateGraphs,
             layout: "/admin",
           },
-          {
-            name: "Reasons",
-            path: "/reasons",
-            authIcon: <PersonIcon color="inherit" />,
-            component: ReasonsGraphs,
-            layout: "/admin",
-          },
+          
         ],
       },
      ],

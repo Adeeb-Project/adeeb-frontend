@@ -4,8 +4,8 @@
 * Purity UI Dashboard PRO - v1.0.0
 =========================================================
 
-* Product Page: https://www.creative-tim.com/product/purity-ui-dashboard-pro
-* Copyright 2021 Creative Tim (https://www.creative-tim.com/)
+* Product Page: https://www.adeebcompany.com/product/purity-ui-dashboard-pro
+* Copyright 2021 Creative Tim (https://www.adeebcompany.com/)
 
 * Design by Creative Tim & Coded by Simmmple
 
@@ -55,28 +55,28 @@ export const salesData = [
     name: "Workload",
     sales: 2500,
     value: "27%",
-    bounce: "29,9%",
+    bounce: "29.9%",
   },
   {
     state: "",
     name: "Compensation",
     sales: 3900,
     value: "28%",
-    bounce: "40,22%",
+    bounce: "40.22%",
   },
   {
     state: "",
     name: "Management issues",
     sales: 1300,
     value: "24%",
-    bounce: "19,22%",
+    bounce: "19.22%",
   },
   {
     state: "",
     name: "Others",
     sales: 920,
     value: "21%",
-    bounce: "39,22%",
+    bounce: "39.22%",
   },
 ];
 

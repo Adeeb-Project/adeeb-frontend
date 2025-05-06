@@ -41,7 +41,7 @@ const SidebarHelp = ({ sidebarWidth }) => {
         </Text>
         <Link
           w="100%"
-          href="https://demos.creative-tim.com/docs-purity-ui-dashboard/"
+          href="https://media.makeameme.org/created/or-learn-it.jpg"
         >
           <Button
             fontSize="14px"
