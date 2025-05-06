@@ -102,3 +102,11 @@ ReactDOM.render(
   </ChakraProvider>,
   document.getElementById("root")
 );
+
+function App() {
+  return (
+    <ChakraProvider theme={theme}>
+      {/* … */}
+    </ChakraProvider>
+  );
+}
