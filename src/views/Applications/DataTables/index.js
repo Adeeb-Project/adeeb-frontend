@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect, useRef, useCallback } from "react";
 import {
   Flex,
@@ -24,6 +23,7 @@ import {
   useColorModeValue,
   useDisclosure,
   useToast,
+  Box,
 } from "@chakra-ui/react";
 import { CloseIcon } from "@chakra-ui/icons";
 import { FiPlus } from "react-icons/fi";
@@ -32,7 +32,7 @@ import CardBody from "components/Card/CardBody";
 import CardHeader from "components/Card/CardHeader";
 import SearchTable1 from "components/Tables/SearchTable1";
 
-/*  Columns returned by GET /api/employees                            */
+/*  Columns returned by GET /api/employees                            */
 
 const columns = [
   { Header: "ID", accessor: "id" },
@@ -42,6 +42,51 @@ const columns = [
   { Header: "Department", accessor: "department" },
   { Header: "Position", accessor: "position" },
   { Header: "Phone", accessor: "phoneNumber" },
+  { 
+    Header: "Survey Status",
+    accessor: "surveyStatus",
+    Cell: ({ value }) => {
+      const statusConfig = {
+        "SurveyNotAssigned": {
+          color: "red.500",
+          bg: "red.100",
+          text: "Not Assigned",
+        },
+        "SurveySent": {
+          color: "yellow.500",
+          bg: "yellow.100",
+          text: "Pending",
+        },
+        "SurveyCompleted": {
+          color: "green.500",
+          bg: "green.100",
+          text: "Completed",
+        },
+      };
+
+      const config = statusConfig[value] || {
+        color: "gray.500",
+        bg: "gray.100",
+        text: "Unknown",
+      };
+
+      return (
+        <Flex align="center" gap={2}>
+          <Box
+            px={3}
+            py={1}
+            borderRadius="full"
+            bg={config.bg}
+            color={config.color}
+            fontSize="sm"
+            fontWeight="medium"
+          >
+            {config.text}
+          </Box>
+        </Flex>
+      );
+    }
+  },
 ];
 
 function DataTables() {
@@ -64,28 +109,20 @@ function DataTables() {
   const textColor = useColorModeValue("gray.700", "white");
 
   /* -------------------------- helpers ------------------------------ */
-  const token = localStorage.getItem("token");
+  const token = localStorage.getItem("authToken");
 
   /* -------------------- GET  employees  --------------------------- */
   const fetchEmployees = useCallback(async () => {
     try {
       setLoading(true);
-      const res = await fetch("/api/employees", {
-        headers: { Authorization: `Bearer ${token}` },
+      const res = await fetch("http://localhost:5347/api/employees", {
+        headers: { Authorization: `${token}` },
       });
       if (!res.ok) throw new Error(`${res.status} ${res.statusText}`);
 
       const raw = await res.json();
-      const mapped = raw.map((e) => ({
-        id: e.Id,
-        fullName: e.FullName,
-        email: e.Email,
-        joinDate: e.JoinDate,
-        department: e.Department,
-        position: e.Position,
-        phoneNumber: e.PhoneNumber,
-      }));
-      setTableData(mapped);
+     
+      setTableData(raw);
     } catch (err) {
       toast({
         status: "error",
@@ -121,9 +158,9 @@ function DataTables() {
       const formData = new FormData();
       formData.append("file", selectedFile);
 
-      const res = await fetch("/api/employees/upload", {
+      const res = await fetch("http://localhost:5347/api/employees/upload", {
         method: "POST",
-        headers: { Authorization: `Bearer ${token}` },
+        headers: { Authorization: `${token}` },
         body: formData,
       });
       if (!res.ok) throw new Error(`${res.status} ${res.statusText}`);
@@ -142,22 +179,28 @@ function DataTables() {
 
   const handleManualSubmit = async () => {
     try {
-      const res = await fetch("/api/employees", {
+      const token = localStorage.getItem("authToken");
+      const formData = { ...manualForm };
+
+      const res = await fetch("http://localhost:5347/api/employees", {
         method: "POST",
         headers: {
-          Authorization: `Bearer ${token}`,
+          "Authorization": token,
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(manualForm),
+        body: JSON.stringify(formData),
       });
 
-      /* Controller returns 201 Created with empty body */
-      if (res.status !== 201) throw new Error(`${res.status} ${res.statusText}`);
+      // Accept both 201 and 204 as success
+      if (res.status !== 201 && res.status !== 204) {
+        const errorData = await res.text();
+        throw new Error(`${res.status} ${res.statusText} - ${errorData}`);
+      }
 
       toast({ status: "success", title: "Employee added", position: "top" });
-      await fetchEmployees(); // refresh
-      onClose();
-      setManualForm({
+      await fetchEmployees(); // Refresh the table
+      onClose(); // Close the modal
+      setManualForm({ // Reset the form
         fullName: "",
         email: "",
         phoneNumber: "",

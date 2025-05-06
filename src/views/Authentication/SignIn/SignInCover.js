@@ -46,7 +46,7 @@ function SignIn() {
     try {
       // We can either send as JSON or as FormData.
       // Here we're sending a JSON payload:
-      const response = await fetch("https://server.adeebcompany.com/api/Users/login", {
+      const response = await fetch("http://localhost:5347/api/Users/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
