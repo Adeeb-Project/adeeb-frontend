@@ -27,6 +27,7 @@ export const globalStyles = {
 			600: "#2E005E",
 			700: "#2E005E",
 			800: "#2E005E",
+                color: mode('purple.700', 'purple.200')(props),
 			900: "#2E005E",
 			teal: "#2E005E",
 		}
