@@ -51,7 +51,7 @@ export default function Default() {
   }, []);
 
   // Chakra Color Mode
-  const iconTeal = useColorModeValue("teal.300", "teal.300");
+  const iconTeal = useColorModeValue("blue.500", "blue.300");
   const iconBoxInside = useColorModeValue("white", "white");
   const textColor = useColorModeValue("gray.700", "white");
 
