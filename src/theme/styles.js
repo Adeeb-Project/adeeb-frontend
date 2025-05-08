@@ -4,6 +4,18 @@ export const globalStyles = {
 	colors: {
 		gray: {
 			700: '#AD00FF'
+        purple: {
+            50:  "#f5e9ff",
+            100: "#e0c2ff",
+            200: "#c29bff",
+            300: "#a375ff",
+            400: "#854eff",
+            500: "#6728ff",
+            600: "#521ecf",
+            700: "#3d169f",
+            800: "#290f6f",
+            900: "#14073f"
+        },
 		},
 		teal: {
 			50:  "#2E005E",
