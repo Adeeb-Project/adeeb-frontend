@@ -227,7 +227,7 @@ const ToDoList = () => {
           <HSeparator my="14px" />
           <Flex>
             <Flex
-              bgColor="purple.500"
+              bgColor="blue.500"
               borderRadius="12px"
               minWidth="3px"
               h="100%"

@@ -98,12 +98,12 @@ function LandingPage() {
                 fontWeight="medium" 
                 onClick={() => scrollToSection("faq")}
                 cursor="pointer"
-                _hover={{ color: "#2E005E" }}
+                _hover={{ color: "#1e88ff" }}
               >
                 FAQ
               </Link>
               <Button
-                bg="#2E005E"              // base background color
+                bg="#1e88ff"              // base background color
                 _hover={{ bg: "#250149" }} // slightly darker on hover
                 color="white"             // ensure the text stays legible
                 size="sm"
@@ -224,7 +224,7 @@ function LandingPage() {
                           h="20px"
                           as={FaCheckCircle}
                           mr="8px"
-                          color="#2E005E"
+                          color="#1e88ff"
                         />
                         <Text color="gray.500" fontWeight="normal" fontSize="md">
                           1 Team Member
@@ -236,7 +236,7 @@ function LandingPage() {
                           h="20px"
                           as={FaCheckCircle}
                           mr="8px"
-                          color="#2E005E"
+                          color="#1e88ff"
                         />
                         <Text color="gray.500" fontWeight="normal" fontSize="md">
                           Adeeb services and analytics
@@ -287,7 +287,7 @@ function LandingPage() {
                           h="20px"
                           as={FaCheckCircle}
                           mr="8px"
-                          color="#2E005E"
+                          color="#1e88ff"
                         />
                         <Text color="gray.500" fontWeight="normal" fontSize="md">
                           4 Team Members
@@ -299,7 +299,7 @@ function LandingPage() {
                           h="20px"
                           as={FaCheckCircle}
                           mr="8px"
-                          color="#2E005E"
+                          color="#1e88ff"
                         />
                         <Text color="gray.500" fontWeight="normal" fontSize="md">
                           Adeeb services and analytics
@@ -311,7 +311,7 @@ function LandingPage() {
                           h="20px"
                           as={FaCheckCircle}
                           mr="8px"
-                          color="#2E005E"
+                          color="#1e88ff"
                         />
                         <Text color="gray.500" fontWeight="normal" fontSize="md">
                           AI Suggestions
@@ -321,7 +321,7 @@ function LandingPage() {
                     <Button
                       variant="no-hover"
                       fontSize="xs"
-                      bg="#2E005E"
+                      bg="#1e88ff"
                       color="#fff"
                     >
                       TRY PREMIUM
