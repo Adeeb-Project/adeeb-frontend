@@ -27,11 +27,11 @@ export const globalStyles = {
 					document.documentElement.layout === 'auth'
 						? mode('white', 'gray.800')(props)
 						: mode('gray.50', 'gray.800')(props),
-				fontFamily: "'Roboto', sans-serif"
-			},
-			html: {
-				fontFamily: "'Roboto', sans-serif"
-			}
+                fontFamily: `-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif`
+            },
+            html: {
+                fontFamily: `-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif`
+            }
 		})
 	}
 };
