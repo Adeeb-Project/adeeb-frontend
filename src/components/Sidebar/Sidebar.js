@@ -1,23 +1,8 @@
-/*!
 
-=========================================================
-* Purity UI Dashboard PRO - v1.0.0
-=========================================================
-
-* Product Page: https://www.creative-tim.com/product/purity-ui-dashboard-pro
-* Copyright 2021 Creative Tim (https://www.creative-tim.com/)
-
-* Design by Creative Tim & Coded by Simmmple
-
-=========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-
-*/
 
 /*eslint-disable*/
 import { HamburgerIcon } from "@chakra-ui/icons";
-// chakra imports
+
 import {
   Accordion,
   AccordionButton,
@@ -78,7 +63,7 @@ function Sidebar(props) {
   // this function creates the links and collapses that appear in the sidebar (left menu)
   const createLinks = (routes) => {
     const { sidebarVariant } = props;
-    // Chakra Color Mode
+  
     let activeBg = useColorModeValue("teal.300", "teal.300");
     let activeAccordionBg = useColorModeValue("white", "gray.700");
     let inactiveBg = useColorModeValue("white", "gray.700");
@@ -450,7 +435,7 @@ function Sidebar(props) {
           me="10px"
         /> */}
         <Text
-          fontSize="xs"
+          fontSize="33px"
           mt="3px"
           display={sidebarWidth === 275 ? "block" : "none"}
         >

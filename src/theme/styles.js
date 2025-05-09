@@ -1,30 +1,24 @@
-/*!
-
-=========================================================
-* Purity UI Dashboard PRO - v1.0.0
-=========================================================
-
-* Product Page: https://www.creative-tim.com/product/purity-ui-dashboard-pro
-* Copyright 2021 Creative Tim (https://www.creative-tim.com/)
-
-* Design by Creative Tim & Coded by Simmmple
-
-=========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-
-*/
-
 import { mode } from '@chakra-ui/theme-tools';
 
 export const globalStyles = {
 	colors: {
 		gray: {
-			700: '#1f2733'
+			700: '#003366'
 		},
 		teal: {
-			500: 'rgb(79, 209, 197)'
+			50:  "#f0f7ff",  // very light
+			100: "#d0e7ff",
+			200: "#a6ceff",
+			300: "#1e88ff",
+			400: "#4a9eff",
+			500: "#1e88ff",  // Primary (like iOS link blue)
+			600: "#007aff",  // iOS system blue
+			700: "#0062cc",
+			800: "#004b99",
+			900: "#003366",
+			teal: "#0062cc",
 		}
+		
 	},
 	styles: {
 		global: (props) => ({
@@ -33,11 +27,11 @@ export const globalStyles = {
 					document.documentElement.layout === 'auth'
 						? mode('white', 'gray.800')(props)
 						: mode('gray.50', 'gray.800')(props),
-				fontFamily: "'Roboto', sans-serif"
-			},
-			html: {
-				fontFamily: "'Roboto', sans-serif"
-			}
+                fontFamily: `-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif`
+            },
+            html: {
+                fontFamily: `-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif`
+            }
 		})
 	}
 };

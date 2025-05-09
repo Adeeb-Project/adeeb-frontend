@@ -26,6 +26,7 @@
     "framer-motion": "^4.1.17",
     "fullcalendar": "^5.9.0",
     "globalize": "^1.7.0",
+    "jwt-decode": "^4.0.0",
     "match-sorter": "6.3.0",
     "moment": "^2.29.1",
     "nouislider": "15.0.0",
@@ -56,7 +57,9 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build && gulp licenses",
-    "test": "react-scripts test --env=jsdom",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage",
     "eject": "react-scripts eject",
     "deploy": "npm run build",
     "lint:check": "eslint . --ext=js,jsx;  exit 0",
@@ -67,12 +70,21 @@
     "@babel/core": "7.26.9",
     "typescript": "4.2.4"
   },
-  "devDependencies": {
+    "@babel/core": "^7.26.10",
     "@babel/plugin-transform-react-jsx-source": "^7.25.9",
+    "@babel/preset-env": "^7.26.9",
+    "@babel/preset-react": "^7.26.3",
+    "@testing-library/jest-dom": "^5.17.0",
+    "@testing-library/react": "^12.1.5",
+    "@testing-library/user-event": "^13.5.0",
+    "babel-loader": "^10.0.0",
     "eslint-config-prettier": "8.3.0",
     "eslint-plugin-prettier": "3.4.0",
     "gulp": "4.0.2",
     "gulp-append-prepend": "1.0.9",
+    "identity-obj-proxy": "^3.0.0",
+    "jest": "^29.7.0",
+    "jest-environment-jsdom": "^29.7.0",
     "prettier": "2.2.1"
   },
   "browserslist": [

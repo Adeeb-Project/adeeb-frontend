@@ -1,21 +1,3 @@
-/*!
-
-=========================================================
-* Purity UI Dashboard PRO - v1.0.0
-=========================================================
-
-* Product Page: https://www.creative-tim.com/product/purity-ui-dashboard-pro
-* Copyright 2021 Creative Tim (https://www.creative-tim.com/)
-
-* Design by Creative Tim & Coded by Simmmple
-
-=========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-
-*/
-
-// Chakra imports
 import {
   Avatar,
   Flex,
@@ -23,7 +5,7 @@ import {
   Text,
   useColorModeValue,
 } from "@chakra-ui/react";
-import avatar4 from "assets/img/avatars/avatar4.png";
+import avatar4 from "assets/svg/person-circle-auth.svg";
 // Custom components
 import Card from "components/Card/Card";
 import CardBody from "components/Card/CardBody";
@@ -54,17 +36,17 @@ const Header = () => {
             <Flex align="center">
               <Avatar
                 src={avatar4}
-                w="80px"
-                h="80px"
-                me="22px"
-                borderRadius="15px"
+                w="85px"
+                h="85px"
+                me="25px"
+                borderRadius="50px"
               />
               <Flex direction="column">
                 <Text color={textColor} fontWeight="bold" fontSize="lg">
-                  Esthera Jackson
+                  Muath Alghamdi
                 </Text>
                 <Text color="gray.400" fontWeight="normal" fontSize="sm">
-                  esthera@simmmple.com
+                  muath@adeeb.com
                 </Text>
               </Flex>
             </Flex>
@@ -74,15 +56,7 @@ const Header = () => {
               mt={{ sm: "16px", lg: null }}
               ms={{ sm: "6px", lg: null }}
             >
-              <Text
-                color={textColor}
-                fontWeight="normal"
-                me="14px"
-                fontSize="sm"
-              >
-                Switch to {toggle ? "invisible" : "visible"}
-              </Text>
-              <Switch colorScheme="teal" onChange={() => setToggle(!toggle)} />
+
             </Flex>
           </Flex>
         </CardBody>

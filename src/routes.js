@@ -1,3 +1,4 @@
+// Imports
 import { RocketIcon } from "components/Icons/Icons";
 import { AuthenticationIcon } from "components/Icons/Icons";
 import {
@@ -16,9 +17,6 @@ import SignUpBasic from "views/Authentication/SignUp/SignUpBasic.js";
 import SignUpCover from "views/Authentication/SignUp/SignUpCover.js";
 import SignUpIllustration from "views/Authentication/SignUp/SignUpIllustration.js";
 import Default from "views/Dashboard/Default";
-import Overview from "views/Pages/Profile/Overview/index";
-import Projects from "views/Pages/Profile/Projects/index";
-import Teams from "views/Pages/Profile/Teams/index";
 import NewUser from "views/Pages/Users/NewUser/index";
 import Reports from "views/Pages/Users/Reports/index";
 import DataTables from "views/Applications/DataTables";
@@ -26,10 +24,18 @@ import SurveyManagement from "views/Survey/SurveyManagement";
 import EditSurvey from "views/Survey/EditSurvey";
 import AddSurvey from "./views/Survey/AddSurvey";
 import ViewSurvey from "./views/Survey/ViewSurvey";
+import Settings from "views/Pages/Account/Settings";
+import ManageUsers from "views/Pages/Account/Settings/indexManageUsers";
+import RetentionRateGraphs from "views/Pages/Graphs/RetentionRateGraphs";
+import ReasonsGraphs from "views/Pages/Graphs/Reasons";
+import CompanyReports from "views/Pages/Summary/CompanyReports";
+import RetentionRateReport from "views/Pages/Summary/RetentionRate";
+import ReasonsReport from "views/Pages/Summary/Reasons";
 import Survey from "views/Survey/Survey";
 import MySurvey from "views/Survey/mysurveys";
 import ViewSurveyResponses from "views/Survey/ViewSurveyResponses";
 
+// Routes Definition
 const dashRoutes = [
   {
     name: "Dashboard",
@@ -47,10 +53,9 @@ const dashRoutes = [
     ],
   },
   {
-    name: "PAGES",
+    name: "Survey control",
     category: "pages",
     items: [
-      // Directly linking Survey to the Survey component
       {
         name: "Survey",
         path: "/survey",
@@ -60,31 +65,37 @@ const dashRoutes = [
           {
             name: "Manage Surveys",
             path: "/survey/manage",
-            component: SurveyManagement, // Updated to the new Survey Management Page
-            layout: "/admin",
+            component: SurveyManagement,
+            layout: "/admin"
+          },
+          {
+            name: "My Surveys",
+            path: "/survey/my-surveys",
+            component: MySurvey,
+            layout: "/admin"
           },
           {
             name: "Add Surveys",
             path: "/survey/addSurvey/:id",
-            component: AddSurvey, // Updated to the new Survey Management Page
+            component: AddSurvey,
             layout: "/admin",
-            hidden:true,
+            hidden: true
           },
           {
             name: "View Surveys",
             path: "/survey/viewSurvey/:id",
-            component: ViewSurvey, // Updated to the new Survey Management Page
+            component: ViewSurvey,
             layout: "/admin",
-            hidden:true,
+            hidden: true
           },
           {
             name: "View Response",
             path: "/survey/view-responses/:id",
-            component: ViewSurveyResponses, // Updated to the new Survey Management Page
+            component: ViewSurveyResponses,
             layout: "/admin",
-            hidden:true,
-          },
-        ],
+            hidden: true
+          }
+        ]
       },
       {
         name: "Departing Employees",
@@ -94,86 +105,21 @@ const dashRoutes = [
         items: [
           {
             name: "Add Employee",
-            component: Kanban,
-            authIcon: <DocumentIcon color="inherit" />,
             path: "/demployees/addemployee",
-            layout: "/admin",
+            layout: "/admin"
           },
           {
-            name: "Employees Table",
+            name: "Employees Tabel",
             component: DataTables,
-            authIcon: <PersonIcon color="inherit" />,
             path: "/demployees/employeestable",
-            layout: "/admin",
-          },
-        ],
-      },
-      {
-        name: "Authentication",
-        path: "/authentication",
-        icon: <AuthenticationIcon color="inherit" />,
-        collapse: true,
-        items: [
-          {
-            name: "Users",
-            path: "/authentication/users",
-            collapse: false,
-            authIcon: <DocumentIcon color="inherit" />,
-            items: [
-              {
-                name: "Basic",
-                secondaryNavbar: true,
-                component: SignInBasic,
-                path: "/authentication/sign-in/basic",
-                layout: "/auth",
-              },
-              {
-                name: "Cover",
-                component: SignInCover,
-                path: "/authentication/sign-in/cover",
-                layout: "/auth",
-              },
-              {
-                name: "Illustration",
-                component: SignInIllustration,
-                path: "/authentication/sign-in/illustration",
-                layout: "/auth",
-              },
-            ],
-          },
-          {
-            name: "New User",
-            path: "/authentication/newuser",
-            collapse: false,
-            authIcon: <DocumentIcon color="inherit" />,
-            items: [
-              {
-                name: "Basic",
-                secondaryNavbar: true,
-                component: SignUpBasic,
-                path: "/authentication/sign-up/basic",
-                layout: "/auth",
-              },
-              {
-                name: "Cover",
-                component: SignUpCover,
-                path: "/authentication/sign-up/cover",
-                layout: "/auth",
-              },
-              {
-                name: "Illustration",
-                component: SignUpIllustration,
-                path: "/authentication/sign-up/illustration",
-                layout: "/auth",
-              },
-            ],
-          },
-        ],
-      },
-    ],
+            layout: "/admin"
+          }
+        ]
+      }
+    ]
   },
   {
-    name: "DOCS",
+    name: "Reports and Analytics",
     category: "docs",
     items: [
       {
@@ -184,72 +130,26 @@ const dashRoutes = [
         items: [
           {
             name: "Company Report",
-            path: "/companyreport",
-            collapse: false,
+            path: "/summary/companyreport",
             authIcon: <HomeIcon color="inherit" />,
-            items: [
-              {
-                name: "Profile Overview",
-                secondaryNavbar: true,
-                path: "/pages/profile/overview",
-                component: Overview,
-                layout: "/admin",
-              },
-            ],
+            component: CompanyReports,
+            layout: "/admin"
           },
           {
-            name: "Retention Rate",
-            path: "/companiesreport/rrate",
-            collapse: true,
-            authIcon: <PersonIcon color="inherit" />,
-            items: [
-              {
-                name: "Company",
-                path: "/companiesreport/rrate/company",
-                component: Reports,
-                layout: "/admin",
-              },
-              {
-                name: "Departments",
-                path: "/companiesreport/rrate/departments",
-                component: NewUser,
-                layout: "/admin",
-              },
-              {
-                name: "Gender",
-                path: "/companiesreport/rrate/gender",
-                component: NewUser,
-                layout: "/admin",
-              },
-            ],
+            name: "Retension Rate",
+            path: "/summary/rrate",
+            authIcon: <HomeIcon color="inherit" />,
+            component: RetentionRateReport,
+            layout: "/admin"
           },
           {
             name: "Reasons",
-            path: "/reasons",
-            collapse: true,
-            authIcon: <PersonIcon color="inherit" />,
-            items: [
-              {
-                name: "Company",
-                path: "/reasons/company",
-                component: Reports,
-                layout: "/admin",
-              },
-              {
-                name: "Departments",
-                path: "/reasons/departments",
-                component: NewUser,
-                layout: "/admin",
-              },
-              {
-                name: "Gender",
-                path: "/reasons/gender",
-                component: NewUser,
-                layout: "/admin",
-              },
-            ],
-          },
-        ],
+            path: "/summary/reasons",
+            authIcon: <HomeIcon color="inherit" />,
+            component: ReasonsReport,
+            layout: "/admin"
+          }
+        ]
       },
       {
         name: "Graphs",
@@ -258,61 +158,63 @@ const dashRoutes = [
         icon: <StatsIcon color="inherit" />,
         items: [
           {
-            name: "Retention Rate",
+            name: "Retension Rate",
             path: "/companiesreport/rrate",
-            collapse: true,
             authIcon: <PersonIcon color="inherit" />,
-            items: [
-              {
-                name: "Company",
-                path: "/companiesreport/rrate/company",
-                component: Reports,
-                layout: "/admin",
-              },
-              {
-                name: "Departments",
-                path: "/companiesreport/rrate/departments",
-                component: NewUser,
-                layout: "/admin",
-              },
-              {
-                name: "Gender",
-                path: "/companiesreport/rrate/gender",
-                component: NewUser,
-                layout: "/admin",
-              },
-            ],
+            component: RetentionRateGraphs,
+            layout: "/admin"
           },
           {
             name: "Reasons",
             path: "/reasons",
-            collapse: true,
             authIcon: <PersonIcon color="inherit" />,
-            items: [
-              {
-                name: "Company",
-                path: "/reasons/company",
-                component: Reports,
-                layout: "/admin",
-              },
-              {
-                name: "Departments",
-                path: "/reasons/departments",
-                component: NewUser,
-                layout: "/admin",
-              },
-              {
-                name: "Gender",
-                path: "/reasons/gender",
-                component: NewUser,
-                layout: "/admin",
-              },
-            ],
-          },
-        ],
-      },
-    ],
+            component: ReasonsGraphs,
+            layout: "/admin"
+          }
+        ]
+      }
+    ]
   },
+  {
+    name: "Users Management",
+    category: "users",
+    items: [
+      {
+        name: "Current Users",
+        path: "/current-users",
+        collapse: true,
+        icon: <DocumentIcon color="inherit" />,
+        items: [
+          {
+            name: "Settings",
+            path: "/settings",
+            component: Settings,
+            layout: "/admin"
+          },
+          {
+            name: "Manage Users",
+            path: "/manage-users",
+            component: ManageUsers,
+            layout: "/admin"
+          }
+        ]
+      },
+      {
+        name: "New Users",
+        path: "/new-users",
+        collapse: true,
+        icon: <DocumentIcon color="inherit" />,
+        items: [
+          {
+            name: "Add User",
+            path: "/add-account",
+            component: NewUser,
+            layout: "/admin"
+          }
+        ]
+      }
+    ]
+  }
 ];
 
 export default dashRoutes;

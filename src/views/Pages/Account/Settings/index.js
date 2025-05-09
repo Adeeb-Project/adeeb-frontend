@@ -1,21 +1,4 @@
-/*!
 
-=========================================================
-* Purity UI Dashboard PRO - v1.0.0
-=========================================================
-
-* Product Page: https://www.creative-tim.com/product/purity-ui-dashboard-pro
-* Copyright 2021 Creative Tim (https://www.creative-tim.com/)
-
-* Design by Creative Tim & Coded by Simmmple
-
-=========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-
-*/
-
-// Chakra imports
 import { Flex, Stack } from "@chakra-ui/react";
 import React from "react";
 import Accounts from "./components/Accounts";
@@ -32,7 +15,11 @@ import Notifications from "./components/Notifications";
 function Settings() {
   return (
     <Flex direction="column" pt={{ sm: "125px", lg: "75px" }}>
-      <Tabs />
+      {/*
+      This component will show few tabs
+      in the top of the screen
+      ----->  <Tabs />  <-----
+      */}
       <Buttons />
       <Stack
         direction="column"
@@ -46,7 +33,13 @@ function Settings() {
         <BasicInfo />
         <ChangePassword />
         <TwoFactorAuth />
-        <Accounts />
+        {/*
+        this will the component of linking an account 
+        with other platforms account
+
+        ---->  <Accounts />  <--------
+         
+         */}
         <Notifications />
         <Sessions />
         <DeleteAccount />

@@ -1,22 +1,5 @@
-/*!
-
-=========================================================
-* Purity UI Dashboard PRO - v1.0.0
-=========================================================
-
-* Product Page: https://www.creative-tim.com/product/purity-ui-dashboard-pro
-* Copyright 2021 Creative Tim (https://www.creative-tim.com/)
-
-* Design by Creative Tim & Coded by Simmmple
-
-=========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-
-*/
-
-// Chakra imports
 import {
+  Button,
   Flex,
   FormControl,
   FormLabel,
@@ -52,6 +35,10 @@ const BasicInfo = () => {
       id: 3,
     },
   ]);
+  const bgButton = useColorModeValue(
+      "linear-gradient(81.62deg, #313860 2.25%, #151928 79.87%)",
+      "gray.800"
+    );
   return (
     <Card
       w={{ sm: "100%", lg: "70%" }}
@@ -73,7 +60,7 @@ const BasicInfo = () => {
                 </FormLabel>
                 <Input
                   borderRadius="15px"
-                  placeholder="eg. Michael"
+                  placeholder="Michael"
                   fontSize="xs"
                 />
               </FormControl>
@@ -83,7 +70,7 @@ const BasicInfo = () => {
                 </FormLabel>
                 <Input
                   borderRadius="15px"
-                  placeholder="eg. Jackson"
+                  placeholder="Jackson"
                   fontSize="xs"
                 />
               </FormControl>
@@ -94,19 +81,20 @@ const BasicInfo = () => {
             >
               <FormControl w="40%">
                 <FormLabel fontWeight="semibold" fontSize="xs" mb="10px">
-                  I'm
+                  Gender
                 </FormLabel>
                 <Select
                   borderRadius="15px"
-                  placeholder="Male"
+                  placeholder="Choose your gender"
                   color="gray.400"
                   fontSize="xs"
                 >
                   <option value="option1">Male</option>
                   <option value="option2">Female</option>
+                  <option value="option2">I don't want to say</option>
                 </Select>
               </FormControl>
-              <Stack
+              {/* <Stack
                 direction="row"
                 spacing={{ sm: "24px", lg: "30px" }}
                 w="100%"
@@ -171,7 +159,7 @@ const BasicInfo = () => {
                     <option value="option8">2021</option>
                   </Select>
                 </FormControl>
-              </Stack>
+              </Stack> */}
             </Stack>
             <Stack direction="row" spacing={{ sm: "24px", lg: "30px" }}>
               <FormControl>
@@ -180,7 +168,7 @@ const BasicInfo = () => {
                 </FormLabel>
                 <Input
                   borderRadius="15px"
-                  placeholder="eg. esthera@address.com"
+                  placeholder="anonymous@example.com"
                   fontSize="xs"
                 />
               </FormControl>
@@ -190,13 +178,13 @@ const BasicInfo = () => {
                 </FormLabel>
                 <Input
                   borderRadius="15px"
-                  placeholder="eg. esthera@address.com"
+                  placeholder="anonymous@example.com"
                   fontSize="xs"
                 />
               </FormControl>
             </Stack>
             <Stack direction="row" spacing={{ sm: "24px", lg: "30px" }}>
-              <FormControl>
+              {/* <FormControl>
                 <FormLabel fontWeight="semibold" fontSize="xs" mb="10px">
                   Your Location
                 </FormLabel>
@@ -205,22 +193,17 @@ const BasicInfo = () => {
                   placeholder="eg. Bucharest"
                   fontSize="xs"
                 />
-              </FormControl>
+              </FormControl> */}
               <FormControl>
                 <FormLabel fontWeight="semibold" fontSize="xs" mb="10px">
                   Phone Number
                 </FormLabel>
                 <Input
                   borderRadius="15px"
-                  placeholder="eg. +40 941 353 292"
+                  placeholder="+966555555555"
                   fontSize="xs"
                 />
               </FormControl>
-            </Stack>
-            <Stack
-              direction={{ sm: "column", lg: "row" }}
-              spacing={{ sm: "24px", lg: "30px" }}
-            >
               <FormControl>
                 <FormLabel fontWeight="semibold" fontSize="xs" mb="10px">
                   Language
@@ -231,64 +214,21 @@ const BasicInfo = () => {
                   color="gray.400"
                   fontSize="xs"
                 >
-                  <option value="option1">French</option>
-                  <option value="option2">Spanish</option>
-                  <option value="option3">Romanian</option>
+                  <option value="option1">Arabic</option>
                 </Select>
               </FormControl>
-              <FormControl>
-                <FormLabel fontWeight="semibold" fontSize="xs" mb="10px">
-                  Skills
-                </FormLabel>
-                <Flex
-                  direction="row"
-                  p="12px"
-                  wrap="wrap"
-                  border="1px solid lightgray"
-                  borderRadius="15px"
-                  _focus={{ borderColor: "teal.300" }}
-                  minH="60px"
-                  cursor="text"
-                >
-                  {skills.map((skill, index) => {
-                    return (
-                      <Tag
-                        minW="80px"
-                        fontSize="xs"
-                        h="25px"
-                        mb="6px"
-                        me="6px"
-                        key={skill.id}
-                        borderRadius="12px"
-                        variant="solid"
-                        bg="linear-gradient(81.62deg, #313860 2.25%, #151928 79.87%)"
-                        key={index}
-                      >
-                        <TagLabel w="100%">{skill.name}</TagLabel>
-                        <TagCloseButton
-                          justifySelf="flex-end"
-                          onClick={() =>
-                            setSkills([
-                              ...skills.filter(
-                                (element) => element.id !== skill.id
-                              ),
-                            ])
-                          }
-                        />
-                      </Tag>
-                    );
-                  })}
-                  <Input
-                    borderRadius="15px"
-                    border="none"
-                    _focus="none"
-                    p="0px"
-                    onKeyDown={(e) => keyPress(e)}
-                    fontSize="xs"
-                  />
-                </Flex>
-              </FormControl>
             </Stack>
+            <Button
+                            variant="no-hover"
+                            bg={bgButton}
+                            w="150px"
+                            h="35px"
+                            alignSelf="flex-end"
+                          >
+                            <Text fontSize="xs" color="#fff" fontWeight="bold">
+                              UPDATE
+                            </Text>
+                          </Button>
           </Stack>
         </CardBody>
       </Element>

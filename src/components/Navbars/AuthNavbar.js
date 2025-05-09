@@ -1,21 +1,4 @@
-/*!
 
-=========================================================
-* Purity UI Dashboard PRO - v1.0.0
-=========================================================
-
-* Product Page: https://www.creative-tim.com/product/purity-ui-dashboard-pro
-* Copyright 2021 Creative Tim (https://www.creative-tim.com/)
-
-* Design by Creative Tim & Coded by Simmmple
-
-=========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-
-*/
-
-// Chakra imports
 import {
   Box,
   Button,
@@ -340,6 +323,72 @@ export default function AuthNavbar(props) {
       }
     });
   };
+
+  // Add a return statement to fix the error
+  return (
+    <Box
+      position={navbarPosition}
+      boxShadow={navbarShadow}
+      bg={navbarBg}
+      borderColor="transparent"
+      filter={navbarFilter}
+      backdropFilter={navbarBackdrop}
+      backgroundImage="none"
+      borderBottom="1px solid"
+      borderBottomColor={useColorModeValue("gray.200", "gray.700")}
+      justifyContent="space-between"
+      width="100%"
+      px={{ sm: "2px", md: "16px", xl: "30px" }}
+      py="12px"
+      mx="auto"
+      {...rest}
+    >
+      <Flex w="100%" px={{ xs: 4, md: 8 }} justifyContent="space-between">
+        <HStack spacing={{ sm: "10", md: "26" }}>
+          <Box
+            display={{ base: "none", xl: "block" }}
+            position="absolute"
+            left="50%"
+            transform="translate(-50%, 0%)"
+          >
+            <HStack spacing="1" minW="420px" justifyContent="center">
+              <NavLink to="/">
+                <Button
+                  variant="no-effects"
+                  py="12px"
+                  px="24px"
+                  _hover={{ bg: "none" }}
+                  _active={{ bg: "none" }}
+                  _focus={{ boxShadow: "none" }}
+                  color={mainText}
+                  fontWeight="bold"
+                  fontSize="sm"
+                >
+                  {logoText}
+                </Button>
+              </NavLink>
+            </HStack>
+          </Box>
+        </HStack>
+        <HStack spacing={{ sm: "0", md: "22px" }}>
+          <Button
+            variant="no-effects"
+            py="12px"
+            px="24px"
+            _hover={{ bg: "none" }}
+            _active={{ bg: "none" }}
+            _focus={{ boxShadow: "none" }}
+            color={mainText}
+            fontWeight="bold"
+            fontSize="sm"
+            onClick={() => window.location.href = "#/"}
+          >
+            Back to Home
+          </Button>
+        </HStack>
+      </Flex>
+    </Box>
+  );
 }
 
 AuthNavbar.propTypes = {
