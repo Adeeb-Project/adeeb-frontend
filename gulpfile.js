@@ -12,8 +12,8 @@ gulp.task("licenses", async function () {
       * Purity UI Dashboard PRO - v1.0.0
       =========================================================
 
-      * Product Page: https://www.creative-tim.com/product/purity-ui-dashboard-pro
-      * Copyright 2021 Creative Tim (https://www.creative-tim.com/)
+      * Product Page: https://www.adeebcompany.com/product/purity-ui-dashboard-pro
+      * Copyright 2021 Creative Tim (https://www.adeebcompany.com/)
 
       * Design by Creative Tim & Coded by Simmmple
 
@@ -36,8 +36,8 @@ gulp.task("licenses", async function () {
       * Purity UI Dashboard PRO - v1.0.0
       =========================================================
 
-      * Product Page: https://www.creative-tim.com/product/purity-ui-dashboard-pro
-      * Copyright 2021 Creative Tim (https://www.creative-tim.com/)
+      * Product Page: https://www.adeebcompany.com/product/purity-ui-dashboard-pro
+      * Copyright 2021 Creative Tim (https://www.adeebcompany.com/)
 
       * Design by Creative Tim & Coded by Simmmple
 
@@ -60,8 +60,8 @@ gulp.task("licenses", async function () {
       * Purity UI Dashboard PRO - v1.0.0
       =========================================================
 
-      * Product Page: https://www.creative-tim.com/product/purity-ui-dashboard-pro
-      * Copyright 2021 Creative Tim (https://www.creative-tim.com/)
+      * Product Page: https://www.adeebcompany.com/product/purity-ui-dashboard-pro
+      * Copyright 2021 Creative Tim (https://www.adeebcompany.com/)
 
       * Design by Creative Tim & Coded by Simmmple
 

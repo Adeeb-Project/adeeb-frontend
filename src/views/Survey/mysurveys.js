@@ -40,7 +40,7 @@ const MySurvey = () => {
   };
 
   return (
-    <Flex direction="column" p={6}>
+    <Flex direction="column" pt={64}>
       <Flex justifyContent="space-between" alignItems="center" mb={4}>
         <Heading size="lg">My Surveys</Heading>
         <Button colorScheme="teal" as={Link} to="/survey">

@@ -66,7 +66,7 @@ const SurveysList = () => {
   if (loading) return <Text>Loading surveys…</Text>;
 
   return (
-    <Box p={6}>
+    <Box  p={16}>
       
               <NavLink to="/admin/surveys/create">
               <Text fontSize="2xl" fontWeight="bold">Your Surveys</Text>

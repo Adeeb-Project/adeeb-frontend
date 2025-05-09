@@ -31,7 +31,7 @@ View <a href="https://demos.creative-tim.com/purity-ui-dashboard-pro/#/admin/das
 
 - View <a href="https://github.com/creativetimofficial/ct-purity-ui-dashboard-pro" target="_blank">Github Repository</a>
 
-- Check <a href="https://www.creative-tim.com/knowledge-center?ref=readme-pudpro" target="_blank">FAQ Page</a>
+- Check <a href="https://www.adeebcompany.com/knowledge-center?ref=readme-pudpro" target="_blank">FAQ Page</a>
 
 #### Special thanks
 
@@ -66,11 +66,11 @@ Let us know your thoughts below. And good luck with development!
 
 ## Versions
 
-[<img src="https://github.com/creativetimofficial/public-assets/blob/master/logos/react-logo.jpg?raw=true" width="60" height="60" />](https://www.creative-tim.com/product/purity-ui-dashboard-pro?ref=readme-pudpro)[<img src="https://github.com/creativetimofficial/public-assets/blob/master/logos/figma-logo.jpg?raw=true" width="60" height="60" />](https://www.creative-tim.com/product/purity-ui-dashboard-pro?ref=readme-pudpro)
+[<img src="https://github.com/creativetimofficial/public-assets/blob/master/logos/react-logo.jpg?raw=true" width="60" height="60" />](https://www.adeebcompany.com/product/purity-ui-dashboard-pro?ref=readme-pudpro)[<img src="https://github.com/creativetimofficial/public-assets/blob/master/logos/figma-logo.jpg?raw=true" width="60" height="60" />](https://www.adeebcompany.com/product/purity-ui-dashboard-pro?ref=readme-pudpro)
 
 | React                                                                                                                                                                                             | Figma                                                                                                                                                                                        |
 | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| [![Purity PRO ReactJS Chakra Dashboard](https://i.ibb.co/r2k2fdS/Cover-Purity-Chakra-PRO-Thumbnail-React-JS.png)](https://www.creative-tim.com/product/purity-ui-dashboard-pro?ref=readme-pudpro) | [![Purity PRO Figma Chakra Dashboard](https://i.ibb.co/zrKBk9D/Cover-Purity-Chakra-PRO-Thumbnail-Figma.png)](https://www.creative-tim.com/product/purity-ui-dashboard-pro?ref=readme-pudpro) |
+| [![Purity PRO ReactJS Chakra Dashboard](https://i.ibb.co/r2k2fdS/Cover-Purity-Chakra-PRO-Thumbnail-React-JS.png)](https://www.adeebcompany.com/product/purity-ui-dashboard-pro?ref=readme-pudpro) | [![Purity PRO Figma Chakra Dashboard](https://i.ibb.co/zrKBk9D/Cover-Purity-Chakra-PRO-Thumbnail-Figma.png)](https://www.adeebcompany.com/product/purity-ui-dashboard-pro?ref=readme-pudpro) |
 
 ## Demo
 
@@ -80,7 +80,7 @@ Let us know your thoughts below. And good luck with development!
 
 Quick start options:
 
-- Buy from [Creative Tim](https://www.creative-tim.com/product/purity-ui-dashboard-pro?ref=readme-pudpro).
+- Buy from [Creative Tim](https://www.adeebcompany.com/product/purity-ui-dashboard-pro?ref=readme-pudpro).
 
 ## Terminal Commands
 
@@ -277,10 +277,10 @@ At present, we officially aim to support the last two versions of the following 
 ## Resources
 
 - [Live Preview](https://demos.creative-tim.com/purity-ui-dashboard-pro/#/admin/dashboard?ref=readme-pudpro)
-- [Buy Page](https://www.creative-tim.com/product/purity-ui-dashboard-pro?ref=readme-pudpro)
-- License Agreement: <https://www.creative-tim.com/license?ref=readme-pudpro>
+- [Buy Page](https://www.adeebcompany.com/product/purity-ui-dashboard-pro?ref=readme-pudpro)
+- License Agreement: <https://www.adeebcompany.com/license?ref=readme-pudpro>
 - Documentation is [here](https://demos.creative-tim.com/docs-purity-ui-dashboard/?ref=readme-pudpro)
-- [Support](https://www.creative-tim.com/contact-us?ref=readme-pudpro)
+- [Support](https://www.adeebcompany.com/contact-us?ref=readme-pudpro)
 - Issues: [Github Issues Page](https://github.com/creativetimofficial/ct-purity-ui-dashboard-pro/issues)
 
 ## Reporting Issues
@@ -293,23 +293,23 @@ We use GitHub Issues as the official bug tracker for the Purity UI Dashboard. He
 
 ## Technical Support or Questions
 
-If you have questions or need help integrating the product please [contact us](https://www.creative-tim.com/contact-us?ref=readme-pudpro) instead of opening an issue.
+If you have questions or need help integrating the product please [contact us](https://www.adeebcompany.com/contact-us?ref=readme-pudpro) instead of opening an issue.
 
 ## Licensing
 
-- Copyright 2021 [Creative Tim](https://www.creative-tim.com?ref=readme-pudpro)
+- Copyright 2021 [Creative Tim](https://www.adeebcompany.com?ref=readme-pudpro)
 
-- Creative Tim [License](https://www.creative-tim.com/license?ref=readme-pudpro)
+- Creative Tim [License](https://www.adeebcompany.com/license?ref=readme-pudpro)
 
 ## Useful Links
 
-- [More products](https://www.creative-tim.com/templates?ref=readme-pudpro) from Creative Tim
+- [More products](https://www.adeebcompany.com/templates?ref=readme-pudpro) from Creative Tim
 
 - [Tutorials](https://www.youtube.com/channel/UCVyTG4sCw-rOvB9oHkzZD1w)
 
-- [Freebies](https://www.creative-tim.com/bootstrap-themes/free?ref=readme-pudpro) from Creative Tim
+- [Freebies](https://www.adeebcompany.com/bootstrap-themes/free?ref=readme-pudpro) from Creative Tim
 
-- [Affiliate Program](https://www.creative-tim.com/affiliates/new?ref=readme-pudpro) (earn money)
+- [Affiliate Program](https://www.adeebcompany.com/affiliates/new?ref=readme-pudpro) (earn money)
 
 - [More products](https://simmmple.gumroad.com?ref=readme-pudpro) from Simmmple
 
