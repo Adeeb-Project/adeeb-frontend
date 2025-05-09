@@ -1,6 +1,4 @@
-// import
-// To be changed
-// import Tables from "views/Dashboard/Tables.js";
+// Imports
 import { RocketIcon } from "components/Icons/Icons";
 import { AuthenticationIcon } from "components/Icons/Icons";
 import {
@@ -22,19 +20,22 @@ import Default from "views/Dashboard/Default";
 import NewUser from "views/Pages/Users/NewUser/index";
 import Reports from "views/Pages/Users/Reports/index";
 import DataTables from "views/Applications/DataTables";
+import SurveyManagement from "views/Survey/SurveyManagement";
+import EditSurvey from "views/Survey/EditSurvey";
+import AddSurvey from "./views/Survey/AddSurvey";
+import ViewSurvey from "./views/Survey/ViewSurvey";
 import Settings from "views/Pages/Account/Settings";
 import ManageUsers from "views/Pages/Account/Settings/indexManageUsers";
 import RetentionRateGraphs from "views/Pages/Graphs/RetentionRateGraphs";
 import ReasonsGraphs from "views/Pages/Graphs/Reasons";
-import { layout } from "@chakra-ui/system";
 import CompanyReports from "views/Pages/Summary/CompanyReports";
 import RetentionRateReport from "views/Pages/Summary/RetentionRate";
 import ReasonsReport from "views/Pages/Summary/Reasons";
 import Survey from "views/Survey/Survey";
 import MySurvey from "views/Survey/mysurveys";
+import ViewSurveyResponses from "views/Survey/ViewSurveyResponses";
 
-/* Side bar routers names */
-
+// Routes Definition
 const dashRoutes = [
   {
     name: "Dashboard",
@@ -49,7 +50,6 @@ const dashRoutes = [
         component: Default,
         layout: "/admin",
       },
-
     ],
   },
   {
@@ -63,45 +63,60 @@ const dashRoutes = [
         icon: <DocumentIcon color="inherit" />,
         items: [
           {
-            name: "My Surveys",
+            name: "Manage Surveys",
             path: "/survey/manage",
-            component: MySurvey, // Updated to the new Survey Management Page
-            layout: "/admin",
+            component: SurveyManagement,
+            layout: "/admin"
           },
           {
-            name: "Survey",
-            path: "/survey/viewSurvey/:id",
-            component: Survey, // Updated to the new Survey Management Page
-            layout: "/admin",
+            name: "My Surveys",
+            path: "/survey/my-surveys",
+            component: MySurvey,
+            layout: "/admin"
           },
-
-        ],
+          {
+            name: "Add Surveys",
+            path: "/survey/addSurvey/:id",
+            component: AddSurvey,
+            layout: "/admin",
+            hidden: true
+          },
+          {
+            name: "View Surveys",
+            path: "/survey/viewSurvey/:id",
+            component: ViewSurvey,
+            layout: "/admin",
+            hidden: true
+          },
+          {
+            name: "View Response",
+            path: "/survey/view-responses/:id",
+            component: ViewSurveyResponses,
+            layout: "/admin",
+            hidden: true
+          }
+        ]
       },
       {
         name: "Departing Employees",
         path: "/demployees",
         icon: <PersonIcon color="inherit" />,
         collapse: true,
-
         items: [
           {
             name: "Add Employee",
-            //component: Kanban,
-            authIcon: <DocumentIcon color="inherit" />,
             path: "/demployees/addemployee",
-            layout: "/admin",
+            layout: "/admin"
           },
           {
             name: "Employees Tabel",
             component: DataTables,
-            authIcon: <PersonIcon color="inherit" />,
             path: "/demployees/employeestable",
-            layout: "/admin",
-    
-          },
-        ],
-      },
-    ],
+            layout: "/admin"
+          }
+        ]
+      }
+    ]
   },
   {
     name: "Reports and Analytics",
@@ -118,25 +133,23 @@ const dashRoutes = [
             path: "/summary/companyreport",
             authIcon: <HomeIcon color="inherit" />,
             component: CompanyReports,
-            layout: "/admin",
-            
+            layout: "/admin"
           },
           {
             name: "Retension Rate",
             path: "/summary/rrate",
             authIcon: <HomeIcon color="inherit" />,
             component: RetentionRateReport,
-            layout: "/admin",
-            
+            layout: "/admin"
           },
           {
             name: "Reasons",
             path: "/summary/reasons",
             authIcon: <HomeIcon color="inherit" />,
             component: ReasonsReport,
-            layout: "/admin",
-          },
-        ],
+            layout: "/admin"
+          }
+        ]
       },
       {
         name: "Graphs",
@@ -149,60 +162,59 @@ const dashRoutes = [
             path: "/companiesreport/rrate",
             authIcon: <PersonIcon color="inherit" />,
             component: RetentionRateGraphs,
-            layout: "/admin",
+            layout: "/admin"
           },
           {
             name: "Reasons",
             path: "/reasons",
             authIcon: <PersonIcon color="inherit" />,
             component: ReasonsGraphs,
-            layout: "/admin",
+            layout: "/admin"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    name: "Users Management",
+    category: "users",
+    items: [
+      {
+        name: "Current Users",
+        path: "/current-users",
+        collapse: true,
+        icon: <DocumentIcon color="inherit" />,
+        items: [
+          {
+            name: "Settings",
+            path: "/settings",
+            component: Settings,
+            layout: "/admin"
           },
-        ],
+          {
+            name: "Manage Users",
+            path: "/manage-users",
+            component: ManageUsers,
+            layout: "/admin"
+          }
+        ]
       },
-     ],
-    },
-    {
-      name: "Users Management",
-      category: "users",
-      items: [
-        {
-          name: "Current Users",
-          path: "/current-users",
-          collapse: true,
-          icon: <DocumentIcon color="inherit" />,
-          items: [
-            {
-              name: "Settings",
-              path: "/settings",
-              component: Settings,
-              layout: "/admin"
-            },
-            {
-              name: "Manage Users",
-              path: "/manage-users",
-              component: ManageUsers,
-              layout: "/admin"
-            },
-          ],
-        },
-        
-        {
-          name: "New Users",
-          path: "/new-users",
-          collapse: true,
-          icon: <DocumentIcon color="inherit" />,
-          items: [
-            {
-              name: "Add User",
-              path: "/add-account",
-              component: NewUser,
-              layout: "/admin"
-            },
-          ],
-        },
-      ],
-    }
+      {
+        name: "New Users",
+        path: "/new-users",
+        collapse: true,
+        icon: <DocumentIcon color="inherit" />,
+        items: [
+          {
+            name: "Add User",
+            path: "/add-account",
+            component: NewUser,
+            layout: "/admin"
+          }
+        ]
+      }
+    ]
+  }
 ];
 
 export default dashRoutes;

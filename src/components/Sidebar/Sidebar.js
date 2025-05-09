@@ -331,7 +331,7 @@ function Sidebar(props) {
                   </Text>
                 </HStack>
               </Box>
-            ) : (
+            ) : prop.hidden!=true &&((
               <List>
               <ListItem>
                 <HStack
@@ -366,7 +366,7 @@ function Sidebar(props) {
                 </HStack>
               </ListItem>
             </List>
-            )}
+            ))}
           </NavLink>
         );
       }

@@ -27,13 +27,14 @@ import {
 } from "@chakra-ui/react";
 import { CloseIcon } from "@chakra-ui/icons";
 import { FiPlus } from "react-icons/fi";
+import Papa from "papaparse";
+
 import Card from "components/Card/Card";
 import CardBody from "components/Card/CardBody";
 import CardHeader from "components/Card/CardHeader";
 import SearchTable1 from "components/Tables/SearchTable1";
 
-/*  Columns returned by GET /api/employees                            */
-
+// Column config
 const columns = [
   { Header: "ID", accessor: "id" },
   { Header: "Full Name", accessor: "fullName" },
@@ -42,34 +43,32 @@ const columns = [
   { Header: "Department", accessor: "department" },
   { Header: "Position", accessor: "position" },
   { Header: "Phone", accessor: "phoneNumber" },
-  { 
+  {
     Header: "Survey Status",
     accessor: "surveyStatus",
     Cell: ({ value }) => {
       const statusConfig = {
-        "SurveyNotAssigned": {
+        SurveyNotAssigned: {
           color: "red.500",
           bg: "red.100",
           text: "Not Assigned",
         },
-        "SurveySent": {
+        SurveySent: {
           color: "yellow.500",
           bg: "yellow.100",
           text: "Pending",
         },
-        "SurveyCompleted": {
+        SurveyCompleted: {
           color: "green.500",
           bg: "green.100",
           text: "Completed",
         },
       };
-
       const config = statusConfig[value] || {
         color: "gray.500",
         bg: "gray.100",
         text: "Unknown",
       };
-
       return (
         <Flex align="center" gap={2}>
           <Box
@@ -85,12 +84,11 @@ const columns = [
           </Box>
         </Flex>
       );
-    }
+    },
   },
 ];
 
 function DataTables() {
-  /* ----------------------------- state ----------------------------- */
   const [tableData, setTableData] = useState([]);
   const [loading, setLoading] = useState(false);
   const [selectedFile, setSelectedFile] = useState(null);
@@ -107,11 +105,9 @@ function DataTables() {
   const fileInputRef = useRef(null);
   const toast = useToast();
   const textColor = useColorModeValue("gray.700", "white");
-
-  /* -------------------------- helpers ------------------------------ */
   const token = localStorage.getItem("authToken");
 
-  /* -------------------- GET  employees  --------------------------- */
+  // Fetch employees
   const fetchEmployees = useCallback(async () => {
     try {
       setLoading(true);
@@ -119,9 +115,7 @@ function DataTables() {
         headers: { Authorization: `${token}` },
       });
       if (!res.ok) throw new Error(`${res.status} ${res.statusText}`);
-
       const raw = await res.json();
-     
       setTableData(raw);
     } catch (err) {
       toast({
@@ -139,11 +133,10 @@ function DataTables() {
     fetchEmployees();
   }, [fetchEmployees]);
 
-  /* -------------------- CSV‑upload flow --------------------------- */
+  // CSV file handling
   const handleFileSelect = (e) => {
     const file = e.target.files?.[0];
     if (!file) return;
-
     if (!file.name.toLowerCase().endsWith(".csv")) {
       toast({ status: "warning", title: "Only CSV files are allowed", position: "top" });
       e.target.value = "";
@@ -173,34 +166,58 @@ function DataTables() {
     }
   };
 
-  /* -------------------- manual‑add flow --------------------------- */
+  const handleCSVUpload = (event) => {
+    const file = event.target.files[0];
+    if (!file) return;
+
+    Papa.parse(file, {
+      header: true,
+      skipEmptyLines: true,
+      complete: (result) => {
+        if (result.errors.length > 0) {
+          console.error("CSV Parsing Errors:", result.errors);
+          return;
+        }
+        const formattedData = result.data.map((row, index) => ({
+          id: row.id || index + 1,
+          fullName: row.fullName || "N/A",
+          email: row.email || "N/A",
+          joinDate: row.joinDate || "N/A",
+          department: row.department || "N/A",
+          position: row.position || "N/A",
+          phoneNumber: row.phoneNumber || "N/A",
+        }));
+        setTableData(formattedData);
+      },
+      error: (error) => {
+        console.error("File Parsing Error:", error.message);
+      },
+    });
+  };
+
   const handleManualChange = (e) =>
     setManualForm({ ...manualForm, [e.target.name]: e.target.value });
 
   const handleManualSubmit = async () => {
     try {
-      const token = localStorage.getItem("authToken");
-      const formData = { ...manualForm };
-
       const res = await fetch("http://localhost:5347/api/employees", {
         method: "POST",
         headers: {
-          "Authorization": token,
+          Authorization: token,
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(formData),
+        body: JSON.stringify(manualForm),
       });
 
-      // Accept both 201 and 204 as success
       if (res.status !== 201 && res.status !== 204) {
         const errorData = await res.text();
         throw new Error(`${res.status} ${res.statusText} - ${errorData}`);
       }
 
       toast({ status: "success", title: "Employee added", position: "top" });
-      await fetchEmployees(); // Refresh the table
-      onClose(); // Close the modal
-      setManualForm({ // Reset the form
+      await fetchEmployees();
+      onClose();
+      setManualForm({
         fullName: "",
         email: "",
         phoneNumber: "",
@@ -213,10 +230,8 @@ function DataTables() {
     }
   };
 
-  /* ----------------------------- UI ------------------------------ */
   return (
     <Flex direction="column" pt={{ sm: "125px", lg: "75px" }}>
-      {/* Action bar */}
       <Flex justify="flex-end" align="center" mb={4} gap={4} wrap="wrap">
         {selectedFile && (
           <Flex
@@ -258,10 +273,10 @@ function DataTables() {
         </Menu>
       </Flex>
 
-      {/* Hidden file chooser (CSV only) */}
+      {/* Hidden file input */}
       <input type="file" accept=".csv" hidden ref={fileInputRef} onChange={handleFileSelect} />
 
-      {/* Employees table card */}
+      {/* Data table */}
       <Card px="0">
         <CardHeader px="22px" mb="24px">
           <Flex direction="column">
@@ -273,6 +288,7 @@ function DataTables() {
             </Text>
           </Flex>
         </CardHeader>
+
         <CardBody>
           {loading ? (
             <Flex align="center" pl="22px" gap={2} minH="100px">
@@ -289,15 +305,8 @@ function DataTables() {
         </CardBody>
       </Card>
 
-      {/* Manual‑entry modal */}
-      <Modal
-        isOpen={isOpen}
-        onClose={onClose}
-        size="lg"
-        scrollBehavior="inside"
-        isCentered
-        motionPreset="scale"
-      >
+      {/* Modal for manual entry */}
+      <Modal isOpen={isOpen} onClose={onClose} size="lg" isCentered>
         <ModalOverlay />
         <ModalContent>
           <ModalHeader>Add New Employee</ModalHeader>

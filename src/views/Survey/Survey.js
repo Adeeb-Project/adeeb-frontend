@@ -1,6 +1,22 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { Box, Text, Input, Button, Flex, VStack, FormControl, FormLabel, Textarea, HStack, Icon, RadioGroup, Radio, Stack, useToast } from "@chakra-ui/react";
+import {
+  Box,
+  Text,
+  Input,
+  Button,
+  Flex,
+  VStack,
+  FormControl,
+  FormLabel,
+  Textarea,
+  HStack,
+  Icon,
+  RadioGroup,
+  Radio,
+  Stack,
+  useToast,
+} from "@chakra-ui/react";
 import { FaStar } from "react-icons/fa";
 import axios from "axios";
 
@@ -33,7 +49,6 @@ const Survey = () => {
         setLoading(false);
       }
     };
-
     fetchSurvey();
   }, [userId, toast]);
 
@@ -51,39 +66,29 @@ const Survey = () => {
 
   const validateAnswers = () => {
     const errors = [];
-    
-    survey.questions.forEach(question => {
+    survey.questions.forEach((question) => {
       switch (question.questionType) {
         case "RatingQuestion":
-          if (!ratings[question.id]) {
-            errors.push(`Please provide a rating for: ${question.text}`);
-          }
+          if (!ratings[question.id]) errors.push(`Missing rating for: ${question.text}`);
           break;
         case "MultipleChoiceQuestion":
-          if (!mcqAnswers[question.id]) {
-            errors.push(`Please select an option for: ${question.text}`);
-          }
+          if (!mcqAnswers[question.id]) errors.push(`Missing selection for: ${question.text}`);
           break;
         case "TextQuestion":
-          if (!textAnswers[question.id]?.trim()) {
-            errors.push(`Please provide an answer for: ${question.text}`);
-          }
+          if (!textAnswers[question.id]?.trim()) errors.push(`Missing answer for: ${question.text}`);
           break;
       }
     });
-
     return errors;
   };
 
-  const handleSubmit = async (event) => {
-    event.preventDefault();
-    
-    // Validate all answers
+  const handleSubmit = async (e) => {
+    e.preventDefault();
     const validationErrors = validateAnswers();
     if (validationErrors.length > 0) {
       toast({
         title: "Validation Error",
-        description: validationErrors[0], // Show first error
+        description: validationErrors[0],
         status: "error",
         duration: 5000,
         isClosable: true,
@@ -94,7 +99,7 @@ const Survey = () => {
     if (!surveyId) {
       toast({
         title: "Error",
-        description: "Survey ID is missing. Please refresh the page and try again.",
+        description: "Survey ID missing. Please refresh and try again.",
         status: "error",
         duration: 5000,
         isClosable: true,
@@ -104,36 +109,33 @@ const Survey = () => {
 
     try {
       setSubmitting(true);
-      
-      // Prepare the answers based on question types
-      const answers = survey.questions.map(question => {
+      const answers = survey.questions.map((question) => {
         switch (question.questionType) {
           case "RatingQuestion":
             return {
               questionId: question.id,
-              answer: ratings[question.id].toString() // Convert rating to string
+              answer: ratings[question.id].toString(),
             };
           case "MultipleChoiceQuestion":
             return {
               questionId: question.id,
-              answer: mcqAnswers[question.id]
+              answer: mcqAnswers[question.id],
             };
           case "TextQuestion":
             return {
               questionId: question.id,
-              answer: textAnswers[question.id]
+              answer: textAnswers[question.id],
             };
           default:
             return null;
         }
-      }).filter(answer => answer !== null);
+      }).filter(Boolean);
 
-      // Submit the survey with the surveyId
       await axios.post(`http://localhost:5347/api/surveys/${userId}`, {
         QuestionsAnswers: answers,
-        SurveyId: surveyId
+        SurveyId: surveyId,
       });
-      
+
       toast({
         title: "Success",
         description: "Survey submitted successfully!",
@@ -142,15 +144,13 @@ const Survey = () => {
         isClosable: true,
       });
 
-      // Clear form data after successful submission
       setRatings({});
       setMcqAnswers({});
       setTextAnswers({});
-      
     } catch (error) {
       toast({
         title: "Error",
-        description: error.response?.data?.message || "Failed to submit survey. Please try again.",
+        description: error.response?.data?.message || "Failed to submit survey",
         status: "error",
         duration: 5000,
         isClosable: true,
@@ -179,24 +179,25 @@ const Survey = () => {
   return (
     <Flex direction="column" align="center" p={4}>
       <Text fontSize="3xl" fontWeight="bold" mb={2}>
-        Welcome, {survey.employeeName}! 👋
+        Welcome, {survey.employeeName} 👋
       </Text>
-      <Text fontSize="2xl" mb={6}>{survey.title}</Text>
-      <Text mb={6}>{survey.description}</Text>
+      <Text fontSize="2xl" mb={4}>{survey.title}</Text>
+      <Text mb={4}>{survey.description}</Text>
       {survey.expiryDate && (
         <Text mb={6} color="gray.600">
           Expires on: {new Date(survey.expiryDate).toLocaleDateString()}
         </Text>
       )}
+
       <Box width="100%" maxWidth="600px" p={4} borderWidth={1} borderRadius="lg" boxShadow="lg">
         <form onSubmit={handleSubmit}>
           <VStack spacing={4}>
             {survey.questions.map((question) => (
-              <FormControl key={question.id} id={`question-${question.id}`} isRequired>
+              <FormControl key={question.id} isRequired>
                 <FormLabel>{question.text}</FormLabel>
                 {question.questionType === "TextQuestion" && (
-                  <Textarea 
-                    placeholder="Your answer" 
+                  <Textarea
+                    placeholder="Your answer"
                     onChange={(e) => handleTextChange(question.id, e.target.value)}
                     value={textAnswers[question.id] || ""}
                   />
@@ -215,13 +216,13 @@ const Survey = () => {
                   </HStack>
                 )}
                 {question.questionType === "MultipleChoiceQuestion" && (
-                  <RadioGroup 
-                    onChange={(value) => handleMcqChange(question.id, value)} 
+                  <RadioGroup
+                    onChange={(value) => handleMcqChange(question.id, value)}
                     value={mcqAnswers[question.id]}
                   >
                     <Stack>
-                      {question.options?.map((option, optionIndex) => (
-                        <Radio key={optionIndex} value={option}>
+                      {question.options?.map((option, i) => (
+                        <Radio key={i} value={option}>
                           {option}
                         </Radio>
                       ))}
@@ -230,9 +231,9 @@ const Survey = () => {
                 )}
               </FormControl>
             ))}
-            <Button 
-              type="submit" 
-              colorScheme="teal" 
+            <Button
+              type="submit"
+              colorScheme="teal"
               width="full"
               isLoading={submitting}
               loadingText="Submitting..."
