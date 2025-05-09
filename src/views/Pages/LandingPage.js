@@ -206,6 +206,9 @@ function LandingPage() {
               <Card
                 boxShadow={"0px 2px 5.5px rgba(0, 0, 0, 0.1)"}
                 w={{ sm: "300px", md: "650px", lg: "300px" }}
+                borderRadius="12px"
+                border="20px solid"
+                borderColor="white"
               >
                 <CardHeader mb="30px">
                   <Flex direction="column" w="100%" align="center">
@@ -269,6 +272,9 @@ function LandingPage() {
               <Card
                 boxShadow={"0px 2px 5.5px rgba(0, 0, 0, 0.1)"}
                 w={{ sm: "300px", md: "650px", lg: "300px" }}
+                borderRadius="12px"
+                border="20px solid"
+                borderColor="white"
               >
                 <CardHeader mb="30px">
                   <Flex direction="column" w="100%" align="center">
