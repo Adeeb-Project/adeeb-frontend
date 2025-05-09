@@ -435,7 +435,7 @@ function Sidebar(props) {
           me="10px"
         /> */}
         <Text
-          fontSize="xs"
+          fontSize="33px"
           mt="3px"
           display={sidebarWidth === 275 ? "block" : "none"}
         >

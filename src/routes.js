@@ -53,7 +53,7 @@ const dashRoutes = [
     ],
   },
   {
-    name: "PAGES",
+    name: "Survey control",
     category: "pages",
     items: [
       {
@@ -104,7 +104,7 @@ const dashRoutes = [
     ],
   },
   {
-    name: "DOCS",
+    name: "Reports and Analytics",
     category: "docs",
     items: [
       {
@@ -163,7 +163,7 @@ const dashRoutes = [
      ],
     },
     {
-      name: "Users",
+      name: "Users Management",
       category: "users",
       items: [
         {

@@ -157,9 +157,9 @@ export const lineChartOptionsDefault = {
       opacityTo: 0,
       stops: [],
     },
-    colors: ["#4FD1C5", "#2D3748"],
+    colors: ["#1e88ff", "#2D3748"],
   },
-  colors: ["#4FD1C5", "#2D3748"],
+  colors: ["#1e88ff", "#2D3748"],
 };
 
 export const lineChartDataCRM1 = [
@@ -237,9 +237,9 @@ export const lineChartOptionsCRM1 = {
       opacityTo: 0,
       stops: [],
     },
-    colors: ["#4FD1C5"],
+    colors: ["#1e88ff"],
   },
-  colors: ["#4FD1C5"],
+  colors: ["#1e88ff"],
 };
 
 export const lineChartDataCRM2 = [
@@ -316,9 +316,9 @@ export const lineChartOptionsCRM2 = {
       opacityTo: 0,
       stops: [],
     },
-    colors: ["#4FD1C5"],
+    colors: ["#1e88ff"],
   },
-  colors: ["#4FD1C5"],
+  colors: ["#1e88ff"],
 };
 
 export const lineChartDataGeneral = [
@@ -400,9 +400,9 @@ export const lineChartOptionsGeneral = {
       opacityTo: 0,
       stops: [],
     },
-    colors: ["#4FD1C5"],
+    colors: ["#1e88ff"],
   },
-  colors: ["#4FD1C5"],
+  colors: ["#1e88ff"],
 };
 
 export const lineChartDataWidgets1 = [
@@ -480,9 +480,9 @@ export const lineChartOptionsWidgets1 = {
       opacityTo: 0,
       stops: [],
     },
-    colors: ["#4FD1C5"],
+    colors: ["#1e88ff"],
   },
-  colors: ["#4FD1C5"],
+  colors: ["#1e88ff"],
 };
 
 export const lineChartDataWidgets2 = [
@@ -580,9 +580,9 @@ export const lineChartOptionsWidgets2 = {
       opacityTo: 0,
       stops: [],
     },
-    colors: ["#4FD1C5"],
+    colors: ["#1e88ff"],
   },
-  colors: ["#4FD1C5"],
+  colors: ["#1e88ff"],
 };
 
 export const lineChartDataWidgets3 = [
@@ -782,8 +782,8 @@ export const lineChartOptionsCharts1 = {
   },
   markers: {
     size: 4,
-    colors: ["#4FD1C5", "#2D3748", "#FF5733"],
-    strokeColors: ["#4FD1C5", "#2D3748", "#FF5733"],
+    colors: ["#1e88ff", "#2D3748", "#FF5733"],
+    strokeColors: ["#1e88ff", "#2D3748", "#FF5733"],
     strokeWidth: 2,
     strokeOpacity: 0.9,
     strokeDashArray: 0,
@@ -800,7 +800,7 @@ export const lineChartOptionsCharts1 = {
     colors: ["#fff", "#fff", "#fff"],
     opacity: "0.1",
   },
-  colors: ["#4FD1C5", "#2D3748", "#FF5733"],
+  colors: ["#1e88ff", "#2D3748", "#FF5733"],
 };
 
 export const lineChartDataCharts2 = [
@@ -888,9 +888,9 @@ export const lineChartOptionsCharts2 = {
       opacityTo: 0,
       stops: [],
     },
-    colors: ["#4FD1C5", "#2D3748"],
+    colors: ["#1e88ff", "#2D3748"],
   },
-  colors: ["#4FD1C5", "#2D3748"],
+  colors: ["#1e88ff", "#2D3748"],
 };
 
 export const barChartDataCharts1 = [
@@ -1145,7 +1145,7 @@ export const lineBarChartOptions = {
       opacityTo: 0,
       stops: [],
     },
-    colors: ["#151928", "#4FD1C5"],
+    colors: ["#151928", "#1e88ff"],
   },
   plotOptions: {
     bar: {
@@ -1153,7 +1153,7 @@ export const lineBarChartOptions = {
       columnWidth: "8px",
     },
   },
-  colors: ["#151928", "#4FD1C5"],
+  colors: ["#151928", "#1e88ff"],
 };
 
 function generateData(baseval, count, yrange) {
@@ -1249,7 +1249,7 @@ export const bubbleChartOptions = {
       opacityTo: 0,
       stops: [],
     },
-    colors: ["#151928", "#4FD1C5"],
+    colors: ["#151928", "#1e88ff"],
   },
   plotOptions: {
     bar: {
@@ -1257,7 +1257,7 @@ export const bubbleChartOptions = {
       columnWidth: "8px",
     },
   },
-  colors: ["#151928", "#4FD1C5"],
+  colors: ["#151928", "#1e88ff"],
 };
 
 export const donutChartOptionsCharts1 = {
@@ -1699,7 +1699,7 @@ export const lineChartOptionsRTL = {
       opacityTo: 0,
       stops: [],
     },
-    colors: ["#4FD1C5", "#2D3748"],
+    colors: ["#1e88ff", "#2D3748"],
   },
-  colors: ["#4FD1C5", "#2D3748"],
+  colors: ["#1e88ff", "#2D3748"],
 };

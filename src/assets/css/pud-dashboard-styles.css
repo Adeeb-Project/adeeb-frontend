@@ -141,15 +141,15 @@ body.chakra-ui-dark .ql-snow .ql-fill {
 }
 
 .ql-snow .ql-picker-label:hover {
-  color: #AD00FF !important;
+  color: #1e88ff !important;
 }
 
 .ql-snow .ql-stroke:hover {
-  stroke: #AD00FF !important;
+  stroke: #1e88ff !important;
 }
 
 .ql-snow .ql-fill:hover {
-  fill: #AD00FF !important;
+  fill: #1e88ff !important;
 }
 
 .ql-container.ql-snow {

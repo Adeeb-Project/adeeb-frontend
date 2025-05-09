@@ -51,7 +51,7 @@ export default function Default() {
   }, []);
 
   // Chakra Color Mode
-  const iconTeal = useColorModeValue("teal.300", "teal.300");
+  const iconTeal = useColorModeValue("blue.500", "blue.300");
   const iconBoxInside = useColorModeValue("white", "white");
   const textColor = useColorModeValue("gray.700", "white");
 
@@ -64,7 +64,7 @@ export default function Default() {
         mb="30px"
         ps="20px"
       >
-        👋 Welcome, {userName}!
+         Welcome, {userName} 👋
       </Text>
       <Grid
         templateColumns={{ sm: "4fr 1fr", xl: "1.2fr 1fr" }}

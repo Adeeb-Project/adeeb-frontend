@@ -3,20 +3,20 @@ import { mode } from '@chakra-ui/theme-tools';
 export const globalStyles = {
 	colors: {
 		gray: {
-			700: '#AD00FF'
+			700: '#003366'
 		},
 		teal: {
-			50:  "#2E005E",
-    		100: "#2E005E",
-			200: "#2E005E	",
-			300: "#2E005E",  // ← all the shade you care about
-			400: "#2E005E",
-			500: "#2E005E",
-			600: "#2E005E",
-			700: "#2E005E",
-			800: "#2E005E",
-			900: "#2E005E",
-			teal: "#2E005E",
+			50:  "#f0f7ff",  // very light
+			100: "#d0e7ff",
+			200: "#a6ceff",
+			300: "#1e88ff",
+			400: "#4a9eff",
+			500: "#1e88ff",  // Primary (like iOS link blue)
+			600: "#007aff",  // iOS system blue
+			700: "#0062cc",
+			800: "#004b99",
+			900: "#003366",
+			teal: "#0062cc",
 		}
 		
 	},
@@ -27,11 +27,11 @@ export const globalStyles = {
 					document.documentElement.layout === 'auth'
 						? mode('white', 'gray.800')(props)
 						: mode('gray.50', 'gray.800')(props),
-				fontFamily: "'Roboto', sans-serif"
-			},
-			html: {
-				fontFamily: "'Roboto', sans-serif"
-			}
+                fontFamily: `-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif`
+            },
+            html: {
+                fontFamily: `-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif`
+            }
 		})
 	}
 };
