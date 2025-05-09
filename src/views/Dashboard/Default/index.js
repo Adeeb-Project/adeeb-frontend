@@ -64,7 +64,7 @@ export default function Default() {
         mb="30px"
         ps="20px"
       >
-        👋 Welcome, {userName}!
+         Welcome, {userName} 👋
       </Text>
       <Grid
         templateColumns={{ sm: "4fr 1fr", xl: "1.2fr 1fr" }}
