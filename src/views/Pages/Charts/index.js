@@ -36,8 +36,33 @@ import {
   radarChartOptionsCharts,
 } from "variables/charts";
 
+// Import our employee metrics chart configurations
+import {
+  combinedLineChartOptions,
+  turnoverLineChartOptions,
+  retentionLineChartOptions,
+  combinedBarChartOptions,
+  currentStatusDonutOptions,
+} from "variables/employeeMetricsCharts";
+
 function Charts() {
   const textColor = useColorModeValue("gray.700", "white");
+
+  // Example data - replace with actual API data
+  const chartData = {
+    quarterly: {
+      turnover: [5.2, 4.8, 6.1, 5.5],
+      retention: [94.8, 95.2, 93.9, 94.5],
+    },
+    yearly: {
+      turnover: [5.4, 5.1, 4.9, 5.3],
+      retention: [94.6, 94.9, 95.1, 94.7],
+    },
+    allTime: {
+      turnover: [5.2, 5.4, 5.1, 4.9, 5.3, 5.0],
+      retention: [94.8, 94.6, 94.9, 95.1, 94.7, 95.0],
+    },
+  };
 
   return (
     <Grid
@@ -46,152 +71,117 @@ function Charts() {
       gap="24px"
       pt={{ sm: "125px", lg: "75px" }}
     >
+      {/* Combined Line Chart */}
       <Card px="0px" pb="0px">
         <CardHeader mb="34px" px="22px">
           <Text color={textColor} fontSize="lg" fontWeight="bold">
-            Line chart
+            Combined Turnover & Retention
           </Text>
         </CardHeader>
         <CardBody h="100%">
           <Box w="100%" h="100%">
             <LineChart
-              chartData={lineChartDataCharts1}
-              chartOptions={lineChartOptionsCharts1}
+              chartData={[
+                {
+                  name: "Turnover Rate",
+                  data: chartData.quarterly.turnover,
+                },
+                {
+                  name: "Retention Rate",
+                  data: chartData.quarterly.retention,
+                },
+              ]}
+              chartOptions={combinedLineChartOptions}
             />
           </Box>
         </CardBody>
       </Card>
+
+      {/* Turnover Line Chart */}
       <Card px="0px" pb="0px">
         <CardHeader mb="34px" px="22px">
           <Text color={textColor} fontSize="lg" fontWeight="bold">
-            Line chart with gradient
+            Turnover Rate
           </Text>
         </CardHeader>
         <CardBody h="100%">
           <Box w="100%" h="100%">
             <LineChart
-              chartData={lineChartDataCharts2}
-              chartOptions={lineChartOptionsCharts2}
+              chartData={[
+                {
+                  name: "Turnover Rate",
+                  data: chartData.quarterly.turnover,
+                },
+              ]}
+              chartOptions={turnoverLineChartOptions}
             />
           </Box>
         </CardBody>
       </Card>
+
+      {/* Retention Line Chart */}
       <Card px="0px" pb="0px">
         <CardHeader mb="34px" px="22px">
           <Text color={textColor} fontSize="lg" fontWeight="bold">
-            Bar chart
+            Retention Rate
+          </Text>
+        </CardHeader>
+        <CardBody h="100%">
+          <Box w="100%" h="100%">
+            <LineChart
+              chartData={[
+                {
+                  name: "Retention Rate",
+                  data: chartData.quarterly.retention,
+                },
+              ]}
+              chartOptions={retentionLineChartOptions}
+            />
+          </Box>
+        </CardBody>
+      </Card>
+
+      {/* Bar Chart */}
+      <Card px="0px" pb="0px">
+        <CardHeader mb="34px" px="22px">
+          <Text color={textColor} fontSize="lg" fontWeight="bold">
+            Turnover & Retention Comparison
           </Text>
         </CardHeader>
         <CardBody h="100%">
           <Box w="100%" h="100%">
             <BarChart
-              chartData={barChartDataCharts1}
-              chartOptions={barChartOptionsCharts1}
+              chartData={[
+                {
+                  name: "Turnover Rate",
+                  data: chartData.quarterly.turnover,
+                },
+                {
+                  name: "Retention Rate",
+                  data: chartData.quarterly.retention,
+                },
+              ]}
+              chartOptions={combinedBarChartOptions}
             />
           </Box>
         </CardBody>
       </Card>
+
+      {/* Donut Chart */}
       <Card px="0px" pb="0px">
         <CardHeader mb="34px" px="22px">
           <Text color={textColor} fontSize="lg" fontWeight="bold">
-            Bar chart horizontal
-          </Text>
-        </CardHeader>
-        <CardBody h="100%">
-          <Box w="100%" h="100%">
-            <BarChart
-              chartData={barChartDataCharts2}
-              chartOptions={barChartOptionsCharts2}
-            />
-          </Box>
-        </CardBody>
-      </Card>
-      <Card px="0px" pb="0px">
-        <CardHeader mb="34px" px="22px">
-          <Text color={textColor} fontSize="lg" fontWeight="bold">
-            Mixed chart
-          </Text>
-        </CardHeader>
-        <CardBody h="100%">
-          <Box w="100%" h="100%">
-            <LineBarChart
-              chartData={lineBarChartData}
-              chartOptions={lineBarChartOptions}
-            />
-          </Box>
-        </CardBody>
-      </Card>
-      <Card px="0px" pb="0px">
-        <CardHeader mb="34px" px="22px">
-          <Text color={textColor} fontSize="lg" fontWeight="bold">
-            Bubble chart
-          </Text>
-        </CardHeader>
-        <CardBody h="100%">
-          <Box w="100%" h="100%">
-            <BubbleChart
-              chartData={bubbleChartData}
-              chartOptions={bubbleChartOptions}
-            />
-          </Box>
-        </CardBody>
-      </Card>
-      <Card px="0px" pb="0px">
-        <CardHeader mb="34px" px="22px">
-          <Text color={textColor} fontSize="lg" fontWeight="bold">
-            Donut chart
+            Current Status
           </Text>
         </CardHeader>
         <CardBody h="100%">
           <Box w="100%" minH={{ sm: "200px", lg: "300px" }}>
             <DonutChart
-              chartData={donutChartDataCharts1}
-              chartOptions={donutChartOptionsCharts1}
-            />
-          </Box>
-        </CardBody>
-      </Card>
-      <Card px="0px" pb="0px">
-        <CardHeader mb="34px" px="22px">
-          <Text color={textColor} fontSize="lg" fontWeight="bold">
-            Pie chart
-          </Text>
-        </CardHeader>
-        <CardBody h="100%">
-          <Box w="100%" minH={{ sm: "200px", lg: "300px" }}>
-            <PieChart
-              chartData={pieChartDataCharts1}
-              chartOptions={pieChartOptionsCharts1}
-            />
-          </Box>
-        </CardBody>
-      </Card>
-      <Card px="0px" pb="0px">
-        <CardHeader mb="34px" px="22px">
-          <Text color={textColor} fontSize="lg" fontWeight="bold">
-            Radar chart
-          </Text>
-        </CardHeader>
-        <CardBody h="100%">
-          <Box w="100%" minH={{ sm: "300px", lg: "500px" }}>
-            <RadarChart
-              chartData={radarChartDataCharts}
-              chartOptions={radarChartOptionsCharts}
-            />
-          </Box>
-        </CardBody>
-      </Card>
-      <Card px="0px" pb="0px">
-        <CardHeader mb="34px" px="22px">
-          <Text color={textColor} fontSize="lg" fontWeight="bold">
-            Polar chart
-          </Text>
-        </CardHeader>
-        <CardBody h="100%">
-          <Box w="100%" minH={{ sm: "300px", lg: "500px" }}>
-            <PolarChart
-              chartData={polarChartDataCharts}
-              chartOptions={polarChartOptionsCharts}
+              chartData={[
+                chartData.quarterly.turnover[chartData.quarterly.turnover.length - 1],
+                chartData.quarterly.retention[chartData.quarterly.retention.length - 1],
+              ]}
+              chartOptions={currentStatusDonutOptions}
             />
           </Box>
         </CardBody>

@@ -23,9 +23,7 @@ gulp.task("licenses", async function () {
     .src("build/static/css/*chunk.css", { base: "./" })
     .pipe(
       gap.prependText(`/*!
-
-      ====================
-      */`)
+*/`)
     )
     .pipe(gulp.dest("./", { overwrite: true }));
   return;
