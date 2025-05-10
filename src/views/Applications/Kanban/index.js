@@ -307,17 +307,18 @@ function Kanban() {
                         ? "blue.400"
                         : "teal"
                     }
-                    colorScheme={
+                    color={
                       status === "ERRORS"
-                        ? "red"
+                        ? "red.500"
                         : status === "PENDING"
-                        ? "orange"
+                        ? "orange.300"
                         : status === "DONE"
-                        ? "green"
+                        ? "green.500"
                         : status === "UPDATES"
-                        ? "blue"
+                        ? "blue.400"
                         : "teal"
                     }
+                    me="auto" 
                   >
                     {status}
                   </Badge>

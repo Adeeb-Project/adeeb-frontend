@@ -1,4 +1,4 @@
-// Chakra imports
+
 import { Stack, Td, Text, Tr, useColorModeValue } from "@chakra-ui/react";
 import React from "react";
 

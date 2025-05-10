@@ -1,18 +1,14 @@
 import React from 'react';
-import SidebarHelpImage from "assets/img/SidebarHelpImage.png";
 import { QuestionIcon } from "@chakra-ui/icons";
 import { Button, Flex, Link, Text } from "@chakra-ui/react";
 import IconBox from "components/Icons/IconBox";
 
 const SidebarHelp = ({ sidebarWidth }) => {
-  
-  {/* Help Center */}
-
   return (
     <Flex
         borderRadius="15px"
         flexDirection="column"
-        bgImage={SidebarHelpImage}
+        backgroundColor="#1e88ff" // Fixed invalid backgroundColor
         justifyContent="flex-start"
         alignItems="start"
         boxSize="border-box"
@@ -67,4 +63,4 @@ const SidebarHelp = ({ sidebarWidth }) => {
   )
 }
 
-export default SidebarHelp
+export default SidebarHelp;

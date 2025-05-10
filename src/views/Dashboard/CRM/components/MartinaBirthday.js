@@ -1,20 +1,3 @@
-/*!
-
-=========================================================
-* Purity UI Dashboard PRO - v1.0.0
-=========================================================
-
-* Product Page: https://www.adeebcompany.com/product/purity-ui-dashboard-pro
-* Copyright 2021 Creative Tim (https://www.adeebcompany.com/)
-
-* Design by Creative Tim & Coded by Simmmple
-
-=========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-
-*/
-
 import {
     Box,
     Button,
@@ -44,10 +27,9 @@ const MartinaBirthday = ({title, image}) => {
                   </Flex>
                   <Flex direction="column" justify="center" align="flex-start">
                     <Text
-                      fontSize="sm"
+                      fontSize={{ sm: "xs", lg: "md" }}
                       fontWeight="bold"
                       color="gray.500"
-                      fontSize={{ sm: "xs", lg: "md" }}
                       mb={{ sm: "10px", lg: "22px" }}
                     >
                       {title}

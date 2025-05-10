@@ -1,4 +1,4 @@
-// Chakra imports
+
 import { Box, Flex, Grid, Icon } from "@chakra-ui/react";
 // Assets
 import BackgroundCard1 from "assets/img/BackgroundCard1.png";

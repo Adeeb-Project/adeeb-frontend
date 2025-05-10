@@ -1,20 +1,3 @@
-/*!
-
-=========================================================
-* Purity UI Dashboard PRO - v1.0.0
-=========================================================
-
-* Product Page: https://www.adeebcompany.com/product/purity-ui-dashboard-pro
-* Copyright 2021 Creative Tim (https://www.adeebcompany.com/)
-
-* Design by Creative Tim & Coded by Simmmple
-
-=========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-
-*/
-
 import { useColorModeValue, Text } from "@chakra-ui/react";
 import { DocumentIcon, RocketIcon, SettingsIcon } from "components/Icons/Icons";
 
@@ -55,28 +38,28 @@ export const salesData = [
     name: "Workload",
     sales: 2500,
     value: "27%",
-    bounce: "29.9%",
+    bounce: "29,9%",
   },
   {
     state: "",
     name: "Compensation",
     sales: 3900,
     value: "28%",
-    bounce: "40.22%",
+    bounce: "40,22%",
   },
   {
     state: "",
     name: "Management issues",
     sales: 1300,
     value: "24%",
-    bounce: "19.22%",
+    bounce: "19,22%",
   },
   {
     state: "",
     name: "Others",
     sales: 920,
     value: "21%",
-    bounce: "39.22%",
+    bounce: "39,22%",
   },
 ];
 
@@ -279,7 +262,7 @@ export const timelineData = [
     logo: SiDropbox,
     title: "Unlock packages for Development",
     date: "19 DEC 11:35 PM",
-    color: "purple",
+    color: "blue",
   },
   {
     logo: AdobexdLogo,
@@ -370,12 +353,12 @@ export const timelineProjectsData = [
     title: "Unlock packages for Development",
     titleColor: "#fff",
     date: "19 DEC 11:35 PM",
-    color: "purple.400",
+    color: "blue.400",
     description:
       "People care about how you see the world, how you think, what motivates you, what you’re struggling with or afraid of.",
     tags: [
       {
-        bgTag: "purple.400",
+        bgTag: "blue.400",
         titleTag: "DEVELOPMENT",
       },
     ],
@@ -532,7 +515,7 @@ export const rtlTimelineData = [
     logo: SiDropbox,
     title: "فتح الحزم من أجل التنمية",
     date: "19 DEC 11:35 PM",
-    color: "purple",
+    color: "blue",
   },
   {
     logo: AdobexdLogo,

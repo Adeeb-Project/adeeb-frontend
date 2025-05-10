@@ -2,7 +2,7 @@
 
 /*eslint-disable*/
 import { HamburgerIcon } from "@chakra-ui/icons";
-// chakra imports
+
 import {
   Accordion,
   AccordionButton,
@@ -63,7 +63,7 @@ function Sidebar(props) {
   // this function creates the links and collapses that appear in the sidebar (left menu)
   const createLinks = (routes) => {
     const { sidebarVariant } = props;
-    // Chakra Color Mode
+  
     let activeBg = useColorModeValue("teal.300", "teal.300");
     let activeAccordionBg = useColorModeValue("white", "gray.700");
     let inactiveBg = useColorModeValue("white", "gray.700");
@@ -435,7 +435,7 @@ function Sidebar(props) {
           me="10px"
         /> */}
         <Text
-          fontSize="xs"
+          fontSize="33px"
           mt="3px"
           display={sidebarWidth === 275 ? "block" : "none"}
         >

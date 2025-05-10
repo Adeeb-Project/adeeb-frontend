@@ -1,21 +1,3 @@
-/*!
-
-=========================================================
-* Purity UI Dashboard PRO - v1.0.0
-=========================================================
-
-* Product Page: https://www.adeebcompany.com/product/purity-ui-dashboard-pro
-* Copyright 2021 Creative Tim (https://www.adeebcompany.com/)
-
-* Design by Creative Tim & Coded by Simmmple
-
-=========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-
-*/
-
-// Chakra imports
 import {
   Button,
   Flex,
@@ -665,7 +647,7 @@ function NewProduct() {
                               borderRadius="12px"
                               variant="solid"
                               bg="linear-gradient(81.62deg, #313860 2.25%, #151928 79.87%)"
-                              key={index}
+                              
                             >
                               <TagLabel w="100%">{skill.name}</TagLabel>
                               <TagCloseButton

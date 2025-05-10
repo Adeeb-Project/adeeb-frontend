@@ -6,22 +6,7 @@ gulp.task("licenses", async function () {
   gulp
     .src("build/static/js/*chunk.js", { base: "./" })
     .pipe(
-      gap.prependText(`/*!
-
-      =========================================================
-      * Purity UI Dashboard PRO - v1.0.0
-      =========================================================
-
-      * Product Page: https://www.adeebcompany.com/product/purity-ui-dashboard-pro
-      * Copyright 2021 Creative Tim (https://www.adeebcompany.com/)
-
-      * Design by Creative Tim & Coded by Simmmple
-
-      =========================================================
-
-      * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-      
-      */`)
+      gap.prependText(`/*!`)
     )
     .pipe(gulp.dest("./", { overwrite: true }));
 
@@ -29,24 +14,7 @@ gulp.task("licenses", async function () {
   gulp
     .src("build/index.html", { base: "./" })
     .pipe(
-      gap.prependText(`<!--
-      /*!
-      
-      =========================================================
-      * Purity UI Dashboard PRO - v1.0.0
-      =========================================================
-
-      * Product Page: https://www.adeebcompany.com/product/purity-ui-dashboard-pro
-      * Copyright 2021 Creative Tim (https://www.adeebcompany.com/)
-
-      * Design by Creative Tim & Coded by Simmmple
-
-      =========================================================
-
-      * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-      
-      */
-      -->`)
+      gap.prependText(``)
     )
     .pipe(gulp.dest("./", { overwrite: true }));
 
@@ -55,21 +23,7 @@ gulp.task("licenses", async function () {
     .src("build/static/css/*chunk.css", { base: "./" })
     .pipe(
       gap.prependText(`/*!
-
-      =========================================================
-      * Purity UI Dashboard PRO - v1.0.0
-      =========================================================
-
-      * Product Page: https://www.adeebcompany.com/product/purity-ui-dashboard-pro
-      * Copyright 2021 Creative Tim (https://www.adeebcompany.com/)
-
-      * Design by Creative Tim & Coded by Simmmple
-
-      =========================================================
-
-      * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-      
-      */`)
+*/`)
     )
     .pipe(gulp.dest("./", { overwrite: true }));
   return;

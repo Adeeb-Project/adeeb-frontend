@@ -53,4 +53,4 @@ There is a warnings related to the stylis-plugin-rtl dependency that won't affec
 
 ### Original Release
 
-- Added Chakra UI as base framework
+
