@@ -122,7 +122,7 @@ function LandingPage() {
       {/* Main Content */}
       <Flex direction="column" overflow="hidden" pt="80px">
         {/* Home Section */}
-        <Box id="home" py="80px" px="4">
+        <Box id="home" py="10px" px="4">
           <Flex
             direction="column"
             textAlign="center"
@@ -146,7 +146,7 @@ function LandingPage() {
         </Box>
 
         {/* Pricing Section */}
-        <Box id="pricing" position="relative" py="80px" px="4">
+        <Box id="pricing" position="relative" py="20px" px="4">
           <Flex
             direction="column"
             textAlign="center"
@@ -263,6 +263,7 @@ function LandingPage() {
                       fontSize="xs"
                       bg={bgButton}
                       color="#fff"
+                      onClick={() => history.push("/authentication/sign-up/cover")}
                     >
                       JOIN NOW
                     </Button>
@@ -329,6 +330,7 @@ function LandingPage() {
                       fontSize="xs"
                       bg="#1e88ff"
                       color="#fff"
+                      onClick={() => history.push("/authentication/sign-up/cover")}
                     >
                       TRY PREMIUM
                     </Button>
@@ -340,7 +342,7 @@ function LandingPage() {
         </Box>
 
         {/* FAQ Section */}
-        <Box id="faq" py="80px" px="4">
+        <Box id="faq" py="20px" px="4">
           <Flex direction="column" align="center" justify="center" mb="40px">
             <Text
               color={textColor}
