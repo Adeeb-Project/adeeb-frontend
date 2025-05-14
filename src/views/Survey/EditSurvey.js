@@ -187,7 +187,7 @@ const EditSurvey = () => {
   if (isLoading) return <Text>Loading survey…</Text>;
 
   return (
-    <Box p={6} maxW="lg" mx="auto">
+    <Box pt={16} maxW="lg" mx="auto">
       <Heading as="h2" size="lg" mb={6}>Edit Survey</Heading>
       <form onSubmit={handleSubmit}>
         <FormControl mb={4} isRequired>

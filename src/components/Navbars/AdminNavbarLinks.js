@@ -1,4 +1,4 @@
-// Chakra Icons
+
 import { BellIcon, SearchIcon } from "@chakra-ui/icons";
 // Chakra Imports
 import {

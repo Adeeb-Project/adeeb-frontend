@@ -1,4 +1,4 @@
-// Chakra imports
+
 import { Flex, SimpleGrid, Text, useColorModeValue } from "@chakra-ui/react";
 // Custom components
 import Card from "components/Card/Card.js";
@@ -47,12 +47,12 @@ const ActiveUsers = ({ title, percentage, chart }) => {
 
         {/* Participation Rate admin/dashboard/default */}
 
-          <SimpleGrid gap={{ sm: "12px" }} columns={4}>
+          <SimpleGrid gap={{ sm: "25px" }} columns={4}  >
             <ChartStatistics
               title={"Employees"}
               amount={"384"}
               percentage={65}
-              icon={<WalletIcon h={"15px"} w={"15px"} color={iconBoxInside} />}
+              icon={<WalletIcon  h={"15px"} w={"40px"} color={iconBoxInside } />}
             />
             <ChartStatistics
               title={"Surveys"}

@@ -1,21 +1,3 @@
-/*!
-
-=========================================================
-* Purity UI Dashboard PRO - v1.0.0
-=========================================================
-
-* Product Page: https://www.adeebcompany.com/product/purity-ui-dashboard-pro
-* Copyright 2021 Creative Tim (https://www.adeebcompany.com/)
-
-* Design by Creative Tim & Coded by Simmmple
-
-=========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-
-*/
-
-// Chakra imports
 import React, { useEffect, useState } from "react"; // Add useState here
 import {
   Box,
@@ -69,7 +51,7 @@ export default function Default() {
   }, []);
 
   // Chakra Color Mode
-  const iconTeal = useColorModeValue("teal.300", "teal.300");
+  const iconTeal = useColorModeValue("blue.500", "blue.300");
   const iconBoxInside = useColorModeValue("white", "white");
   const textColor = useColorModeValue("gray.700", "white");
 
@@ -82,7 +64,7 @@ export default function Default() {
         mb="30px"
         ps="20px"
       >
-        👋 Welcome, {userName}!
+         Welcome, {userName} 👋
       </Text>
       <Grid
         templateColumns={{ sm: "4fr 1fr", xl: "1.2fr 1fr" }}

@@ -1,19 +1,4 @@
-/*!
 
-=========================================================
-* Purity UI Dashboard PRO - v1.0.0
-=========================================================
-
-* Product Page: https://www.adeebcompany.com/product/purity-ui-dashboard-pro
-* Copyright 2021 Creative Tim (https://www.adeebcompany.com/)
-
-* Design by Creative Tim & Coded by Simmmple
-
-=========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-
-*/
 
 import {
   Avatar,
@@ -234,7 +219,6 @@ function SearchTable2(props) {
           direction={{ sm: "column", md: "row" }}
           justify="space-between"
           align="center"
-          px="22px"
           w="100%"
           px={{ md: "22px" }}
         >
